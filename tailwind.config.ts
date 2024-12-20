@@ -9,9 +9,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        main : "#F3F4F6",
+        primaryText : "#1F2937",
+        primaryBlue : "#2563EB",
+        whitef : '#F5F5F5',
       },
+      spacing : {
+        'navbar-height' : '112px',
+      },
+      container : {
+        center : true,
+      }
     },
   },
   plugins: [],
