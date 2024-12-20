@@ -7,3 +7,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.primary-button {
+  @apply bg-primaryBlue px-10 py-3 rounded-lg text-whitef;
+}
+
+.secondary-button {
+  @apply bg-primaryText px-10 py-3 rounded-lg text-whitef;
+}
