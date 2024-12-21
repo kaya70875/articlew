@@ -19,7 +19,7 @@ export default function RootLayout({
       <body
         className={`${openSans.className} antialiased`}
       >
-        <main className="bg-main h-screen">
+        <main className="bg-main">
           {children}
         </main>
       </body>
