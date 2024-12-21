@@ -8,10 +8,38 @@
   box-sizing: border-box;
 }
 
+h1 , .h1 {
+  @apply text-5xl font-extrabold text-primaryText;
+}
+
+h2 , .h2 {
+  @apply text-4xl font-extrabold text-primaryText;
+}
+
+h3 , .h3 {
+  @apply text-3xl font-bold text-primaryText;
+}
+
+p , .p {
+  @apply text-xl font-normal text-primaryText;
+}
+
+span , .span {
+  @apply text-primaryBlue font-semibold;
+}
+
 .primary-button {
-  @apply bg-primaryBlue px-10 py-3 rounded-lg text-whitef;
+  @apply bg-primaryBlue px-10 py-2 rounded-lg text-whitef;
+}
+
+.primary-button--revert {
+  @apply bg-whitef px-10 py-3 font-medium rounded-lg text-primaryBlue;
 }
 
 .secondary-button {
-  @apply bg-primaryText px-10 py-3 rounded-lg text-whitef;
+  @apply bg-primaryText px-10 py-2 rounded-lg text-whitef;
+}
+
+.line {
+  @apply border-b-2 border-primaryText w-1/2;
 }
