@@ -15,11 +15,9 @@ export default {
         whitef : '#F5F5F5',
       },
       spacing : {
-        'navbar-height' : '112px',
+        'navbar-height' : '80px',
+        'default-padding' : '200px',
       },
-      container : {
-        center : true,
-      }
     },
   },
   plugins: [],
