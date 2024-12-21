@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function Navbar() {
@@ -9,10 +10,10 @@ export default function Navbar() {
                 </div>
                 <div className='auth-buttons flex items-center gap-6'>
                     <button className="secondary-button">
-                        Log In
+                        <Link href={'/login'} >Log In</Link>
                     </button>
                     <button className="primary-button">
-                        Sign Up
+                        <Link href={'signup'}>Sign Up</Link>
                     </button>
                 </div>
             </nav>

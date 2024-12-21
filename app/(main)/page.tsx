@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import undraw_learning from '../../public/images/undraw_learning.png';
 import undraw_texting from '../../public/images/undraw_texting.png';
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -15,7 +16,9 @@ export default function Home() {
 
           <p className="max-w-xl text-center">Learn With Articles finds the phrase you are looking for from articles from different websites and <span>help you to improve and test your English writing.</span></p>
 
-          <button className="primary-button !py-4">Start Learning Now</button>
+          <button className="primary-button !py-4">
+            <Link href={'/signup'}>Start Learning Now</Link>
+          </button>
         </header>
 
         <div className="flex items-center justify-center">
@@ -43,7 +46,9 @@ export default function Home() {
       </div>
       <div className="w-full bg-primaryBlue mt-24 p-12 flex gap-16 justify-center items-center">
         <h2 className="text-3xl text-whitef font-bold">Start Learning Now</h2>
-        <button className="primary-button--revert">Sign Up</button>
+        <button className="primary-button--revert">
+          <Link href={'/signup'}>Sign Up</Link>
+        </button>
       </div>
     </main>
   );
