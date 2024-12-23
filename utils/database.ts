@@ -10,7 +10,7 @@ export const connectToDB = async () => {
 
     try {
         await mongoose.connect(process.env.DATABASE_URI!, {
-            dbName: "note-taking-app",
+            dbName: "learn-with-articles",
             serverSelectionTimeoutMS: 5000,
         });
 
