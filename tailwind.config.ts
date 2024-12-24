@@ -16,6 +16,7 @@ export default {
       },
       spacing : {
         'navbar-height' : '80px',
+        'sidebar-width' : '22%',
         'default-padding' : '200px',
       },
     },
