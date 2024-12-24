@@ -6,6 +6,8 @@ import InputField from '@/components/inputs/InputField';
 import React, { useState } from 'react';
 import { useAuthActions } from '@/hooks/useAuthActions';
 import { FormData } from '@/types/formData';
+import SSO from '@/components/auth/SSO';
+import Link from 'next/link';
 
 export default function Page() {
   const {
@@ -132,21 +134,16 @@ export default function Page() {
           <button
             type="submit"
             disabled={loading}
-            className="secondary-button w-1/3 flex justify-center items-center !py-4 disabled:bg-gray-600"
+            className="secondary-button w-1/4 flex justify-center items-center !py-3 disabled:bg-gray-600"
           >
             Sign Up
           </button>
 
           <div>OR</div>
 
-          <div className="flex items-center gap-4">
-            <button className="primary-button !py-4">
-              Continue With Google
-            </button>
-            <button className="primary-button !py-4">
-              Continue With Twitter
-            </button>
-          </div>
+          <SSO />
+
+          <Link href={'/login'} className='underline'>Already have account ?</Link>
         </div>
       </form>
     </AuthForm>
