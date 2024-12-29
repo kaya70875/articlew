@@ -9,17 +9,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body
-                className={`${openSans.className} antialiased`}
-            >
-                <main className="bg-main h-full flex">
-                    <Sidebar />
-                    <article className="ml-sidebar-width px-24 py-12 w-full">
-                        {children}
-                    </article>
-                </main>
-            </body>
-        </html>
+        <main className="bg-main h-full flex">
+            <Sidebar />
+            <article className="ml-sidebar-width px-24 py-12 w-full">
+                {children}
+            </article>
+        </main>
     );
 }
