@@ -1,17 +1,19 @@
 'use client';
 
-import InputField from '@/components/inputs/InputField';
+import useFetch from '@/hooks/useFetch';
+import { Sentence } from '@/types/sentence';
 import { signOut, useSession } from 'next-auth/react'
 import React, { useState } from 'react'
 
 export default function page() {
+  const {data , loading , error} = useFetch<Sentence>('/sentences/prevent');
+
   const auth = useSession();
   const currentUser = auth.data?.user;
 
   const [word , setWord] = useState<string | null>(null);
   const [categories , setCategories] = useState<string[]>(['Science' , 'News']);
 
-  const [loading , setLoading] = useState(false);
   const [submitted , setSubmitted] = useState(false);
 
   return (
