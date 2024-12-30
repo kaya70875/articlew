@@ -52,7 +52,7 @@ export default function Sidebar() {
 
     return (
         <div className='w-sidebar-width flex flex-col items-center justify-center h-screen fixed top-0 bg-white'>
-            <ul className="nav-items flex flex-col w-full px-16 gap-16">
+            <ul className="nav-items flex flex-col justify-center w-full px-16 gap-16">
                 {sidebarItems.map((item) => (
                     <Link href={item.route} className='flex items-center gap-3'>
                         <div className="icon">{item.icon}</div>
