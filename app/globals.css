@@ -20,12 +20,20 @@ h3 , .h3 {
   @apply text-3xl font-bold text-primaryText;
 }
 
+h4 , .h4 {
+  @apply text-2xl font-semibold text-primaryText;
+}
+
 p , .p {
   @apply text-xl font-normal text-primaryText;
 }
 
 span , .span {
   @apply text-primaryBlue font-semibold;
+}
+
+.hero-input {
+  @apply border border-primaryText  px-5 py-3 rounded-lg text-primaryText font-semibold;
 }
 
 .primary-button {
