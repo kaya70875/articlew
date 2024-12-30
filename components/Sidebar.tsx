@@ -51,7 +51,7 @@ export default function Sidebar() {
     ]
 
     return (
-        <div className='w-sidebar-width flex flex-col items-center justify-center h-screen fixed top-0 bg-white'>
+        <div className='w-sidebar-width flex flex-col items-center justify-center h-screen fixed top-0 bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)]'>
             <ul className="nav-items flex flex-col justify-center w-full px-16 gap-16">
                 {sidebarItems.map((item) => (
                     <Link href={item.route} className='flex items-center gap-3'>
