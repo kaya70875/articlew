@@ -1,20 +1,16 @@
 'use client';
 
-import useFetch from '@/hooks/useFetch';
-import { Sentence } from '@/types/sentence';
-import { signOut, useSession } from 'next-auth/react'
-import React, { useState } from 'react'
+import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import React, { useState } from 'react';
 
 export default function page() {
-  const {data , loading , error} = useFetch<Sentence>('/sentences/prevent');
+
 
   const auth = useSession();
   const currentUser = auth.data?.user;
 
   const [word , setWord] = useState<string | null>(null);
-  const [categories , setCategories] = useState<string[]>(['Science' , 'News']);
-
-  const [submitted , setSubmitted] = useState(false);
 
   return (
     <div className='flex flex-col gap-8 w-full'>
@@ -31,27 +27,16 @@ export default function page() {
       </div>
 
       <div className="buttons flex items-center gap-4 w-full justify-center">
-        <button className="primary-button !py-4 w*48">
+        <Link href={`/search/${word}`} className="primary-button !py-4 w*48" >
           Generate Sentences
-        </button>
+        </Link>
 
         <button className="secondary-button !py-4 w-48">
           Filter
         </button>
       </div>
 
-      <article className='flex flex-col gap-8 p-8 bg-lightBlue w-full'>
-        <header className='flex w-full items-center justify-between'>
-          <div className='flex flex-col gap-4'>
-            <h4>Sentences About <span>{word}</span></h4>
-            <p className='text-primaryBlue text-base flex items-center gap-2'>Active Categories : {categories.map(cat => (
-              <span className=''>{cat}</span>
-            ))}</p>
-          </div>
-
-          <span>Change Content</span>
-        </header>
-      </article>
+      
     </div>
   )
 }
