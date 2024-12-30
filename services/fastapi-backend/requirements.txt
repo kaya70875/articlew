@@ -139,6 +139,5 @@ wsproto==1.2.0
 xdis==6.1.0
 xyzservices==2024.4.0
 yfinance==0.2.37
-you-get @ file:///C:/Users/ahmet/OneDrive/Desktop/testing/you-get
 zipp==3.18.2
 zope.interface==6.4.post2
