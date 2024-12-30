@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { Open_Sans } from "next/font/google";
+import SessionProvider from "../../providers/SessionProvider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Learn With Articles",
@@ -8,6 +11,8 @@ export const metadata: Metadata = {
 };
 
 const openSans = Open_Sans({ subsets: ["latin"] });
+
+const session = await getServerSession(authOptions);
 
 export default function RootLayout({
   children,
@@ -17,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${openSans.className} antialiased`}
+        className={`${openSans.className} antialiased`} suppressHydrationWarning
       >
         <main className="bg-main h-screen">
-          {children}
+          <SessionProvider session={session}>
+            {children}
+          </SessionProvider>
         </main>
       </body>
     </html>
