@@ -1,10 +1,18 @@
 from fastapi import FastAPI
-from app.routes.sentences import router as sentences_router
+from app.routes.sentences import router as sentences_route
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
 # Register your routes
-app.include_router(sentences_router, prefix="/api", tags=["Sentences"])
+app.include_router(sentences_route, prefix="/api", tags=["Sentences"])
 
 # Run the app
 if __name__ == "__main__":
