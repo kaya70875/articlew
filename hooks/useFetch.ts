@@ -8,7 +8,7 @@ const fetcher = async <T,>(url: string): Promise<T> => {
 };
 
 // Generic Fetch Hook
-const useFetch = <T,>(endpoint: string) => {
+const useFetch = <T,>(endpoint: string | null) => {
     const { data, error, isValidating } = useSWR<T>(endpoint, fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
