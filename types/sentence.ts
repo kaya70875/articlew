@@ -4,6 +4,7 @@ export type FastApiResponse = {
     min_lenght : number;
     order : 'asc' | 'desc';
     sentences : Sentence[];
+    total_results : number;
     sort_by : string;
     word : string;
 }
