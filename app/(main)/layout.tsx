@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body
         className={`${openSans.className} antialiased`} suppressHydrationWarning
       >
-        <main className="bg-main h-screen">
+        <main className="bg-main">
           <SessionProvider session={session}>
             {children}
           </SessionProvider>
