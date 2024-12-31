@@ -17,7 +17,7 @@ async def get_sentences(
     """
 
     # Base filter to search for the word in sentences
-    filter_query = {'text': {'$regex': word, '$options': 'i'}}
+    filter_query = {'text': {'$regex': f'\\b{word}\\b', '$options': 'i'}}
 
     # Add categories to the filter if provided
     if categories:
