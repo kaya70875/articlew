@@ -4,11 +4,10 @@ import Loading from '@/components/Loading';
 import SentenceCard from '@/components/SentenceCard';
 import useFetch from '@/hooks/useFetch';
 import { FastApiResponse } from '@/types/sentence';
-import { CircularProgress } from '@mui/material';
+import { Pagination } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import React, { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 export default function page() {
 
@@ -16,18 +15,35 @@ export default function page() {
 
   const params = useSearchParams();
   const currentWord = params.get('word') || '';
+  const currentPage = parseInt(params.get('page') || '1' , 10);
+  const currentCategories = params.get('categories') || 'science';
 
-  const [categories, setCategories] = useState<string[]>(['Science', 'News']);
   const [word, setWord] = useState(currentWord);
+  const [page, setPage] = useState(currentPage);
+  const [categories, setCategories] = useState<string[]>(currentCategories ? currentCategories.split(',') : []);
 
-  const { data, loading, error } = useFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}` : null);
+
+  const { data, loading, error } = useFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
 
   const auth = useSession();
   const currentUser = auth.data?.user;
 
+  const totalPage = data?.total_results ? Math.ceil(data.total_results / 10) : 1;
+  console.log(totalPage)
+
   const handleResults = () => {
-    router.push(`/search?word=${word}`);
+    router.push(`/search?word=${word}?categories=${categories.join(',')}&page=1`);
   };
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    router.push(`/search?word=${word}&categories=${categories.join(',')}&page=${value}`);
+  };
+
+  useEffect(() => {
+    setPage(currentPage);
+  }, [currentPage]);
+
 
   return (
     <div className='flex flex-col gap-8 w-full'>
@@ -67,11 +83,13 @@ export default function page() {
 
             <span>Change Content</span>
           </header>
-          <div className='sentence-cards flex flex-col gap-4'>
-            {data?.sentences.slice(0, 5).map((sentence, index) => (
-              <SentenceCard key={index} sentence={sentence.text} word={currentWord} />
+          <div className='sentence-cards flex flex-col gap-8'>
+            {data?.sentences?.map((sentence, index) => (
+              <SentenceCard key={index} sentence={sentence.text} word={currentWord} source={sentence.source} />
             ))}
           </div>
+
+          <Pagination page={page} count={totalPage} onChange={handlePageChange} className='w-full justify-center items-center flex' />
         </article>
       )}
 
