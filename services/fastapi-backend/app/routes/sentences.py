@@ -6,11 +6,13 @@ router = APIRouter()
 @router.get("/sentences/{word}")
 async def get_sentences(
     word: str,
-    categories: list[str] = Query(None),
+    categories: str = Query(None, description="Comma-separated list of categories"),
     min_length: int = Query(None, description="Minimum sentence length"),
     max_length: int = Query(None, description="Maximum sentence length"),
     sort_by: str = Query(None, description="Sort field (e.g., 'length' or 'created_at')"),
-    order: str = Query("asc", description="Sort order: 'asc' for ascending, 'desc' for descending")
+    order: str = Query("asc", description="Sort order: 'asc' for ascending, 'desc' for descending"),
+    page: int = Query(1, description="Page number"),
+    page_size: int = Query(10, description="Number of items per page")
 ):
     """
     Get sentences containing the word, optionally filtered by categories, length, and sorted.
@@ -21,7 +23,8 @@ async def get_sentences(
 
     # Add categories to the filter if provided
     if categories:
-        filter_query['category'] = {'$in': categories}
+        category_list = categories.split(',')
+        filter_query['category'] = {'$in': category_list}
     
     if categories and not isinstance(categories, list):
         categories = [categories]
@@ -34,8 +37,10 @@ async def get_sentences(
         if max_length is not None:
             filter_query['length']['$lte'] = max_length
 
+    skip = (page - 1) * page_size
+
     # Query the database with the filter
-    cursor = sentences_collection.find(filter_query, {'_id': 0})
+    cursor = sentences_collection.find(filter_query, {'_id': 0}).skip(skip).limit(page_size)
 
     # Apply sorting if specified
     if sort_by:
@@ -56,5 +61,6 @@ async def get_sentences(
         'max_length': max_length,
         'sort_by': sort_by,
         'order': order,
+        'total_results' : sentences_collection.count_documents(filter_query),
         'sentences': results
     }
