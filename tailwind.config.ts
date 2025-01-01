@@ -13,7 +13,7 @@ export default {
         primaryText : "#1F2937",
         primaryBlue : "#2563EB",
         whitef : '#F5F5F5',
-        lightBlue : 'EEF3FF'
+        lightBlue : '#EEF3FF'
       },
       spacing : {
         'navbar-height' : '80px',
