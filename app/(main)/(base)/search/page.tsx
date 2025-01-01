@@ -1,5 +1,6 @@
 'use client';
 
+import FilterModal from '@/components/FilterModal';
 import Loading from '@/components/Loading';
 import SentenceCard from '@/components/SentenceCard';
 import useFetch from '@/hooks/useFetch';
@@ -15,13 +16,16 @@ export default function page() {
 
   const params = useSearchParams();
   const currentWord = params.get('word') || '';
-  const currentPage = parseInt(params.get('page') || '1' , 10);
+  const currentPage = parseInt(params.get('page') || '1', 10);
   const currentCategories = params.get('categories') || 'science';
 
   const [word, setWord] = useState(currentWord);
   const [page, setPage] = useState(currentPage);
   const [categories, setCategories] = useState<string[]>(currentCategories ? currentCategories.split(',') : []);
 
+  console.log('cat' , categories);
+
+  const [modalOpen , setModalOpen] = useState(false);
 
   const { data, loading, error } = useFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
 
@@ -29,10 +33,9 @@ export default function page() {
   const currentUser = auth.data?.user;
 
   const totalPage = data?.total_results ? Math.ceil(data.total_results / 10) : 1;
-  console.log(totalPage)
 
   const handleResults = () => {
-    router.push(`/search?word=${word}?categories=${categories.join(',')}&page=1`);
+    router.push(`/search?word=${word}&categories=${categories.join(',')}&page=1`);
   };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -40,9 +43,19 @@ export default function page() {
     router.push(`/search?word=${word}&categories=${categories.join(',')}&page=${value}`);
   };
 
-  useEffect(() => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleResults();
+    }
+  };
+
+  useEffect(() => { 
     setPage(currentPage);
   }, [currentPage]);
+
+  useEffect(() => { // Change url when categories change
+    handleResults();
+  } , [categories])
 
 
   return (
@@ -51,25 +64,14 @@ export default function page() {
         <h3>Welcome Again , {currentUser?.name}</h3>
         <p>Choose a word to get started!</p>
 
-        <input type="text" className='hero-input' onChange={(e) => setWord(e.target.value)} />
+        <input type="text" className='hero-input' onChange={(e) => setWord(e.target.value)} value={word} onKeyDown={handleKeyDown} />
       </header>
 
-      <div className="top-info flex flex-col gap-4">
-        <p>* Search Some Words That You Want To İnclude In Any Sentence.</p>
-        <p>* Use Filter To See Different Subjects or Sources</p>
-      </div>
-
-      <div className="buttons flex items-center gap-4 w-full justify-center">
-        <button onClick={handleResults} className="primary-button !py-4 w*48" >
-          Generate Sentences
-        </button>
-
-        <button className="secondary-button !py-4 w-48">
-          Filter
-        </button>
-      </div>
-
       {loading && <Loading />}
+
+      {modalOpen && (
+        <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
+      )}
 
       {data && (
         <article className='flex flex-col gap-8 p-12 bg-lightBlue w-full'>
@@ -81,7 +83,7 @@ export default function page() {
               ))}</p>
             </div>
 
-            <span>Change Content</span>
+            <span className='cursor-pointer' onClick={() => setModalOpen(true)}>Change Content</span>
           </header>
           <div className='sentence-cards flex flex-col gap-8'>
             {data?.sentences?.map((sentence, index) => (
