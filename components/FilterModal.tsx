@@ -16,6 +16,10 @@ const categoriesList = [
     {
         'name': 'Science',
         'id': 'science'
+    },
+    {
+        'name' : 'Psychology',
+        'id': 'psychology'
     }
 ]
 
