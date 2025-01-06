@@ -17,3 +17,10 @@ export type Sentence = {
     length : number;
     date : string;
 }
+
+export type FavoriteSentences = {
+    _id : string;
+    sentence : string;
+    userId : string;
+    createdAt : Date;
+}
