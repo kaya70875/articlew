@@ -3,7 +3,7 @@
 import FilterModal from '@/components/FilterModal';
 import Loading from '@/components/Loading';
 import SentenceCard from '@/components/SentenceCard';
-import useFetch from '@/hooks/useFetch';
+import useAPIFetch from '@/hooks/useAPIFetch';
 import { FastApiResponse } from '@/types/sentence';
 import { Pagination } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
@@ -23,11 +23,9 @@ export default function page() {
   const [page, setPage] = useState(currentPage);
   const [categories, setCategories] = useState<string[]>(currentCategories ? currentCategories.split(',') : []);
 
-  console.log('cat' , categories);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const [modalOpen , setModalOpen] = useState(false);
-
-  const { data, loading, error } = useFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
+  const { data, loading, error } = useAPIFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
 
   const auth = useSession();
   const currentUser = auth.data?.user;
@@ -49,13 +47,13 @@ export default function page() {
     }
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     setPage(currentPage);
   }, [currentPage]);
 
   useEffect(() => { // Change url when categories change
     handleResults();
-  } , [categories])
+  }, [categories])
 
 
   return (
