@@ -28,6 +28,10 @@ p , .p {
   @apply text-xl font-normal text-primaryText;
 }
 
+li , .li {
+  @apply list-none text-primaryText;
+}
+
 span , .span {
   @apply text-primaryBlue font-semibold;
 }
