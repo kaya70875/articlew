@@ -1,5 +1,6 @@
 import { connectToDB } from "@/utils/database";
 import { NextResponse } from "next/server";
+import { mutate } from "swr";
 
 const COLLECTION_NAME = "fav_sentences";
 
@@ -26,29 +27,6 @@ export async function POST(req: Request) {
     console.error(e);
     return NextResponse.json(
       { message: "Error Adding Word to Favorites" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET(req : Request) {
-  const { userId } = await req.json();
-
-  const db = await connectToDB();
-
-  try {
-    const collection = db?.collection(COLLECTION_NAME);
-
-    const results = await collection?.find({ userId }).toArray();
-
-    return NextResponse.json(
-      { message: "Words Fetched Successfully", results },
-      { status: 200 }
-    );
-  } catch (e) {
-    console.error(e);
-    return NextResponse.json(
-      { message: "Error Fetching Words" },
       { status: 500 }
     );
   }
