@@ -18,16 +18,16 @@ export type Sentence = {
     date : string;
 }
 
-export type FavoriteSentences = {
+export type BaseEntity = {
     _id : string;
-    sentence : string;
     userId : string;
     createdAt : Date;
 }
 
-export type CategorySentence = {
-    _id : string;
+export type FavoriteSentences = BaseEntity & {
+    sentence : string;
+}
+
+export type CategorySentence = BaseEntity & {
     category : string;
-    userId : string;
-    createdAt : Date;
 }
