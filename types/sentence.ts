@@ -24,3 +24,10 @@ export type FavoriteSentences = {
     userId : string;
     createdAt : Date;
 }
+
+export type CategorySentence = {
+    _id : string;
+    category : string;
+    userId : string;
+    createdAt : Date;
+}
