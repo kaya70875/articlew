@@ -1,7 +1,11 @@
-type Method = 'POST' | 'GET' | 'PUT' | 'DELETE';
+type Method = "POST" | "PUT" | "DELETE";
 
 export const useSentenceCardActions = () => {
-  const handleFavorites = async (sentence: string, userId: string , method : Method = 'POST') => {
+  const handleFavorites = async (
+    sentence: string,
+    userId: string,
+    method: Method = "POST"
+  ) => {
     try {
       const res = await fetch("/api/words/sentenceActions", {
         method: method,
@@ -19,8 +23,11 @@ export const useSentenceCardActions = () => {
         return errorData;
       }
     } catch (e) {
-      console.error(`There was an error adding the sentence to favorites: ${e}`);
+      console.error(
+        `There was an error adding the sentence to favorites: ${e}`
+      );
     }
   };
+
   return { handleFavorites };
 };
