@@ -1,14 +1,14 @@
 import useSWR from "swr";
-import axios from "axios";
+import axiosInstance from "@/lib/axoisInstance";
 
 // Generic Fetcher Function
 const fetcher = async <T,>(url: string): Promise<T> => {
-    const response = await axios.get<T>(url);
+    const response = await axiosInstance.get<T>(url);
     return response.data;
 };
 
 // Generic Fetch Hook
-const useFetch = <T,>(endpoint: string | null) => {
+const useAPIFetch = <T,>(endpoint: string | null) => {
     const { data, error, isValidating } = useSWR<T>(endpoint, fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
@@ -23,4 +23,4 @@ const useFetch = <T,>(endpoint: string | null) => {
     };
 };
 
-export default useFetch;
+export default useAPIFetch;
