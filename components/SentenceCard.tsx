@@ -1,6 +1,7 @@
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
 import { getCurrentUser, getSourceName } from '@/utils/helpers';
 import React, { useState } from 'react'
+import { mutate } from 'swr';
 
 interface SentenceCardProps {
   sentence: string;
@@ -56,7 +57,8 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   const handleAddToFavorites = async (name: name) => {
     if (name === 'Sentences') {
       setFavorite(prev => !prev);
-      await handleFavorites(sentence, user?.id! , favorite ? 'DELETE' : 'POST');
+      await handleFavorites(highlightedSentence, user?.id! , favorite ? 'DELETE' : 'POST');
+      mutate('/api/words/getFavorites');
     }
   }
 
