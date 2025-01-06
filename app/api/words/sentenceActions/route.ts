@@ -1,6 +1,5 @@
 import { connectToDB } from "@/utils/database";
 import { NextResponse } from "next/server";
-import { mutate } from "swr";
 
 const COLLECTION_NAME = "fav_sentences";
 
