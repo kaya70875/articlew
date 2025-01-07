@@ -15,14 +15,17 @@ export default function Dropdown({ dropdownTitle = 'Dropdown', addButton = false
 
     return (
         <div className='dropdown relative'>
-            <button onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
-            <div className={`dropdown-menu absolute top-8 p-4 bg-slate-600 ${position === 'left' ? 'left-0' : 'right-0'} ${isOpen ? 'block' : 'hidden'}`} style={{
-                minWidth: 'max-content'
-            }}>
+            <button className='relative z-10' onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
+            <div
+                className={`dropdown-menu absolute top-full mt-2 p-4 bg-slate-200 rounded-md ${position === 'left' ? 'left-0' : 'right-0'
+                    } ${isOpen ? 'block' : 'hidden'}`}
+                style={{ minWidth: 'max-content' }}
+            >
                 <ul className='flex flex-col gap-4 w-full'>
                     {
                         addButton && <li onClick={handleNewCategoryClick}>
-                            <p className='text-base'>+ Add New Category</p>
+                            <p className='text-base font-semibold cursor-pointer'>+ Add New Category</p>
+                            <div className="line !w-full mt-2"></div>
                         </li>
                     }
                     {children}
