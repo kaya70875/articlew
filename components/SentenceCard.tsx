@@ -62,9 +62,10 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     }
   }
 
+  
   return (
     <div className='flex flex-col gap-4 p-8 bg-white'>
-      <p className='text-lg' dangerouslySetInnerHTML={{ __html: highlightedSentence }}></p>
+      <p className='text-lg' dangerouslySetInnerHTML={{ __html: highlightedSentence }} />
       <div className='flex items-center gap-4'>
         {sentenceCardIcons.map((icon, index) => (
           <div key={index} onClick={() => handleAddToFavorites(icon.name as name)} className={`icon cursor-pointer ${favorite && icon.name === 'Sentences' ? 'fill-primaryBlue text-primaryBlue' : 'text-primaryText'}`}>{icon.icon}</div>
