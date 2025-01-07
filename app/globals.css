@@ -44,6 +44,10 @@ span , .span {
   @apply bg-primaryBlue px-10 py-2 rounded-lg text-whitef;
 }
 
+.ghost-button {
+  @apply bg-slate-200 cursor-pointer p-2 text-primaryText font-medium rounded-md;
+}
+
 .sso-button {
   @apply bg-whitef px-10 py-3 font-medium rounded-lg text-primaryBlue;
 }
