@@ -29,5 +29,31 @@ export const useSentenceCardActions = () => {
     }
   };
 
-  return { handleFavorites };
+  const getAISuggestions = async (word : string) => {
+    try {
+      const res = await fetch("/api/ai-word-assist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          word,
+        }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.log(errorData);
+        return errorData;
+      }
+      
+      return await res.json();
+
+    } catch (e) {
+      console.error(
+        `There was an error getting the AI suggestions: ${e}`
+      );
+    }
+  }
+
+  return { handleFavorites , getAISuggestions};
 };
