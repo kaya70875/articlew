@@ -4,6 +4,7 @@ import FilterModal from '@/components/FilterModal';
 import Loading from '@/components/Loading';
 import SentenceCard from '@/components/SentenceCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
+import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
 import { FastApiResponse } from '@/types/sentence';
 import { Pagination } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
@@ -13,6 +14,9 @@ import React, { useEffect, useState } from 'react';
 export default function page() {
 
   const router = useRouter();
+
+  const {getAISuggestions} = useSentenceCardActions();
+  const [result , setResult] = useState('');
 
   const params = useSearchParams();
   const currentWord = params.get('word') || '';
@@ -32,7 +36,7 @@ export default function page() {
 
   const totalPage = data?.total_results ? Math.ceil(data.total_results / 10) : 1;
 
-  const handleResults = () => {
+  const handleResults = async () => {
     router.push(`/search?word=${word}&categories=${categories.join(',')}&page=1`);
   };
 
@@ -41,9 +45,12 @@ export default function page() {
     router.push(`/search?word=${word}&categories=${categories.join(',')}&page=${value}`);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleResults();
+      const results = await getAISuggestions(word);
+      console.log('res' , results.result);
+      setResult(results.result);
     }
   };
 
@@ -80,25 +87,25 @@ export default function page() {
       )}
 
       {data && (
-        <article className='flex flex-col gap-8 p-12 bg-lightBlue w-full'>
-          <header className='flex w-full items-center justify-between'>
-            <div className='flex flex-col gap-4'>
-              <h4>Sentences About <span className='capitalize'>{currentWord}</span></h4>
-              <p className='text-primaryBlue text-base flex items-center gap-2'>Active Categories : {categories.map(cat => (
-                <span className=''>{cat}</span>
-              ))}</p>
+        <div className='flex flex-col gap-8'>
+
+          <header className="ai-feedback bg-lightBlue w-full p-12 flex flex-col">
+            {result && (
+              <p>{result}</p>
+            )}
+          </header>
+
+          <article className='flex flex-col gap-8 p-12 bg-lightBlue w-full'>
+            <div className='sentence-cards flex flex-col gap-8'>
+              {data?.sentences?.map((sentence, index) => (
+                <SentenceCard key={index} sentence={sentence.text} word={currentWord} source={sentence.source} />
+              ))}
             </div>
 
-            <span className='cursor-pointer' onClick={() => setModalOpen(true)}>Change Content</span>
-          </header>
-          <div className='sentence-cards flex flex-col gap-8'>
-            {data?.sentences?.map((sentence, index) => (
-              <SentenceCard key={index} sentence={sentence.text} word={currentWord} source={sentence.source} />
-            ))}
-          </div>
+            <Pagination page={page} count={totalPage} onChange={handlePageChange} className='w-full justify-center items-center flex' />
+          </article>
+        </div>
 
-          <Pagination page={page} count={totalPage} onChange={handlePageChange} className='w-full justify-center items-center flex' />
-        </article>
       )}
 
     </div>
