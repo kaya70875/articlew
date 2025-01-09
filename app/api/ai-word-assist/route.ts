@@ -16,13 +16,14 @@ export async function POST(req: Request) {
 
     // Call the Hugging Face text-generation API
     const response = await pipeline.textGeneration({
-      model: "EleutherAI/gpt-neo-2.7B",
-      inputs: `Explain the usage of the word "${word}" in English. Provide corrections if necessary.`,
+      model: "google/flan-t5-large",
+      inputs: `I am going to give you a word and you first give me information about it like this format : The word 'what' is correct and usable in written English.
+You can use it when you want to ask a question or indicate that you are asking for more information. For example: What did you mean by that?.
+
+The word is '${word}'`,
       parameters: {
-        max_new_tokens: 60,
+        max_new_tokens: 120,
         temperature: 0.7,
-        repetition_penalty: 1.2,
-        return_full_text: false,
       },
     });
 
