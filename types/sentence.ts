@@ -9,6 +9,10 @@ export type FastApiResponse = {
     word : string;
 }
 
+export type FastApiAIResponse = {
+    response : string;
+}
+
 export type Sentence = {
     _id : string;
     text: string;
