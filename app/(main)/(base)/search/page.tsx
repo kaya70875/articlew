@@ -5,7 +5,7 @@ import Loading from '@/components/Loading';
 import SentenceCard from '@/components/SentenceCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { FastApiResponse } from '@/types/sentence';
+import { FastApiAIResponse, FastApiResponse } from '@/types/sentence';
 import { Pagination } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -14,10 +14,6 @@ import React, { useEffect, useState } from 'react';
 export default function page() {
 
   const router = useRouter();
-
-  const { getAISuggestions } = useSentenceCardActions();
-  const [result, setResult] = useState('');
-  const [aiLoading, setAiLoading] = useState(false);
 
   const params = useSearchParams();
   const currentWord = params.get('word') || '';
@@ -31,6 +27,7 @@ export default function page() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const { data, loading, error } = useAPIFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
+  const { data:ai, loading:aiLoading, error:aiError } = useAPIFetch<FastApiAIResponse>(currentWord ? `/generate/${currentWord}` : null);
 
   const auth = useSession();
   const currentUser = auth.data?.user;
@@ -38,12 +35,7 @@ export default function page() {
   const totalPage = data?.total_results ? Math.ceil(data.total_results / 10) : 1;
 
   const handleResults = async () => {
-    router.push(`/search?word=${word}&categories=${categories.join(',')}&page=1`);
-    setResult('');
-    setAiLoading(true);
-    const results = await getAISuggestions(word);
-    setResult(results.result);
-    setAiLoading(false);
+    router.push(`/search?word=${word}&page=1`);
   };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -96,8 +88,7 @@ export default function page() {
             <h5>AI Feedback</h5>
             <div className="content flex flex-col gap-4 rounded-lg px-8 py-12 bg-white">
               {aiLoading && <Loading />}
-              <p>The word <span className='text-primaryText font-semibold'>{word}</span> is correct and usable in written English.</p>
-              {result && <p className='text-base'>{result}</p>}
+              <p>{ai?.response}</p>
             </div>
           </header>
 
