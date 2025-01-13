@@ -12,20 +12,23 @@ import {
     FavoriteSentences
 } from '@/types/sentence';
 import { getCurrentUser } from '@/utils/helpers';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
 export default function Page() {
     const { data, loading, error } = useFetch<FavoriteSentences[]>('/api/words/getFavorites');
-    const { data: categoriesData, loading: categoriesLoading, error: categoriesError } = useFetch<CategorySentence[]>('/api/words/categories');
+    const { data: categoriesData, loading: categoriesLoading, error: categoriesError } = useFetch<CategorySentence[]>('/api/words/categories'); // Fetch categories like 'top 10'
     const { addCategory, deleteCategory } = useCategoryActions();
 
     const user = getCurrentUser();
     const userId = user?.id;
 
     const [inputValue, setInputValue] = useState('');
+    const [searchValue, setSearchValue] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+    const [filteredData, setFilteredData] = useState<FavoriteSentences[]>([]);
 
     const { data: filteredFavorites, loading: filteredLoading, error: filteredError } = useFetch<FavoriteSentences[]>(selectedCategory ? `/api/words/updateCategory?category=${selectedCategory}` : null);
 
@@ -47,11 +50,18 @@ export default function Page() {
         setSelectedCategory(category);
     }
 
+    useEffect(() => {
+        if (searchValue) {
+            const filteredByWord = data?.filter(item => item.sentence.toLowerCase().includes(searchValue.toLowerCase()));
+            setFilteredData(filteredByWord ?? []);
+        }
+    }, [searchValue])
+
     return (
         <div className='flex flex-col w-full gap-8 p-4'>
             <header className='w-full flex flex-col gap-2'>
                 <h2>Your Favorites</h2>
-                <InputField placeholder='Search in favorites' label='' />
+                <InputField placeholder='Search in favorites' label='' onChange={(e) => setSearchValue(e.target.value)} />
             </header>
 
             <div className='filter-options flex items-center gap-4 w-full'>
@@ -92,7 +102,7 @@ export default function Page() {
             {loading || filteredLoading ? (
                 <Loading />
             ) : (
-                <FavoritesCard favorites={filteredFavorites || data || []} />
+                <FavoritesCard favorites={filteredFavorites || (searchValue ? filteredData : data) || []} />
             )}
         </div>
     );
