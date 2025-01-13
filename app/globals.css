@@ -64,6 +64,10 @@ span , .span {
   @apply border-b-2 border-primaryText w-1/2;
 }
 
+.ellipse {
+  @apply w-4 h-4 rounded-full;
+}
+
 input[type="checkbox"] {
   appearance: none;
   width: 20px;
