@@ -1,7 +1,8 @@
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { getCurrentUser, getSourceName } from '@/utils/helpers';
+import { getCurrentUser, getSourceName, runSpeaker } from '@/utils/helpers';
 import React, { useState } from 'react'
 import { mutate } from 'swr';
+import Speaker from './svg/Speaker';
 
 interface SentenceCardProps {
   sentence: string;
@@ -13,7 +14,7 @@ type name = 'Sentences' | 'Expand' | 'Speaker';
 
 export default function SentenceCard({ sentence, word, source }: SentenceCardProps) {
 
-  const { handleFavorites, readSentenceWithAI } = useSentenceCardActions();
+  const { handleFavorites } = useSentenceCardActions();
   const user = getCurrentUser();
 
   const [favorite, setFavorite] = useState(false);
@@ -36,11 +37,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     },
     {
       name: 'Speaker',
-      icon: (!isSpeaking ? (<svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11.8011 1.099L5.8005 6.75671H1V15.2433H5.8005L11.8011 20.901V1.099Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M21.4862 1C23.7361 3.65244 25 7.24945 25 11C25 14.7506 23.7361 18.3476 21.4862 21M17.2498 5.99293C18.3747 7.31915 19.0067 9.11765 19.0067 10.9929C19.0067 12.8682 18.3747 14.6667 17.2498 15.9929" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>) : (<img src='/videos/speaker.gif' className='w-12 h-12' alt="video" />)
-      )
+      icon: (<Speaker isSpeaking={isSpeaking} />)
     }
   ]
 
@@ -63,12 +60,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     }
 
     else if (name === 'Speaker') {
-      setIsSpeaking(true);
-      const response = await readSentenceWithAI(sentence);
-      const audio = new Audio(response.audioUrl);
-      audio.onended = () => setIsSpeaking(false);
-      audio.onerror = () => setIsSpeaking(false);
-      audio.play();
+      runSpeaker(sentence, setIsSpeaking);
     }
   }
 
