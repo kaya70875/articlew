@@ -15,11 +15,8 @@ async def generate_response(word: str):
     
     outputs = model.generate(
         **inputs,
-        max_length=70,
-        temperature=0.7,
-        top_k=50,
-        top_p=0.9,
-        early_stopping=True
+        max_length=100,
+        no_repeat_ngram_size=2,
     )
     
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
