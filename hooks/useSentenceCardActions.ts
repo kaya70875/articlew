@@ -4,6 +4,7 @@ export const useSentenceCardActions = () => {
   const handleFavorites = async (
     sentence: string,
     userId: string,
+    highlightedWord?: string,
     method: Method = "POST"
   ) => {
     try {
@@ -15,6 +16,7 @@ export const useSentenceCardActions = () => {
         body: JSON.stringify({
           sentence,
           userId,
+          highlightedWord,
         }),
       });
       if (!res.ok) {
@@ -29,7 +31,7 @@ export const useSentenceCardActions = () => {
     }
   };
 
-  const readSentenceWithAI = async (sentence : string) => {
+  const readSentenceWithAI = async (sentence: string) => {
     try {
       const res = await fetch("/api/ai/ai-speaker", {
         method: "POST",
@@ -48,9 +50,7 @@ export const useSentenceCardActions = () => {
 
       return await res.json();
     } catch (e) {
-      console.error(
-        `There was an error reading the sentence with AI: ${e}`
-      );
+      console.error(`There was an error reading the sentence with AI: ${e}`);
     }
   };
   return { handleFavorites, readSentenceWithAI };

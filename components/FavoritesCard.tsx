@@ -30,7 +30,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
   }, [selectedSentenceId, favorites]);
 
   const handleDelete = async (sentence: string) => {
-    await handleFavorites(sentence, user?.id!, 'DELETE');
+    await handleFavorites(sentence, user?.id!, '', 'DELETE');
     mutate('/api/words/getFavorites');
   };
 
