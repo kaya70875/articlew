@@ -43,6 +43,7 @@ export type BaseEntity = {
 export type FavoriteSentences = BaseEntity & {
   sentence: string;
   categoryId: string | null;
+  highlightedWord: string;
 };
 
 export type CategorySentence = BaseEntity & {
