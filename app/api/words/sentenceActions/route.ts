@@ -4,17 +4,18 @@ import { NextResponse } from "next/server";
 const COLLECTION_NAME = "fav_sentences";
 
 export async function POST(req: Request) {
-  const { sentence, userId } = await req.json();
+  const { sentence, userId, highlightedWord } = await req.json();
 
   const db = await connectToDB();
 
   try {
     const collection = db?.collection(COLLECTION_NAME);
-    await collection?.createIndex('sentence', { unique: true });
+    await collection?.createIndex("sentence", { unique: true });
 
     const results = await collection?.insertOne({
       sentence,
       userId,
+      highlightedWord,
       createdAt: new Date(),
     });
 
