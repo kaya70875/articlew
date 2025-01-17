@@ -85,11 +85,11 @@ export default function page() {
         <div className='flex flex-col gap-8'>
           <WordInfoCard currentWord={currentWord} />
 
-          <header className="ai-feedback bg-blue-200 rounded-md w-full p-8 flex flex-col gap-4">
+          <header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
             <h5>AI Feedback</h5>
             <div className="content flex flex-col gap-4 rounded-lg px-8 py-12 bg-white">
               {aiLoading && <Loading />}
-              <p>{ai?.response}</p>
+              <p className='text-base'>{ai?.response}</p>
             </div>
           </header>
           <article className='flex flex-col gap-8 p-12 bg-lightBlue w-full'>
