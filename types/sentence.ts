@@ -11,6 +11,7 @@ export type FastApiResponse = {
 
 export type FastApiAIResponse = {
   response: string;
+  paraphrase: string[];
 };
 
 export type FastApiWordResponse = {
