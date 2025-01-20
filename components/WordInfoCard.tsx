@@ -6,6 +6,7 @@ import Speaker from './svg/Speaker';
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
 import { runSpeaker } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
+import EllipseHeader from './reusables/EllipseHeader';
 
 interface WordInfoCardProps {
     currentWord: string;
@@ -55,10 +56,7 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
 
     return (
         <div className='flex flex-col gap-8 p-8 bg-lightBlue rounded-md'>
-            <header className='text-primaryText font-medium text-lg flex items-center gap-2'>
-                <div className="ellipse bg-primaryBlue"></div>
-                Dictionary
-            </header>
+            <EllipseHeader ellipseColor='bg-primaryBlue' text='Dictionary' />
             <div className="word-itself flex items-center gap-3">
                 <div className='cursor-pointer' onClick={handleSpeakWord}>
                     <Speaker isSpeaking={isSpeaking} />
