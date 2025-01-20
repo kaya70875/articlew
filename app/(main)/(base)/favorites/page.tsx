@@ -64,24 +64,27 @@ export default function Page() {
                 <InputField placeholder='Search in favorites' label='' onChange={(e) => setSearchValue(e.target.value)} />
             </header>
 
-            <div className='filter-options flex items-center gap-4 w-full'>
-                <Dropdown
-                    dropdownTitle={
-                        <button className='ghost-button'>Categories</button>
-                    }
-                    handleNewCategoryClick={() => setModalOpen(true)}
-                    addButton
-                >
-                    {categories.map((category, index) => (
-                        <li className='flex items-center w-full justify-between' key={index} onClick={() => handleChoosingCategory(category.category)}>
-                            {categoriesLoading && <Loading />}
-                            <p className='text-base cursor-pointer'>{category.category}</p>
-                            <p onClick={(e) => handleRemoveCategory(category.category, e)} className='text-sm cursor-pointer'>x</p>
-                        </li>
-                    ))}
-                </Dropdown>
+            <div className='filter-options flex items-center gap-4 w-full justify-between'>
+                <div className='left flex items-center gap-4'>
+                    <Dropdown
+                        dropdownTitle={
+                            <button className='ghost-button'>Categories</button>
+                        }
+                        handleNewCategoryClick={() => setModalOpen(true)}
+                        addButton
+                    >
+                        {categories.map((category, index) => (
+                            <li className='flex items-center w-full justify-between' key={index} onClick={() => handleChoosingCategory(category.category)}>
+                                {categoriesLoading && <Loading />}
+                                <p className='text-base cursor-pointer'>{category.category}</p>
+                                <p onClick={(e) => handleRemoveCategory(category.category, e)} className='text-sm cursor-pointer'>x</p>
+                            </li>
+                        ))}
+                    </Dropdown>
 
-                <button onClick={() => setSelectedCategory(null)} className='ghost-button'>See All</button>
+                    <button onClick={() => setSelectedCategory(null)} className='ghost-button'>See All</button>
+                </div>
+
             </div>
 
             {selectedCategory && (
