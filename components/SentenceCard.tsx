@@ -55,7 +55,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   const handleAddToFavorites = async (name: name) => {
     if (name === 'Sentences') {
       setFavorite(prev => !prev);
-      await handleFavorites(highlightedSentence, user?.id!, favorite ? 'DELETE' : 'POST');
+      await handleFavorites(highlightedSentence, user?.id!, word, favorite ? 'DELETE' : 'POST');
       mutate('/api/words/getFavorites');
     }
 
