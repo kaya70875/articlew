@@ -2,6 +2,7 @@
 
 import FilterModal from '@/components/FilterModal';
 import Loading from '@/components/Loading';
+import EllipseHeader from '@/components/reusables/EllipseHeader';
 import SentenceCard from '@/components/SentenceCard';
 import WordInfoCard from '@/components/WordInfoCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
@@ -55,7 +56,7 @@ export default function page() {
 
   useEffect(() => { // Change url when categories change
     handleResults();
-  }, [categories])
+  }, [page])
 
   return (
     <div className='flex flex-col gap-8 w-full'>
@@ -86,7 +87,7 @@ export default function page() {
           <WordInfoCard currentWord={currentWord} />
 
           <header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
-            <h5>AI Feedback</h5>
+            <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
             <div className="content flex flex-col gap-4 rounded-lg px-8 py-12 bg-white">
               {aiLoading && <Loading />}
               <p className='text-base'>{ai?.response}</p>
