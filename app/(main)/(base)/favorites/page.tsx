@@ -68,7 +68,7 @@ export default function Page() {
                 <div className='left flex items-center gap-4'>
                     <Dropdown
                         dropdownTitle={
-                            <button className='ghost-button'>Categories</button>
+                            <button className="ghost-button">Categories</button>
                         }
                         handleNewCategoryClick={() => setModalOpen(true)}
                         addButton
@@ -91,7 +91,7 @@ export default function Page() {
                 <p>Showing categories for {selectedCategory}</p>
             )}
 
-            {modalOpen && (
+            <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                 <ModalComp
                     modalTitle='Add New Category'
                     buttonTitle='Add'
@@ -100,7 +100,9 @@ export default function Page() {
                 >
                     <InputField onChange={(e) => setInputValue(e.target.value)} label='Category Name' />
                 </ModalComp>
-            )}
+            </div>
+
+
 
             {loading || filteredLoading ? (
                 <Loading />

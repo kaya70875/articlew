@@ -64,8 +64,8 @@ export default function page() {
         <h3>Welcome Again , {currentUser?.name}</h3>
         <p>Choose a word to get started!</p>
       </header>
-      <div className='sticky bg-whitef top-0 z-10 w-full'>
-        <div className="input-wrapper py-4 relative w-full">
+      <div className='sticky top-0 bg-whitef w-full'>
+        <div className='input-wrapper py-4 relative w-full'>
           <input type="text" className='hero-input w-full' onChange={(e) => setWord(e.target.value)} value={word} onKeyDown={handleKeyDown} />
           <div className="filter-icon hover:bg-gray-200 p-2 rounded-md flex items-center gap-2 absolute right-8 top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={() => setModalOpen(true)}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,9 +78,9 @@ export default function page() {
 
       {loading && <Loading />}
 
-      {modalOpen && (
+      <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
-      )}
+      </div>
 
       {data && (
         <div className='flex flex-col gap-8'>
