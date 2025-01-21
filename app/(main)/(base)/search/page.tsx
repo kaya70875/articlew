@@ -93,7 +93,8 @@ export default function page() {
               <p className='text-base'>{ai?.response}</p>
             </div>
           </header>
-          <article className='flex flex-col gap-8 p-12 bg-lightBlue w-full'>
+          <article className='flex flex-col gap-8 p-6 bg-lightBlue w-full'>
+            <EllipseHeader ellipseColor='bg-blue-300' text='Exact' />
             <div className='sentence-cards flex flex-col gap-8'>
               {data?.sentences?.map((sentence, index) => (
                 <SentenceCard key={index} sentence={sentence.text} word={currentWord} source={sentence.source} />
