@@ -59,7 +59,7 @@ export default function page() {
   }, [page])
 
   return (
-    <div className='flex flex-col gap-8 w-full'>
+    <div className='flex flex-col gap-8 w-2/3'>
       <header className="top flex flex-col gap-4 h-full">
         <h3>Welcome Again , {currentUser?.name}</h3>
         <p>Choose a word to get started!</p>

@@ -11,7 +11,7 @@ export default function RootLayout({
     return (
         <main className="bg-main h-full flex">
             <Sidebar />
-            <article className="ml-sidebar-width px-24 py-12 w-full">
+            <article className="ml-sidebar-width px-24 py-12 w-full flex items-center justify-center">
                 {children}
             </article>
         </main>
