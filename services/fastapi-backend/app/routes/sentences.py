@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
 from app.models.database import sentences_collection
+from services.utils.helpers import extract_sentence
 
 router = APIRouter()
 
@@ -19,7 +20,12 @@ async def get_sentences(
     """
 
     # Base filter to search for the word in sentences
-    filter_query = {'text': {'$regex': f'\\b{word}\\b', '$options': 'i'}}
+    filter_query = {
+        'text': {
+            '$regex': rf'(?<!\w)(?:[A-Z][^.!?]*?\b{word}\b[^.!?]*[.!?])',
+            '$options': 'i'
+        }
+    }
 
     # Add categories to the filter if provided
     if categories:
@@ -49,6 +55,7 @@ async def get_sentences(
 
     # Get the results as a list
     results = list(cursor)
+    filtered_results = extract_sentence(results, word)
 
     # Handle no results
     if not results:
@@ -61,6 +68,6 @@ async def get_sentences(
         'max_length': max_length,
         'sort_by': sort_by,
         'order': order,
-        'total_results' : sentences_collection.count_documents(filter_query),
-        'sentences': results
+        'total_results': sentences_collection.count_documents(filter_query),
+        'sentences': filtered_results
     }
