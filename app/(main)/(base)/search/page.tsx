@@ -8,7 +8,7 @@ import WordInfoCard from '@/components/WordInfoCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { FastApiAIResponse, FastApiResponse } from '@/types/sentence';
 import { Pagination } from '@mui/material';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
@@ -77,6 +77,8 @@ export default function page() {
       </div>
 
       {loading && <Loading />}
+      {error && <p>Error: {error.message}</p>}
+      {aiError && <p>Error: {aiError.message}</p>}
 
       <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
