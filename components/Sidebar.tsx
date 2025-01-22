@@ -1,3 +1,7 @@
+'use client'
+
+import { getCurrentUser } from '@/utils/helpers'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -60,7 +64,17 @@ export default function Sidebar() {
                     </Link>
 
                 ))}
+
+                <div className='logout-section absolute bottom-24 flex items-center gap-3 cursor-pointer' onClick={() => signOut()}>
+                    <div className='bg-blue-300 flex items-center justify-center p-4 w-12 h-12 rounded-full'>
+                        <p className='text-sm'>A</p>
+                    </div>
+
+                    <p className='font-semibold'>Log Out</p>
+                </div>
             </ul>
+
+
         </div>
     )
 }
