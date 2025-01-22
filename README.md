@@ -7,14 +7,15 @@
 * **User-Friendly Interface**: Clean and responsive design for seamless usage across devices.
 * **Periodic Updates**: Automatically fetches new sentences and examples to keep the database fresh.
 * **Authentication**: Secure login and sign-up functionality for personalized experiences.
+* **Paraphrase** : Users can input a sentence and get diffirent variations of this sentence.
 
 ## Future Enhancements:
 * Sentence difficulty levels (beginner, intermediate, advanced).
 * Interactive vocabulary quizzes.
 * Integration with external APIs for enriched content.
 * Better AI suggestions.
-* Paraphrase.
-* Rewrite.
+* Grammar analysis for sentences.
+* Increase article sizes.
   
 ## Technologies Used
 * **Frontend**: Next.js, TypeScript, Tailwind CSS
