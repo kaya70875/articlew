@@ -4,11 +4,6 @@ from app.routes.ai import router as ai_route
 from app.routes.wordInfo import router as wordInfo_route
 from fastapi.middleware.cors import CORSMiddleware
 
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 app = FastAPI()
 
 app.add_middleware(
