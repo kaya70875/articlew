@@ -47,12 +47,12 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     }
   }
 
-  const highlightedSentence = sentence.replace(
+  const highlightedSentence = sentence?.replace(
     new RegExp(`(${word})`, 'gi'),
     (match) => `<span class="font-bold underline">${match}</span>`
   )
 
-  const handleAddToFavorites = async (name: name) => {
+  const handleSentenceCardActions = async (name: name) => {
     if (name === 'Sentences') {
       setFavorite(prev => !prev);
       await handleFavorites(highlightedSentence, user?.id!, word, favorite ? 'DELETE' : 'POST');
@@ -64,13 +64,12 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     }
   }
 
-
   return (
     <div className='flex flex-col gap-4 p-8 bg-white'>
       <p className='text-lg' dangerouslySetInnerHTML={{ __html: highlightedSentence }} />
       <div className='flex items-center gap-4'>
         {sentenceCardIcons.map((icon, index) => (
-          <div key={index} onClick={() => handleAddToFavorites(icon.name as name)} className={`icon cursor-pointer ${favorite && icon.name === 'Sentences' ? 'fill-primaryBlue text-primaryBlue' : 'text-primaryText'}`}>{icon.icon}</div>
+          <div key={index} onClick={() => handleSentenceCardActions(icon.name as name)} className={`icon cursor-pointer ${favorite && icon.name === 'Sentences' ? 'fill-primaryBlue text-primaryBlue' : 'text-primaryText'}`}>{icon.icon}</div>
         ))}
       </div>
       <p className='text-base text-primaryBlue hover:underline w-full text-right cursor-pointer capitalize' onClick={handleSourceClick}>{getSourceName(source)}</p>
