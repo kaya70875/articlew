@@ -1,30 +1,20 @@
 from fastapi import APIRouter
-from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from huggingface_hub import InferenceClient
 from word.paraphrase import paraphrase
 from app.models.paraphraseModel import ParaphraseModel as pModel
+from word.deepseek import analyze_word
 
 router = APIRouter()
 
 @router.get("/generate/{word}")
 async def generate_response(word: str):
+    # Initialize the InferenceClient with your API key
+    client = InferenceClient(api_key="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")
 
-    # Load fine-tuned model and tokenizer
-    model_path = "C:\\Users\\ahmet\\OneDrive\\Desktop\\LWA\\next-lwa\\LearnWithArticlesNext\\services\\fastapi-backend\\fine-tuning\\fine_tuned_model"  # Adjust the path to where your model is saved
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForCausalLM.from_pretrained(model_path)
-
-    prompt = f"Analyze the word '{word}' for its meaning and usage in English. Here is the analysis:\n"
-    inputs = tokenizer(prompt, return_tensors="pt")
+    results = analyze_word(word , client)
+    return {"response" : results}
     
-    outputs = model.generate(
-        **inputs,
-        max_length=100,
-        no_repeat_ngram_size=2,
-    )
-    
-    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    response = response.replace(prompt, "").strip()  # Remove the prompt text
-    return {"response": response}
 
 @router.get("/paraphrase/{sentence}" , response_model=pModel)
 async def generate_paraphrase(sentence : str):
