@@ -34,6 +34,13 @@ export const runSpeaker = async (
   audio.play();
 };
 
+export const speakSentence = (sentence: string) => {
+  const utterance = new SpeechSynthesisUtterance(sentence);
+  utterance.lang = "en-US";
+  utterance.rate = 0.8;
+  speechSynthesis.speak(utterance);
+};
+
 /**
  * Highlights all occurrences of a specific word in a sentence by wrapping them in a `<span>` tag
  * with a CSS class for styling (e.g., bold and underline).
