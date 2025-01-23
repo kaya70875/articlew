@@ -1,5 +1,6 @@
-def analyze_word(word , client):
+import httpx
 
+async def analyze_word(word: str, api_key: str):
     messages = [
         {
             "role": "user",
@@ -7,22 +8,25 @@ def analyze_word(word , client):
         }
     ]
 
-    # Get the final result
-    completion = client.chat.completions.create(
-        model="deepseek-ai/DeepSeek-R1-Distill-Qwen-32B", 
-        messages=messages, 
-        max_tokens=1000,
-        temperature=0.5,
-    )
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            "https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+            headers={"Authorization": f"Bearer {api_key}"},
+            json={
+                "inputs": messages[0]["content"],
+                "parameters": {
+                    "temperature": 0.2,
+                }
+            }
+        )
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        completion = response.json()
 
-    # Extract the response
-    response = completion.choices[0].message.content
+        response_text = completion[0]["generated_text"].replace(messages[0]["content"] , '')
 
-    # Remove the <think> section and extract the final answer
-    if "<think>" in response:
-        # Split the response into <think> and final answer
-        final_answer = response.split("</think>")[-1].strip()
-    else:
-        final_answer = response
-    
-    return final_answer
+        if "<think>" in response_text:
+            final_answer = response_text.split("</think>")[-1].strip()
+        else:
+            final_answer = response_text
+
+        return final_answer
