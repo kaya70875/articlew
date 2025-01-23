@@ -4,13 +4,17 @@ from huggingface_hub import InferenceClient
 from word.paraphrase import paraphrase
 from app.models.paraphraseModel import ParaphraseModel as pModel
 from word.deepseek import analyze_word
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 router = APIRouter()
 
 @router.get("/generate/{word}")
 async def generate_response(word: str):
     # Initialize the InferenceClient with your API key
-    client = InferenceClient(api_key="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")
+    client = InferenceClient(api_key=os.getenv('HUGGING_FACE_API_KEY'))
 
     results = analyze_word(word , client)
     return {"response" : results}
