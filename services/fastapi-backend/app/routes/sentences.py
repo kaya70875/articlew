@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
 from app.models.database import sentences_collection
-from utils.helpers import extract_sentence
+from services.utils.helpers import extract_sentence
 
 router = APIRouter()
 
