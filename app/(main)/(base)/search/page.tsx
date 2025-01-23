@@ -1,5 +1,6 @@
 'use client';
 
+import AIWordAnalysis from '@/components/AIWordAnalysis';
 import FilterModal from '@/components/FilterModal';
 import Loading from '@/components/Loading';
 import EllipseHeader from '@/components/reusables/EllipseHeader';
@@ -28,7 +29,6 @@ export default function page() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const { data, loading, error } = useAPIFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
-  const { data: ai, loading: aiLoading, error: aiError } = useAPIFetch<FastApiAIResponse>(currentWord ? `/generate/${currentWord}` : null);
 
   const auth = useSession();
   const currentUser = auth.data?.user;
@@ -78,7 +78,6 @@ export default function page() {
 
       {loading && <Loading />}
       {error && <p>Error: {error.message}</p>}
-      {aiError && <p>Error: {aiError.message}</p>}
 
       <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
@@ -90,10 +89,7 @@ export default function page() {
 
           <header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
             <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
-            <div className="content flex flex-col gap-4 rounded-lg px-8 py-12 bg-white">
-              {aiLoading && <Loading />}
-              <p className='text-base'>{ai?.response}</p>
-            </div>
+            <AIWordAnalysis currentWord={currentWord} />
           </header>
           <article className='flex flex-col gap-8 p-6 bg-lightBlue w-full'>
             <EllipseHeader ellipseColor='bg-blue-300' text='Exact' />
