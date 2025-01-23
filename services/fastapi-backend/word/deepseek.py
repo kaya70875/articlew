@@ -4,7 +4,7 @@ async def analyze_word(word: str, api_key: str):
     messages = [
         {
             "role": "user",
-            "content": f"Can you analyze the word '{word}' and give an example of its usage? Do not analysis word's origin and please keep it short."
+            "content": f"Can you analyze the word '{word}' and give an example of its usage? Do not analysis word's origin and please keep it short. Do not say 'Sure' or 'Of course' at the beginning and do not say anything except your answer. Additionally provide your thinking process in <think></think> tags."
         }
     ]
 
@@ -22,7 +22,7 @@ async def analyze_word(word: str, api_key: str):
         response.raise_for_status()  # Raise an exception for HTTP errors
         completion = response.json()
 
-        response_text = completion[0]["generated_text"].replace(messages[0]["content"] , '')
+        response_text = completion[0]["generated_text"]
 
         if "<think>" in response_text:
             final_answer = response_text.split("</think>")[-1].strip()
