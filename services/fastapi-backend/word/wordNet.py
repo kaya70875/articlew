@@ -1,8 +1,4 @@
 from nltk.corpus import wordnet
-import nltk
-
-nltk.download('wordnet')
-nltk.download('omw-1.4')
 
 def get_word_info(word):
     synsets = wordnet.synsets(word)
@@ -32,7 +28,7 @@ def get_word_info_extended(word):
         pos = synset.pos()
         word_info = {
             "definition": synset.definition(),
-            "synonyms": [lemma.name() for lemma in synset.lemmas()]
+            "synonyms": [lemma.name().replace('_' , ' ') for lemma in synset.lemmas()]
         }
         
         if pos == 'a':  # Adjective
@@ -45,8 +41,3 @@ def get_word_info_extended(word):
             info["noun"].append(word_info)
     
     return info
-
-# Test the function
-word = "test"
-result = get_word_info_extended(word)
-print(result)
