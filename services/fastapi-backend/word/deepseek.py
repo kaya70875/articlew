@@ -11,7 +11,8 @@ def analyze_word(word , client):
     completion = client.chat.completions.create(
         model="deepseek-ai/DeepSeek-R1-Distill-Qwen-32B", 
         messages=messages, 
-        max_tokens=1000
+        max_tokens=1000,
+        temperature=0.5,
     )
 
     # Extract the response
