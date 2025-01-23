@@ -3,7 +3,6 @@ import { FastApiWordResponse } from '@/types/sentence';
 import React, { useState } from 'react'
 import Loading from './Loading';
 import Speaker from './svg/Speaker';
-import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
 import { runSpeaker } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
 import EllipseHeader from './reusables/EllipseHeader';
@@ -32,7 +31,7 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
                         <div className='flex flex-col gap-2 w-full'>
                             <p className='text-sm text-gray-600'>Synonyms</p>
                             <div className='flex items-center gap-4'>
-                                {item.synonyms.map((synonym, index) => (
+                                {item.synonyms.slice(0, 4).map((synonym, index) => (
                                     <div className="syn-card p-2 flex items-center justify-center border border-primaryText rounded-md cursor-pointer" key={index} onClick={() => handleSynonymClick(synonym)}>
                                         <p className='text-sm text-primaryText font-semibold'>{synonym}</p>
                                     </div>
