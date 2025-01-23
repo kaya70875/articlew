@@ -3,7 +3,7 @@ import { FastApiWordResponse } from '@/types/sentence';
 import React, { useState } from 'react'
 import Loading from './Loading';
 import Speaker from './svg/Speaker';
-import { runSpeaker } from '@/utils/helpers';
+import { runSpeaker, speakSentence } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
 import EllipseHeader from './reusables/EllipseHeader';
 
@@ -50,7 +50,7 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
     };
 
     const handleSpeakWord = async () => {
-        runSpeaker(currentWord, setIsSpeaking);
+        speakSentence(currentWord);
     }
 
     return (

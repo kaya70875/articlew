@@ -1,5 +1,5 @@
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { getCurrentUser, getSourceName, highlighWord, runSpeaker } from '@/utils/helpers';
+import { getCurrentUser, getSourceName, highlighWord, runSpeaker, speakSentence } from '@/utils/helpers';
 import React, { useState } from 'react'
 import { mutate } from 'swr';
 import Speaker from './svg/Speaker';
@@ -57,7 +57,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     }
 
     else if (name === 'Speaker') {
-      runSpeaker(sentence, setIsSpeaking);
+      speakSentence(sentence);
     }
   }
 
