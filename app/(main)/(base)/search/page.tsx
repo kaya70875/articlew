@@ -7,7 +7,7 @@ import EllipseHeader from '@/components/reusables/EllipseHeader';
 import SentenceCard from '@/components/SentenceCard';
 import WordInfoCard from '@/components/WordInfoCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
-import { FastApiAIResponse, FastApiResponse } from '@/types/sentence';
+import { FastApiResponse } from '@/types/sentence';
 import { Pagination } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -54,10 +54,6 @@ export default function page() {
     setPage(currentPage);
   }, [currentPage]);
 
-  useEffect(() => { // Change url when categories change
-    handleResults();
-  }, [page])
-
   return (
     <div className='flex flex-col gap-8 w-2/3'>
       <header className="top flex flex-col gap-4 h-full">
@@ -86,7 +82,6 @@ export default function page() {
       {data && (
         <div className='flex flex-col gap-8'>
           <WordInfoCard currentWord={currentWord} />
-
           <header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
             <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
             <AIWordAnalysis currentWord={currentWord} />
@@ -104,7 +99,6 @@ export default function page() {
         </div>
 
       )}
-
     </div>
   )
 }
