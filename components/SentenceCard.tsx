@@ -1,5 +1,5 @@
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { getCurrentUser, getSourceName, runSpeaker } from '@/utils/helpers';
+import { getCurrentUser, getSourceName, highlighWord, runSpeaker } from '@/utils/helpers';
 import React, { useState } from 'react'
 import { mutate } from 'swr';
 import Speaker from './svg/Speaker';
@@ -47,10 +47,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     }
   }
 
-  const highlightedSentence = sentence?.replace(
-    new RegExp(`(${word})`, 'gi'),
-    (match) => `<span class="font-bold underline">${match}</span>`
-  )
+  const highlightedSentence = highlighWord(sentence, word);
 
   const handleSentenceCardActions = async (name: name) => {
     if (name === 'Sentences') {
