@@ -8,7 +8,7 @@ interface FilterModalProps {
     onClose: () => void;
 }
 
-const categoriesList = [
+export const categoriesList = [
     {
         'name': 'Media / News',
         'id': 'news'
@@ -18,7 +18,7 @@ const categoriesList = [
         'id': 'science'
     },
     {
-        'name' : 'Psychology',
+        'name': 'Psychology',
         'id': 'psychology'
     }
 ]

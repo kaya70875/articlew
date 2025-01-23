@@ -1,7 +1,7 @@
 'use client';
 
 import AIWordAnalysis from '@/components/AIWordAnalysis';
-import FilterModal from '@/components/FilterModal';
+import FilterModal, { categoriesList } from '@/components/FilterModal';
 import Loading from '@/components/Loading';
 import EllipseHeader from '@/components/reusables/EllipseHeader';
 import SentenceCard from '@/components/SentenceCard';
@@ -20,11 +20,10 @@ export default function page() {
   const params = useSearchParams();
   const currentWord = params.get('word') || '';
   const currentPage = parseInt(params.get('page') || '1', 10);
-  const currentCategories = params.get('categories') || 'science';
 
   const [word, setWord] = useState(currentWord);
   const [page, setPage] = useState(currentPage);
-  const [categories, setCategories] = useState<string[]>(currentCategories ? currentCategories.split(',') : []);
+  const [categories, setCategories] = useState<string[]>(categoriesList.map(cat => cat.id));
 
   const [modalOpen, setModalOpen] = useState(false);
 
