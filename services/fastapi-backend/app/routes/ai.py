@@ -1,10 +1,9 @@
 from fastapi import APIRouter , HTTPException
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from huggingface_hub import InferenceClient
 from word.paraphrase import paraphrase
 from app.models.paraphraseModel import ParaphraseModel as pModel
-from word.deepseek import analyze_word
+from word.deepseek import analyze_word , analyze_sentence_with_word
 from dotenv import load_dotenv
 import os
 
@@ -27,6 +26,17 @@ async def generate_response(word: str):
 
     try:
         results = await analyze_word(word, api_key)
+        return {"response": results}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/analysis/{sentence}/{word}")
+async def analyze_sentence(sentence: str, word: str):
+    api_key = os.getenv('HUGGING_FACE_API_KEY')
+    if not api_key:
+        raise HTTPException(status_code=500, detail="API key not configured")
+    try:
+        results = await analyze_sentence_with_word(sentence, word, api_key)
         return {"response": results}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
