@@ -14,7 +14,7 @@ interface SentenceCardProps {
   source: string;
 }
 
-type name = 'Sentences' | 'Expand' | 'Speaker';
+type name = 'Sentences' | 'Analyze' | 'Speaker';
 
 export default function SentenceCard({ sentence, word, source }: SentenceCardProps) {
 
@@ -35,7 +35,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
       </svg>)
     },
     {
-      name: 'Expand',
+      name: 'Analyze',
       icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6.13 1L6 16C6 16.5304 6.21071 17.0391 6.58579 17.4142C6.96086 17.7893 7.46957 18 8 18H23" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M1 6.13L16 6C16.5304 6 17.0391 6.21071 17.4142 6.58579C17.7893 6.96086 18 7.46957 18 8V23" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
@@ -67,7 +67,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
       speakSentence(sentence);
     }
 
-    else if (name === 'Expand') {
+    else if (name === 'Analyze') {
       setGrammarClicked(true);
     }
   }
