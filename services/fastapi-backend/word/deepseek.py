@@ -1,4 +1,4 @@
-import httpx
+from services.utils.helpers import make_httpx_request
 
 async def analyze_word(word: str, api_key: str):
     messages = [
@@ -8,25 +8,28 @@ async def analyze_word(word: str, api_key: str):
         }
     ]
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            "https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
-            headers={"Authorization": f"Bearer {api_key}"},
-            json={
-                "inputs": messages[0]["content"],
-                "parameters": {
-                    "temperature": 0.2,
-                }
-            }
-        )
-        response.raise_for_status()  # Raise an exception for HTTP errors
-        completion = response.json()
+    response_text = await make_httpx_request(api_key, messages)
 
-        response_text = completion[0]["generated_text"]
+    if "<think>" in response_text:
+        final_answer = response_text.split("</think>")[-1].strip()
+    else:
+        final_answer = response_text
 
-        if "<think>" in response_text:
-            final_answer = response_text.split("</think>")[-1].strip()
-        else:
-            final_answer = response_text
+    return final_answer
 
-        return final_answer
+async def analyze_sentence_with_word(sentence : str, word : str, api_key: str):
+    messages = [
+        {
+            "role": "user",
+            "content": f"Analyze the sentence: {sentence} Focus on the word {word}. Explain its role and purpose in the sentence in simple terms. Keep the answer short and straightforward. Do not say 'Sure' or 'Of course' at the beginning and do not say anything except your answer. Additionally provide your thinking process in <think></think> tags."
+        }
+    ]
+
+    response_text = await make_httpx_request(api_key, messages, )
+
+    if "<think>" in response_text:
+        final_answer = response_text.split("</think>")[-1].strip()
+    else:
+        final_answer = response_text
+
+    return final_answer
