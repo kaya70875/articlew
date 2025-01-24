@@ -3,6 +3,10 @@ import { getCurrentUser, getSourceName, highlighWord, runSpeaker, speakSentence 
 import React, { useState } from 'react'
 import { mutate } from 'swr';
 import Speaker from './svg/Speaker';
+import useAPIFetch from '@/hooks/useAPIFetch';
+import { FastApiAIResponse } from '@/types/sentence';
+import Loading from './Loading';
+import EllipseHeader from './reusables/EllipseHeader';
 
 interface SentenceCardProps {
   sentence: string;
@@ -13,6 +17,9 @@ interface SentenceCardProps {
 type name = 'Sentences' | 'Expand' | 'Speaker';
 
 export default function SentenceCard({ sentence, word, source }: SentenceCardProps) {
+
+  const [grammarClicked, setGrammarClicked] = useState(false);
+  const { data, loading, error } = useAPIFetch<FastApiAIResponse>(grammarClicked ? `/analysis/${sentence}/${word}` : null);
 
   const { handleFavorites } = useSentenceCardActions();
   const user = getCurrentUser();
@@ -59,6 +66,10 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     else if (name === 'Speaker') {
       speakSentence(sentence);
     }
+
+    else if (name === 'Expand') {
+      setGrammarClicked(true);
+    }
   }
 
   return (
@@ -70,6 +81,14 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
         ))}
       </div>
       <p className='text-base text-primaryBlue hover:underline w-full text-right cursor-pointer capitalize' onClick={handleSourceClick}>{getSourceName(source)}</p>
+      <section className={`grammar-analysis ${grammarClicked ? 'bg-lightBlue rounded-md p-4 flex flex-col gap-4 opacity-100' : 'h-0 opacity-0 pointer-events-none'} transition-all duration-300 ease-in-out`}>
+        {loading && <Loading />}
+        {data?.response && <header className='flex items-center w-full justify-between'>
+          <EllipseHeader ellipseColor='bg-red-400' text='Sentence Analysis' />
+          <button onClick={() => setGrammarClicked(false)}>x</button>
+        </header>}
+        <p className='text-base'>{data?.response}</p>
+      </section>
     </div>
   )
 }
