@@ -40,7 +40,8 @@ async def make_httpx_request(api_key : str, messages: list[dict], parameters : O
             json={
                 "inputs": messages[0]["content"],
                 "parameters": request_parameters
-            }
+            },
+            timeout=30.0 #Increased timeout
         )
         response.raise_for_status()  # Raise an exception for HTTP errors
         completion = response.json()
