@@ -2,11 +2,11 @@ import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
 import { getCurrentUser, getSourceName, highlighWord, runSpeaker, speakSentence } from '@/utils/helpers';
 import React, { useState } from 'react'
 import { mutate } from 'swr';
-import Speaker from './svg/Speaker';
+import Speaker from '../svg/Speaker';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { FastApiAIResponse } from '@/types/sentence';
-import Loading from './Loading';
-import EllipseHeader from './reusables/EllipseHeader';
+import Loading from '../Loading';
+import EllipseHeader from '../reusables/EllipseHeader';
 
 interface SentenceCardProps {
   sentence: string;

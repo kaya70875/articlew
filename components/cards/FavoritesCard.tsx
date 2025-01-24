@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
 import { getCurrentUser } from '@/utils/helpers';
 import { mutate } from 'swr';
-import Dropdown from './Dropdown';
-import ModalComp from './ModalComp';
+import Dropdown from '../Dropdown';
+import ModalComp from '../ModalComp';
 import useFetch from '@/hooks/useFetch';
 import { useCategoryActions } from '@/hooks/useCategoryActions';
 
