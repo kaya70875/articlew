@@ -36,12 +36,12 @@ export default function Sidebar() {
             route: '/paraphrase'
         },
         {
-            name: 'Sentences',
+            name: 'Sentence Fix',
             icon: (<svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 19.6889L8 14.6889L1 19.6889V3.6889C1 3.15847 1.21071 2.64976 1.58579 2.27469C1.96086 1.89962 2.46957 1.6889 3 1.6889H13C13.5304 1.6889 14.0391 1.89962 14.4142 2.27469C14.7893 2.64976 15 3.15847 15 3.6889V19.6889Z" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             ),
-            route: '/sentences',
+            route: '/fix',
         },
         {
             name: 'Goals',
