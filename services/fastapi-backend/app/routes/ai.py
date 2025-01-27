@@ -5,6 +5,7 @@ from app.models.paraphraseModel import ParaphraseModel as pModel
 from word.deepseek import analyze_word , analyze_sentence_with_word, fix_grammar_errors, paraphrase
 from dotenv import load_dotenv
 import os
+from urllib.parse import unquote
 
 load_dotenv()
 api_key = os.getenv('HUGGING_FACE_API_KEY')
@@ -45,6 +46,7 @@ async def fix_grammar(sentence : str):
     if not api_key:
         raise HTTPException(status_code=500, detail="API key not configured")
     try:
+        sentence = unquote(sentence) # filter out special characters from url like ? , . etc
         results = await fix_grammar_errors(sentence, api_key)
         return {"response": results}
     except Exception as e:
@@ -57,6 +59,7 @@ async def generate_paraphrase(sentence : str, context: str):
     if not api_key:
         raise HTTPException(status_code=500, detail="API key not configured")
     try:
+        sentence = unquote(sentence) # filter out special characters from url like ? , . etc
         results = await paraphrase(sentence, api_key, context=context)
         return {"paraphrase": results}
         

@@ -16,7 +16,7 @@ export default function Page() {
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [sentence, setSentence] = useState('');
 
-    const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/grammar/${sentence}` : null);
+    const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/grammar/${encodeURIComponent(sentence)}` : null);
 
     const handleFixButton = () => {
         if (textAreaRef.current) {

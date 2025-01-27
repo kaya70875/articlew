@@ -16,7 +16,7 @@ export default function page() {
     const [sentence, setSentence] = useState('');
     const [context, setContext] = useState<Context>('Casual');
 
-    const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/paraphrase/${sentence}/${context}` : null);
+    const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/paraphrase/${encodeURIComponent(sentence)}/${context}` : null);
 
     const buttonTypes = [
         'Casual',
