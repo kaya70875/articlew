@@ -1,7 +1,7 @@
 'use client';
 
 import Dropdown from '@/components/Dropdown';
-import FavoritesCard from '@/components/FavoritesCard';
+import FavoritesCard from '@/components/cards/FavoritesCard';
 import InputField from '@/components/inputs/InputField';
 import Loading from '@/components/Loading';
 import ModalComp from '@/components/ModalComp';
