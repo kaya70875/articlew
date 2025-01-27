@@ -1,5 +1,6 @@
 import re
 import httpx
+from difflib import SequenceMatcher
 from typing import Optional
 
 def extract_sentence(results, word):
@@ -13,6 +14,43 @@ def extract_sentence(results, word):
         new_results.append(new_text_dict)
         
     return new_results
+
+def highlight_corrections(original, corrected):
+    # Use SequenceMatcher to find differences
+    matcher = SequenceMatcher(None, original.split(), corrected.split())
+    
+    original_highlighted = []
+    corrected_highlighted = []
+
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        if tag == "replace":  # Words replaced
+            original_text = " ".join(original.split()[i1:i2])
+            corrected_text = " ".join(corrected.split()[j1:j2])
+            original_highlighted.append(f"<span style='color:#E76047; font-weight:bold;'>{original_text}</span>")
+            corrected_highlighted.append(f"<span style='color:#69B23E; font-weight:bold;'>{corrected_text}</span>")
+        elif tag == "delete":  # Words deleted in corrected version
+            original_text = " ".join(original.split()[i1:i2])
+            original_highlighted.append(f"<span style='color:#E76047; font-weight:bold;'>{original_text}</span>")
+        elif tag == "insert":  # Words inserted in corrected version
+            corrected_text = " ".join(corrected.split()[j1:j2])
+            corrected_highlighted.append(f"<span style='color:#69B23E; font-weight:bold;'>{corrected_text}</span>")
+        elif tag == "equal":  # No changes
+            unchanged_text = " ".join(original.split()[i1:i2])
+            original_highlighted.append(unchanged_text)
+            corrected_highlighted.append(unchanged_text)
+    
+    return " ".join(original_highlighted), " ".join(corrected_highlighted)
+
+def extract_paraphrase_sentences(results):
+    extracted_list = []
+    for i in range(1,6):
+        find_first = results.find(f"{i}.")
+        find_next = results.find(f"{i + 1}.")
+        extract = results[find_first + 3:find_next]
+        
+        extracted_list.append(extract)
+    
+    return extracted_list
 
 async def make_httpx_request(api_key : str, messages: list[dict], parameters : Optional[dict] = None) -> str:
 
