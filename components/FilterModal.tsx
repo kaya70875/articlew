@@ -20,6 +20,10 @@ export const categoriesList = [
     {
         'name': 'Psychology',
         'id': 'psychology'
+    },
+    {
+        'name': 'Wikipedia',
+        'id': 'encyclopedia'
     }
 ]
 
