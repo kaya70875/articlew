@@ -3,7 +3,18 @@ import httpx
 from difflib import SequenceMatcher
 from typing import Optional
 
-def extract_sentence(results, word):
+def extract_sentence(results, word: str):
+
+    """
+    Extract the sentence that contains the word. This function extract sentences from a text or sentence using a regular expression.
+
+    Args:
+        results (list): The text or sentence to search for the word.
+        word (str): The word to search for in the text.
+    
+    Returns:
+    """
+
     regex = rf'\b[A-Z][^.!?]*?\b{word}\b[^.!?]*[.!?]'
     new_results = []
     
@@ -15,7 +26,20 @@ def extract_sentence(results, word):
         
     return new_results
 
-def highlight_corrections(original, corrected):
+def highlight_corrections(original : str, corrected : str) -> tuple[str, str]:
+
+    """
+    Highlights the differences between the two texts. First one highlighted as red, second one highlighted as green.
+
+    Args:
+        original (str): The original text that user input.
+        corrected (str): The corrected text from AI Agent.
+    
+    Returns:
+        str: The original text with highlighted differences.
+        str: The corrected text with highlighted differences.
+    """
+
     # Use SequenceMatcher to find differences
     matcher = SequenceMatcher(None, original.split(), corrected.split())
     
@@ -41,9 +65,19 @@ def highlight_corrections(original, corrected):
     
     return " ".join(original_highlighted), " ".join(corrected_highlighted)
 
-def extract_paraphrase_sentences(results):
+def extract_paraphrase_sentences(results : str, sentence_count : int = 6) -> list:
+
+    """
+    Extract the five paraphrased sentences from the raw text and put it into a list.
+
+    Args:
+        results (str): The raw text containing the paraphrased sentences. This text coming from AI Agent.
+        sentence_count (int, optional): The number of sentences to extract. Defaults to 6 means 5 sentences. You should also change AI Agent response to return sentences you want to get.
+    Returns:
+        list: List of paraphrased sentences.
+    """
     extracted_list = []
-    for i in range(1,6):
+    for i in range(1,sentence_count):
         find_first = results.find(f"{i}.")
         find_next = results.find(f"{i + 1}.")
         extract = results[find_first + 3:find_next]
