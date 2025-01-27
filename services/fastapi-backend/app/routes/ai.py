@@ -1,13 +1,14 @@
 from fastapi import APIRouter , HTTPException
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from word.paraphrase import paraphrase
 from app.models.paraphraseModel import ParaphraseModel as pModel
-from word.deepseek import analyze_word , analyze_sentence_with_word
+from word.deepseek import analyze_word , analyze_sentence_with_word, fix_grammar_errors, paraphrase
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
+api_key = os.getenv('HUGGING_FACE_API_KEY')
+
 
 router = APIRouter()
 
@@ -20,7 +21,6 @@ model = AutoModelForSeq2SeqLM.from_pretrained("humarin/chatgpt_paraphraser_on_T5
 
 @router.get("/generate/{word}")
 async def generate_response(word: str):
-    api_key = os.getenv('HUGGING_FACE_API_KEY')
     if not api_key:
         raise HTTPException(status_code=500, detail="API key not configured")
 
@@ -32,7 +32,6 @@ async def generate_response(word: str):
 
 @router.get("/analysis/{sentence}/{word}")
 async def analyze_sentence(sentence: str, word: str):
-    api_key = os.getenv('HUGGING_FACE_API_KEY')
     if not api_key:
         raise HTTPException(status_code=500, detail="API key not configured")
     try:
@@ -40,10 +39,26 @@ async def analyze_sentence(sentence: str, word: str):
         return {"response": results}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/grammar/{sentence}")
+async def fix_grammar(sentence : str):
+    if not api_key:
+        raise HTTPException(status_code=500, detail="API key not configured")
+    try:
+        results = await fix_grammar_errors(sentence, api_key)
+        return {"response": results}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
     
 
 
-@router.get("/paraphrase/{sentence}" , response_model=pModel)
-async def generate_paraphrase(sentence : str):
-    results = paraphrase(question=sentence , model=model, tokenizer=tokenizer, device=device)
-    return {"paraphrase" : results}
+@router.get("/paraphrase/{sentence}/{context}" , response_model=pModel)
+async def generate_paraphrase(sentence : str, context: str):
+    if not api_key:
+        raise HTTPException(status_code=500, detail="API key not configured")
+    try:
+        results = await paraphrase(sentence, api_key, context=context)
+        return {"paraphrase": results}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
