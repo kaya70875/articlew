@@ -7,6 +7,9 @@ import SentenceCard from '@/components/cards/SentenceCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { FastApiAIResponse } from '@/types/sentence';
 import React, { useRef, useState } from 'react'
+import Speaker from '@/components/svg/Speaker';
+import { speakSentence } from '@/utils/helpers';
+import CopyIcon from '@/components/svg/CopyIcon';
 
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 
@@ -53,8 +56,16 @@ export default function page() {
                     <EllipseHeader ellipseColor='bg-orange-400' text='Rewrites' />
 
                     <div className='w-full flex flex-col gap-4'>
-                        {data?.paraphrase.map((sentence, index) => (
-                            <SentenceCard source='' word='' key={index} sentence={sentence} />
+                        {data?.paraphrase.map((sen, index) => (
+                            <div className='p-4 bg-white flex flex-col gap-8 justify-between rounded-md' key={index}>
+                                <p className='text-base'>{sen}</p>
+                                <div className='flex items-center gap-4'>
+                                    <div className='cursor-pointer' onClick={() => speakSentence(sen)}>
+                                        <Speaker isSpeaking={false} />
+                                    </div>
+                                    <CopyIcon props={{ color: '#1f2937', cursor: 'pointer', onClick: () => navigator.clipboard.writeText(sen) }} />
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </div>}
