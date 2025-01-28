@@ -73,14 +73,16 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   }
 
   return (
-    <div className='flex flex-col gap-4 p-8 bg-white'>
+    <div className='flex flex-col gap-8 justify-between p-6 bg-white rounded-md shadow-md'>
       <p className='text-lg' dangerouslySetInnerHTML={{ __html: highlightedSentence }} />
-      <div className='flex items-center gap-4'>
-        {sentenceCardIcons.map((icon, index) => (
-          <div key={index} onClick={() => handleSentenceCardActions(icon.name as name)} className={`icon cursor-pointer ${favorite && icon.name === 'Sentences' ? 'fill-primaryBlue text-primaryBlue' : 'text-primaryText'}`}>{icon.icon}</div>
-        ))}
+      <div className='flex justify-between items-center w-full'>
+        <div className='flex items-center gap-4'>
+          {sentenceCardIcons.map((icon, index) => (
+            <div key={index} onClick={() => handleSentenceCardActions(icon.name as name)} className={`icon cursor-pointer ${favorite && icon.name === 'Sentences' ? 'fill-primaryBlue text-primaryBlue' : 'text-primaryText'}`}>{icon.icon}</div>
+          ))}
+        </div>
+        <p className='text-base text-primaryBlue hover:underline text-right cursor-pointer capitalize' onClick={handleSourceClick}>{getSourceName(source)}</p>
       </div>
-      <p className='text-base text-primaryBlue hover:underline w-full text-right cursor-pointer capitalize' onClick={handleSourceClick}>{getSourceName(source)}</p>
       <section className={`grammar-analysis ${grammarClicked ? 'bg-lightBlue rounded-md p-4 flex flex-col gap-4 opacity-100' : 'h-0 opacity-0 pointer-events-none'} transition-all duration-300 ease-in-out`}>
         {loading && <Loading />}
         {data?.response && <header className='flex items-center w-full justify-between'>
