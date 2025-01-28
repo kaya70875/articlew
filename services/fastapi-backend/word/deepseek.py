@@ -1,4 +1,4 @@
-from services.utils.helpers import make_httpx_request, highlight_corrections, extract_paraphrase_sentences
+from services.utils.helpers import make_httpx_request, highlight_corrections, extract_paraphrase_sentences, parse_AI_response
 import asyncio
 
 async def analyze_word(word: str, api_key: str):
@@ -22,23 +22,13 @@ async def analyze_sentence_with_word(sentence : str, word : str, api_key: str):
     messages = [
         {
             "role": "user",
-            "content": f"Analyze the sentence: {sentence} Focus on the word {word}. Explain its role and purpose in the sentence in simple terms. Keep the answer short and straightforward. Do not say 'Sure' or 'Of course' at the beginning and do not say anything except your answer."
+            "content": f"Analyze the sentence: '{sentence}' with a focus on the word '{word}'. Explain its role, purpose, and meaning in the sentence in simple terms. Provide 1-2 synonyms and an example of a similar sentence using the word. Suggest an alternative way to rewrite the sentence with the same meaning. Keep the response clear and concise."
         }
     ]
 
     response_text = await make_httpx_request(api_key, messages)
+    final_answer = parse_AI_response(response_text, messages)
 
-    if "<think>" in response_text:
-        # Split the response text at "</think>" and take the last part
-        final_answer = response_text.split("</think>")[-1].strip()
-    
-        # Remove any remaining tags or unwanted text
-        final_answer = final_answer.replace("<think>", "").strip()
-    else:
-        final_answer = response_text.strip()
-
-    # Ensure the final answer is clean and does not contain any tags
-    final_answer = final_answer.replace("</think>", "").strip().replace(messages[0]["content"], "")
     return final_answer
 
 async def fix_grammar_errors(sentence : str, api_key : str) -> str:
@@ -50,18 +40,7 @@ async def fix_grammar_errors(sentence : str, api_key : str) -> str:
     ]
 
     response_text = await make_httpx_request(api_key, messages)
-
-    if "<think>" or "</think>" in response_text:
-        # Split the response text at "</think>" and take the last part
-        final_answer = response_text.split("</think>")[-1].strip()
-    
-        # Remove any remaining tags or unwanted text
-        final_answer = final_answer.replace("<think>", "").strip()
-    else:
-        final_answer = response_text.strip()
-
-    # Ensure the final answer is clean and does not contain any tags
-    final_answer = final_answer.replace("</think>", "").strip().replace(messages[0]["content"], "")
+    final_answer = parse_AI_response(response_text, messages)
 
     # Extract the corrected texts from the response
     original_text, corrected_text = await asyncio.to_thread(highlight_corrections, sentence, final_answer)
@@ -77,16 +56,8 @@ async def paraphrase(sentence : str, api_key : str, context: str = 'casual') -> 
     ]
 
     response_text = await make_httpx_request(api_key, messages)
-
-    if "<think>" or "</think>" in response_text:
-        # Split the response text at "</think>" and take the last part
-        final_answer = response_text.split("</think>")[-1].strip()
-    
-        # Remove any remaining tags or unwanted text
-        final_answer = final_answer.replace("<think>", "").strip()
-    else:
-        final_answer = response_text.strip()
+    final_answer = parse_AI_response(response_text, messages)
 
     # Ensure the final answer is clean and does not contain any tags
-    final_answer = await asyncio.to_thread(extract_paraphrase_sentences, final_answer.replace("</think>", "").strip().replace(messages[0]["content"], ""))
+    final_answer = await asyncio.to_thread(extract_paraphrase_sentences, final_answer)
     return final_answer
