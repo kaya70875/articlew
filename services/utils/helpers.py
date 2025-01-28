@@ -120,3 +120,28 @@ async def make_httpx_request(api_key : str, messages: list[dict], parameters : O
 
         response_text = completion[0]["generated_text"]
         return response_text
+    
+def parse_AI_response(response_text : str , messages) -> str:
+
+    """
+    Parse the AI response and extract the final answer.
+    Args:
+        response_text (str): The AI response text.
+        messages (list): The messages section of AI.
+    Returns:
+        str: The final answer extracted from the AI response.
+    
+    """
+
+    if "<think>" or "</think>" in response_text:
+        # Split the response text at "</think>" and take the last part
+        final_answer = response_text.split("</think>")[-1].strip()
+    
+        # Remove any remaining tags or unwanted text
+        final_answer = final_answer.replace("<think>", "").strip()
+    else:
+        final_answer = response_text.strip()
+
+    # Ensure the final answer is clean and does not contain any tags
+    final_answer = final_answer.replace("</think>", "").strip().replace(messages[0]["content"], "")
+    return final_answer
