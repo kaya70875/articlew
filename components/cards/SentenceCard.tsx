@@ -19,7 +19,7 @@ type name = 'Sentences' | 'Analyze' | 'Speaker';
 export default function SentenceCard({ sentence, word, source }: SentenceCardProps) {
 
   const [grammarClicked, setGrammarClicked] = useState(false);
-  const { data, loading, error } = useAPIFetch<FastApiAIResponse>(grammarClicked ? `/analysis/${sentence}/${word}` : null);
+  const { data, loading, error } = useAPIFetch<FastApiAIResponse>(grammarClicked ? `/analysis/${encodeURIComponent(sentence)}/${word}` : null);
 
   const { handleFavorites } = useSentenceCardActions();
   const user = getCurrentUser();

@@ -36,6 +36,7 @@ async def analyze_sentence(sentence: str, word: str):
     if not api_key:
         raise HTTPException(status_code=500, detail="API key not configured")
     try:
+        sentence = unquote(sentence) # filter out special characters from url like ? , . etc
         results = await analyze_sentence_with_word(sentence, word, api_key)
         return {"response": results}
     except Exception as e:
