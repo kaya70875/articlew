@@ -61,3 +61,29 @@ async def paraphrase(sentence : str, api_key : str, context: str = 'casual') -> 
     # Ensure the final answer is clean and does not contain any tags
     final_answer = await asyncio.to_thread(extract_paraphrase_sentences, final_answer)
     return final_answer
+
+async def compare_words(word_1 : str, word_2 : str, api_key : str) -> str:
+
+    """
+    Compare two words and provide examples of how each word is used in a sentence.
+    Args:
+        word_1 (str): The first word to compare.
+        word_2 (str): The second word to compare.
+        api_key (str): The API key for the Hugging Face model.
+    Returns:
+        str: The comparison of the two words with examples
+    """
+
+    messages = [
+        {
+            "role": "user",
+            "content": f"Compare the words '{word_1}' and '{word_2}'. Explain their similarities and differences. Provide examples of how each word is used in a sentence. Keep the response clear and concise. Response as a json format. here an example json format : ```json {{ \"similarities\": \"Both 'go' and 'back' are verbs that can indicate movement or direction. They can be used in similar contexts, such as traveling from one place to another.\", \"differences\": \"'Go' is a verb that generally means to move from a place, often towards a destination, while 'back' can function as both a verb and an adverb. 'Back' as a verb means to return to a previous place, and as an adverb, it indicates direction or movement in the opposite direction.\", \"examples_go\": [ \"I will go to the store to buy groceries.\", \"The train goes to the city center at 8 AM.\" ], \"examples_back\": [ \"She went back home after the party.\", \"He turned back when he heard a strange noise.\" ] }} ```"
+        }
+    ]
+
+    response_text = await make_httpx_request(api_key, messages, parameters={
+        'temperature': 0.7,
+    })
+    final_answer = parse_AI_response(response_text, messages)
+
+    return final_answer
