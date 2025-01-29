@@ -2,7 +2,7 @@ from fastapi import APIRouter , HTTPException
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from app.models.paraphraseModel import ParaphraseModel as pModel
-from word.deepseek import analyze_word , analyze_sentence_with_word, fix_grammar_errors, paraphrase
+from word.deepseek import analyze_word , analyze_sentence_with_word, fix_grammar_errors, paraphrase, compare_words
 from dotenv import load_dotenv
 import os
 from urllib.parse import unquote
@@ -64,5 +64,15 @@ async def generate_paraphrase(sentence : str, context: str):
         results = await paraphrase(sentence, api_key, context=context)
         return {"paraphrase": results}
         
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/compare/{word1}/{word2}")
+async def compare(word1: str, word2: str):
+    if not api_key:
+        raise HTTPException(status_code=500, detail="API key not configured")
+    try:
+        results = await compare_words(word1, word2, api_key)
+        return {"response": results}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
