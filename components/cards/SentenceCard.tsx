@@ -1,5 +1,5 @@
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { getCurrentUser, getSourceName, highlighWord, runSpeaker, speakSentence } from '@/utils/helpers';
+import { getCurrentUser, getSourceName, highlighWord, prettyAIResponse, runSpeaker, speakSentence } from '@/utils/helpers';
 import React, { useState } from 'react'
 import { mutate } from 'swr';
 import Speaker from '../svg/Speaker';
@@ -55,6 +55,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   }
 
   const highlightedSentence = highlighWord(sentence, word);
+  const prettierResponse = prettyAIResponse(data?.response!);
 
   const handleSentenceCardActions = async (name: name) => {
     if (name === 'Sentences') {
@@ -89,7 +90,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
           <EllipseHeader ellipseColor='bg-red-400' text='Sentence Analysis' />
           <button onClick={() => setGrammarClicked(false)}>x</button>
         </header>}
-        <p className='text-base'>{data?.response}</p>
+        <p className='text-base' dangerouslySetInnerHTML={{ __html: prettierResponse }}></p>
       </section>
     </div>
   )
