@@ -25,7 +25,7 @@ h4 , .h4 {
 }
 
 p , .p {
-  @apply text-xl font-normal text-primaryText;
+  @apply text-base font-normal text-primaryText;
 }
 
 li , .li {
