@@ -94,8 +94,13 @@ export const highlighWord = (
 export const prettyAIResponse = (text: string) => {
   // Regex to find the example sentence (text within quotes)
   const regex = /"(.*?)"/g;
+  const boldRegex = /\*\*(.*?)\*\*/g;
 
   // Replace the example sentence with an italic version
-  const formattedText = text?.replace(regex, '<em>"$1"</em>');
+  let formattedText = text?.replace(regex, '<em>"$1"</em>');
+  formattedText = formattedText?.replace(
+    boldRegex,
+    '<br><span class="font-bold text-primaryText underline">$1</span>'
+  );
   return formattedText;
 };
