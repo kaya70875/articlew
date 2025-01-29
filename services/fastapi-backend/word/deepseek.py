@@ -22,7 +22,7 @@ async def analyze_sentence_with_word(sentence : str, word : str, api_key: str):
     messages = [
         {
             "role": "user",
-            "content": f"Analyze the sentence: '{sentence}' with a focus on the word '{word}'. Explain its role, purpose, and meaning in the sentence in simple terms. Provide 1-2 synonyms and an example of a similar sentence using the word. Suggest an alternative way to rewrite the sentence with the same meaning. Keep the response clear and concise."
+            "content": f"Analyze the sentence: '{sentence}' with a focus on the word '{word}'. Explain its role, purpose, and meaning in the sentence in simple terms. Provide an example of a similar sentence using the word. Suggest an alternative way to rewrite the sentence with the same meaning. Keep the response clear and concise."
         }
     ]
 
