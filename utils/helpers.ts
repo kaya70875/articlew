@@ -94,13 +94,23 @@ export const highlighWord = (
 export const prettyAIResponse = (text: string) => {
   // Regex to find the example sentence (text within quotes)
   const regex = /"(.*?)"/g;
-  const boldRegex = /\*\*(.*?)\*\*/g;
+  const boldRegexWithColon = /\*\*(.*?:)\*\*/g; // Match content between ** that ends with a colon
+  const boldRegexWithoutColon = /\*\*(.*?)\*\*/g; // Match content between ** that does not end with a colon
 
   // Replace the example sentence with an italic version
   let formattedText = text?.replace(regex, '<em>"$1"</em>');
+
+  // Replace words between ** signs with a colon with a bold, underlined version and add a newline after
   formattedText = formattedText?.replace(
-    boldRegex,
-    '<br><span class="font-bold text-primaryText underline">$1</span>'
+    boldRegexWithColon,
+    '<br><span class="font-bold text-primaryText underline">$1</span><br>'
   );
+
+  // Replace words between ** signs without a colon with a bold, underlined version without adding a newline
+  formattedText = formattedText?.replace(
+    boldRegexWithoutColon,
+    '<span class="font-bold text-primaryText underline">$1</span>'
+  );
+
   return formattedText;
 };
