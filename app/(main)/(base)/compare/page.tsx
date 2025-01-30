@@ -2,14 +2,13 @@
 
 import Loading from '@/components/Loading'
 import useAPIFetch from '@/hooks/useAPIFetch'
+import { useParseJson } from '@/hooks/useParseJson'
 import { FastApiAIResponse } from '@/types/sentence'
 import { useRef, useState, useEffect } from 'react'
 
 export default function Page() {
     const [word_1, setWord_1] = useState('')
     const [word_2, setWord_2] = useState('')
-
-    const [jsonResponse, setJsonResponse] = useState<Record<string, any> | null>(null)
 
     const inputRef1 = useRef<HTMLInputElement>(null)
     const inputRef2 = useRef<HTMLInputElement>(null)
@@ -25,41 +24,32 @@ export default function Page() {
         }
     }
 
-    // Use useEffect to update jsonResponse safely
-    useEffect(() => {
-        if (data?.response) {
-            try {
-                const jsonString = data.response.replace(/^.*?```json\n|\n```$/g, '')
-                const response = JSON.parse(jsonString)
-                setJsonResponse(response)
-            } catch (error) {
-                console.error('Failed to parse JSON:', error)
-                setJsonResponse(null)
-            }
-        }
-    }, [data])
+    const jsonResponse = useParseJson(data?.response!)
 
     return (
-        <div className='flex flex-col gap-8 w-1/2'>
-            <div className='flex items-center gap-4 w-full justify-around p-6 bg-lightBlue'>
-                <div className='compare-card p-6 bg-white'>
-                    <input type="text" ref={inputRef1} placeholder="Enter first word" />
+        <div className='flex flex-col p-6 bg-lightBlue rounded-md gap-8 w-1/2'>
+            <div className='flex flex-col gap-4 bg-white rounded-md p-4'>
+                <div className='flex items-center gap-4 w-full justify-around p-6'>
+                    <div className='compare-card'>
+                        <input type="text" className='outline-none text-primaryText p-2' ref={inputRef1} placeholder="Enter First Word" />
+                    </div>
+
+                    <h4 className='font-bold'>AND</h4>
+
+                    <div className='compare-card'>
+                        <input type="text" className='outline-none text-primaryText p-2' ref={inputRef2} placeholder="Enter Second Word" />
+                    </div>
                 </div>
 
-                <div className='p-6 bg-white'>
-                    <input type="text" ref={inputRef2} placeholder="Enter second word" />
+                <div className="button-wrapper w-full flex items-center justify-center">
+                    <button className="primary-button w-1/3" onClick={handleClick}>Compare</button>
                 </div>
             </div>
 
-            <button className="primary-button" onClick={handleClick}>Compare</button>
 
             {loading && <Loading />}
-            {jsonResponse && (
-                <div className='compare-result p-6 bg-lightBlue rounded-md flex flex-col gap-4'>
-                    <header className='flex items-center w-full justify-between'>
-                        <h3>Comparison Result</h3>
-                    </header>
-
+            {jsonResponse && data && (
+                <div className='compare-result p-6 bg-white rounded-md flex flex-col gap-4'>
                     {/* Render JSON object properly */}
                     <div className="text-base whitespace-pre-wrap">
                         <p className='font-bold'>Similarities:</p>
