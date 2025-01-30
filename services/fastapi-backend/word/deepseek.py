@@ -5,16 +5,12 @@ async def analyze_word(word: str, api_key: str):
     messages = [
         {
             "role": "user",
-            "content": f"Can you analyze the word '{word}' and give an example of its usage? Do not analysis word's origin and please keep it short. Do not say 'Sure' or 'Of course' at the beginning and do not say anything except your answer. Additionally provide your thinking process in <think></think> tags."
+            "content": f"Can you analyze the word '{word}' and give an example of its usage? Additionally check if word itself is correct or not. Do not analysis word's origin and please keep it short. Give me a json Here an example json response: {{\"check\": \"'prevent' is a correct and usable word in written English.\",\"analysis\" : \"It can be used to describe a situation in which something bad is avoided from happening. For example: 'Taking precautions helped us prevent the spread of the virus.'\"}}"
         }
     ]
 
     response_text = await make_httpx_request(api_key, messages)
-
-    if "<think>" in response_text:
-        final_answer = response_text.split("</think>")[-1].strip()
-    else:
-        final_answer = response_text
+    final_answer = parse_AI_response(response_text, messages)
 
     return final_answer
 
