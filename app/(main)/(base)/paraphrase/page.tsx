@@ -10,6 +10,12 @@ import React, { useRef, useState } from 'react'
 import Speaker from '@/components/svg/Speaker';
 import { speakSentence } from '@/utils/helpers';
 import CopyIcon from '@/components/svg/CopyIcon';
+import IconMessage from '@/components/svg/IconMessage';
+import IconFormal from '@/components/svg/IconFormal';
+import IconShortened from '@/components/svg/IconShortened';
+import IconExpanded from '@/components/svg/IconExpanded';
+import IconAcademic from '@/components/svg/IconAcademic';
+import InformationBubble from '@/components/reusables/InformationBubble';
 
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 
@@ -22,11 +28,26 @@ export default function page() {
     const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/paraphrase/${encodeURIComponent(sentence)}/${context}` : null);
 
     const buttonTypes = [
-        'Casual',
-        'Academic',
-        'Formal',
-        'Sortened',
-        'Extended',
+        {
+            name: 'Casual',
+            icon: (<IconMessage />)
+        },
+        {
+            name: 'Formal',
+            icon: (<IconFormal />)
+        },
+        {
+            name: 'Sortened',
+            icon: (<IconShortened />)
+        },
+        {
+            name: 'Extended',
+            icon: (<IconExpanded />)
+        },
+        {
+            name: 'Academic',
+            icon: (<IconAcademic />)
+        }
     ]
 
     const handleParaphraseClick = () => {
@@ -39,11 +60,13 @@ export default function page() {
         <div className='w-full flex items-center justify-center'>
             <div className='w-2/3 flex flex-col gap-8 items-center justify-center'>
                 <TextArea textAreaRef={textAreaRef}>
-                    <div className='flex items-center gap-4'>
+                    <div className='flex flex-row-reverse items-center gap-2'>
                         {buttonTypes.map((buttonType, index) => (
-                            <button key={index} className={`${context === buttonType ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-md`} onClick={() => setContext(buttonType as Context)}>
-                                {buttonType}
-                            </button>
+                            <InformationBubble information={buttonType.name} key={index}>
+                                <button key={index} className={`relative ${context === buttonType.name ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-full`} onClick={() => setContext(buttonType.name as Context)}>
+                                    {buttonType.icon}
+                                </button>
+                            </InformationBubble>
                         ))}
                     </div>
                     <button className='primary-button' onClick={handleParaphraseClick}>Paraphrase</button>
