@@ -9,9 +9,9 @@ import WordInfoCard from '@/components/cards/WordInfoCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { FastApiResponse } from '@/types/sentence';
 import { Pagination } from '@mui/material';
-import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import NoResultsCard from '@/components/cards/NoResultsCard';
 
 export default function page() {
 
@@ -29,10 +29,8 @@ export default function page() {
 
   const { data, loading, error } = useAPIFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
 
-  const auth = useSession();
-  const currentUser = auth.data?.user;
-
   const totalPage = data?.total_results ? Math.ceil(data.total_results / 10) : 1;
+
 
   const handleResults = async () => {
     router.push(`/search?word=${word}&page=1`);
@@ -55,10 +53,6 @@ export default function page() {
 
   return (
     <div className='flex flex-col gap-8 w-2/3'>
-      <header className="top flex flex-col gap-4 h-full">
-        <h3>Welcome Again , {currentUser?.name}</h3>
-        <p>Choose a word to get started!</p>
-      </header>
       <div className='sticky top-0 bg-whitef w-full'>
         <div className='input-wrapper py-4 relative w-full'>
           <input type="text" className='hero-input w-full' onChange={(e) => setWord(e.target.value)} value={word} onKeyDown={handleKeyDown} />
@@ -72,19 +66,18 @@ export default function page() {
       </div>
 
       {loading && <Loading />}
-      {error && <p>Error: {error.message}</p>}
 
       <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
       </div>
 
-      {data && (
+      {data ? (
         <div className='flex flex-col gap-8'>
           <WordInfoCard currentWord={currentWord} />
-          <header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
+          {currentWord && (<header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
             <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
             <AIWordAnalysis currentWord={currentWord} />
-          </header>
+          </header>)}
           <article className='flex flex-col gap-8 p-6 bg-lightBlue w-full'>
             <EllipseHeader ellipseColor='bg-blue-300' text='Exact' />
             <div className='sentence-cards flex flex-col gap-8'>
@@ -97,6 +90,8 @@ export default function page() {
           </article>
         </div>
 
+      ) : (
+        currentWord && !loading && <NoResultsCard />
       )}
     </div>
   )
