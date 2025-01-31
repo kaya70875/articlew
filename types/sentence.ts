@@ -24,6 +24,7 @@ export type FastApiWordResponse = {
 export type WordInfo = {
   definition: string;
   synonyms: string[];
+  examples : string[];
 };
 
 export type Sentence = {
