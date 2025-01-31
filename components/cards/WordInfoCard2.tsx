@@ -18,10 +18,31 @@ export default function WordInfoCard2({ currentWord }: { currentWord: string }) 
     const { data: definitions, loading: loadingDefinitions, error: errorDefinitions } = useFetch<WordnikDefinition[]>(`https://api.wordnik.com/v4/word.json/${currentWord}/definitions?limit=200&includeRelated=false&useCanonical=false&includeTags=false&api_key=${api_key}`)
     const { data: synonyms, loading: loadingSynonyms, error: errorSynonyms } = useFetch<WordnikSynonym[]>(`https://api.wordnik.com/v4/word.json/${currentWord}/relatedWords?useCanonical=false&relationshipTypes=synonym&limitPerRelationshipType=8&api_key=${api_key}`)
 
-    const verb = definitions?.filter(item => item.partOfSpeech === 'intransitive verb') || []
-    const noun = definitions?.filter(item => item.partOfSpeech === 'noun') || []
-    const adjective = definitions?.filter(item => item.partOfSpeech === 'adjective') || []
-    const adverb = definitions?.filter(item => item.partOfSpeech === 'adverb') || []
+    const verb = definitions?.filter(item => item.partOfSpeech === 'intransitive verb' && item.text !== undefined) || []
+    const noun = definitions?.filter(item => item.partOfSpeech === 'noun' && item.text !== undefined) || []
+    const adjective = definitions?.filter(item => item.partOfSpeech === 'adjective' && item.text !== undefined) || []
+    const adverb = definitions?.filter(item => item.partOfSpeech === 'adverb' && item.text !== undefined) || []
+
+    const speechs = [
+        {
+            name: 'verb',
+            data: verb
+        },
+        {
+            name: 'noun',
+            data: noun
+        },
+        {
+            name: 'adjective',
+            data: adjective
+        },
+        {
+            name: 'adverb',
+            data: adverb
+        }
+    ]
+    const relevantSpeech = definitions?.[0]?.partOfSpeech.replace('intransitive ', '');
+    const relevantSpeechData = speechs.find(speech => speech.name === relevantSpeech)?.data;
 
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [showMore, setShowMore] = useState(false);
@@ -29,7 +50,7 @@ export default function WordInfoCard2({ currentWord }: { currentWord: string }) 
     const renderSection = (data: WordnikDefinition[]) => {
         return (
             <div className='flex w-full gap-4 flex-col'>
-                {data?.slice(0, 2).map((item, index) => (
+                {data?.map((item, index) => (
                     <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-4 rounded-md shadow-md'>
                         <div className='flex flex-col gap-2 w-full'>
                             <p className='text-sm text-gray-600'>{item.partOfSpeech.replace('intransitive ', '')}</p>
@@ -67,7 +88,7 @@ export default function WordInfoCard2({ currentWord }: { currentWord: string }) 
     }
 
     return (
-        <div className='flex flex-col gap-8 p-6 bg-lightBlue rounded-md'>
+        <div className='flex flex-col gap-8 p-6 transition-all duration-300 bg-lightBlue rounded-md'>
             <EllipseHeader ellipseColor='bg-primaryBlue' text='Dictionary' />
             <div className='flex items-center w-full justify-between'>
                 <div className="word-itself flex items-center gap-3">
@@ -85,18 +106,19 @@ export default function WordInfoCard2({ currentWord }: { currentWord: string }) 
 
             {errorDefinitions && <p>Error fetching word info</p>}
             {loadingDefinitions && <Loading />}
+            {loadingSynonyms && <Loading />}
             {definitions && (
-                <>
-                    {verb?.length > 0 && renderSection(verb)}
-                    {showMore && (
-                        <>
-                            {noun?.length > 0 && renderSection(noun)}
-                            {adjective?.length > 0 && renderSection(adjective)}
-                            {adverb?.length > 0 && renderSection(adverb)}
-                        </>
-                    )}
+                <div>
+                    {relevantSpeechData?.length! > 0 && relevantSpeechData && renderSection(relevantSpeechData)}
 
-                </>
+                    <div className={`overflow-hidden transition-all duration-300 ${showMore ? 'max-h-[1500px]' : 'max-h-0'}`}>
+                        {speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
+                            speech.data.length > 0 && renderSection(speech.data)
+                        ))}
+                    </div>
+
+
+                </div>
             )}
         </div>
     )
