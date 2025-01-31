@@ -4,7 +4,7 @@ from typing import List
 class WordInfo(BaseModel):
     definition: str
     synonyms: List[str]
-
+    examples: List[str]
 class WordInfoResponse(BaseModel):
     adjective: List[WordInfo]
     adverb: List[WordInfo]
