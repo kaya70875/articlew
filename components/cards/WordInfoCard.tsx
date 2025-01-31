@@ -18,14 +18,18 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
 
     const router = useRouter();
 
-    const renderSection = (title: string, items: { definition: string; synonyms: string[] }[]) => {
+    const renderSection = (title: string, items: { definition: string; synonyms: string[]; examples: string[]; }[]) => {
         return (
             <div className='flex w-full gap-4 flex-col'>
-                {items.slice(0, 1).map((item, index) => (
+                {items.map((item, index) => (
                     <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-4 rounded-md shadow-md'>
                         <div className='flex flex-col gap-2 w-full'>
                             <p className='text-sm text-gray-600'>{title}</p>
-                            <p className='font-medium text-lg max-w-3xl px-4'>{item.definition}</p>
+                            <p className='font-medium max-w-3xl px-4'>{item.definition}</p>
+
+                            {item.examples?.map((example, index) => (
+                                <p className='text-sm text-gray-600 px-8' key={index} >{example}</p>
+                            ))}
                         </div>
 
                         <div className='flex flex-col gap-2 w-full'>
