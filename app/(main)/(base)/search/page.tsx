@@ -12,6 +12,7 @@ import { Pagination } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import NoResultsCard from '@/components/cards/NoResultsCard';
+import WordInfoCard2 from '@/components/cards/WordInfoCard2';
 
 export default function page() {
 
@@ -73,7 +74,7 @@ export default function page() {
 
       {data ? (
         <div className='flex flex-col gap-8'>
-          <WordInfoCard currentWord={currentWord} />
+          <WordInfoCard2 currentWord={currentWord} />
           {currentWord && (<header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
             <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
             <AIWordAnalysis currentWord={currentWord} />
