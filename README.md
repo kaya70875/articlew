@@ -8,6 +8,8 @@
 * **Periodic Updates**: Automatically fetches new sentences and examples to keep the database fresh.
 * **Authentication**: Secure login and sign-up functionality for personalized experiences.
 * **Paraphrase** : Users can input a sentence and get diffirent variations of this sentence.
+* **Compare** : Compare two words about its differences and similarities.
+* **Sentence Fix** : Improve your sentences and any grammar errors with AI suggestions.
 
 ## Future Enhancements:
 * Sentence difficulty levels (beginner, intermediate, advanced).
@@ -25,3 +27,4 @@
 * Additional Libraries:
   * transformers for advanced NLP tasks.
   * SWR for efficient data fetching in the frontend.
+  * NLTK library
