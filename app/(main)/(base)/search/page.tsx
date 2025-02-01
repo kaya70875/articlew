@@ -12,7 +12,6 @@ import { Pagination } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import NoResultsCard from '@/components/cards/NoResultsCard';
-import WordInfoCard2 from '@/components/cards/WordInfoCard2';
 
 export default function page() {
 

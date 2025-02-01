@@ -4,7 +4,7 @@ import Loading from '@/components/Loading'
 import useAPIFetch from '@/hooks/useAPIFetch'
 import { useParseJson } from '@/hooks/useParseJson'
 import { FastApiAIResponse } from '@/types/sentence'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 
 export default function Page() {
     const [word_1, setWord_1] = useState('')
@@ -48,6 +48,7 @@ export default function Page() {
 
 
             {loading && <Loading />}
+            {error && <div>Error: {error}</div>}
             {jsonResponse && data && (
                 <div className='compare-result p-6 bg-white rounded-md flex flex-col gap-4'>
                     {/* Render JSON object properly */}
