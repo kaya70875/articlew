@@ -7,18 +7,15 @@ from collections import Counter
 nltk.download('brown')
 nltk.download('universal_tagset')
 
-def get_word_info(word):
-    synsets = wordnet.synsets(word)
-    if synsets:
-        definition = synsets[0].definition()
-        examples = synsets[0].examples()
-        return {
-            "definition": definition,
-            "examples": examples
-        }
-    return None
-
-def get_word_info_extended(word):
+def get_word_info_extended(word : str) -> dict:
+    """
+    Get information about a word from WordNet, including its definition, synonyms, and examples.
+    
+    @params:
+    word (str): The word to look up in WordNet.
+    @returns:
+    dict : A dictionary containing the word's information
+    """
     # Retrieve synsets for the word (could be adjective, adverb, verb, noun, etc.)
     synsets = wordnet.synsets(word)
     
@@ -50,7 +47,15 @@ def get_word_info_extended(word):
     
     return info
 
-def most_common_pos(word):
+def most_common_pos(word : str) -> str:
+    """
+    Get the most common part of speech for a word.
+
+    @params:
+        word (str): The word to look up in the Brown corpus.
+    @returns: 
+        str: The most common part of speech for the word.
+    """
     # Normalize the word to lowercase
     word = word.lower()
     

@@ -1,7 +1,17 @@
 from services.utils.helpers import make_httpx_request, highlight_corrections, extract_paraphrase_sentences, parse_AI_response
 import asyncio
 
-async def analyze_word(word: str, api_key: str):
+async def analyze_word(word: str, api_key: str) -> str:
+    """
+    Analyze a word and provide an example of its usage in a sentence. 
+    Additionally checks if word itself is correct or not in writing English.
+
+    Args:
+        word (str): The word to analyze.
+        api_key (str): The API key for the Hugging Face model.
+    Returns:
+        str: The analysis of the word with an example sentence.
+    """
     messages = [
         {
             "role": "user",
@@ -14,7 +24,17 @@ async def analyze_word(word: str, api_key: str):
 
     return final_answer
 
-async def analyze_sentence_with_word(sentence : str, word : str, api_key: str):
+async def analyze_sentence_with_word(sentence : str, word : str, api_key: str) -> str:
+    """
+    Analyze a sentence with a focus on a specific word and provide an explanation of its role, purpose, and meaning in the sentence.
+
+    Args:
+        sentence (str): The sentence to analyze.
+        word (str): The word to focus on in the sentence.
+        api_key (str): The API key for the Hugging Face model.
+    Returns:
+        str: The analysis of the sentence with a focus on the word.
+    """
     messages = [
         {
             "role": "user",
@@ -28,6 +48,15 @@ async def analyze_sentence_with_word(sentence : str, word : str, api_key: str):
     return final_answer
 
 async def fix_grammar_errors(sentence : str, api_key : str) -> str:
+    """
+    Identify and fix any grammar errors in a sentence. If the sentence is already correct, return the original sentence.
+
+    Args:
+        sentence (str): The sentence to correct.
+        api_key (str): The API key for the Hugging Face model.
+    Returns:
+        str: The corrected sentence.
+    """
     messages = [
         {
             "role": "user",
@@ -43,7 +72,17 @@ async def fix_grammar_errors(sentence : str, api_key : str) -> str:
 
     return original_text, corrected_text
 
-async def paraphrase(sentence : str, api_key : str, context: str = 'casual') -> str:
+async def paraphrase(sentence : str, api_key : str, context: str = 'casual') -> list:
+    """
+    Paraphrase a sentence in a specific context and provide five different examples.
+
+    Args:
+        sentence (str): The sentence to paraphrase.
+        api_key (str): The API key for the Hugging Face model.
+        context (str): The context in which to paraphrase the sentence (e.g., casual, formal, academic).
+    Returns:
+        list: The paraphrased sentence list with five different examples.
+    """
     messages = [
         {
             "role": "user",

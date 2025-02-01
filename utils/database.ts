@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+
+/**
+ * Database connection script.
+ * 
+ */
 export const connectToDB = async () => {
     mongoose.set("strictQuery", true);
 

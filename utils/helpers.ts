@@ -2,6 +2,11 @@ import { useSentenceCardActions } from "@/hooks/useSentenceCardActions";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 
+/**
+ * Fetches the name of the source from a given URL.
+ * @param url : string;
+ * @returns name : string;
+ */
 export const getSourceName = (url: string) => {
   try {
     const { hostname } = new URL(url);
@@ -11,11 +16,20 @@ export const getSourceName = (url: string) => {
   }
 };
 
+/**
+ * Fetches the current user from the session.
+ * @returns user : object;
+ */
+
 export const getCurrentUser = () => {
   const session = useSession();
   return session.data?.user;
 };
 
+/**
+ * Gets current word from the URL.
+ * @returns currentWord : string;
+ */
 export const getCurrentWord = () => {
   const params = useSearchParams();
   return params.get("word") || "";
@@ -33,6 +47,11 @@ export const runSpeaker = async (
   audio.onerror = () => setIsSpeaking(false);
   audio.play();
 };
+
+/**
+ * Speaks the given sentence using the browser's speech synthesis API.
+ * @param sentence : string;
+ */
 
 export const speakSentence = (sentence: string) => {
   const utterance = new SpeechSynthesisUtterance(sentence);
