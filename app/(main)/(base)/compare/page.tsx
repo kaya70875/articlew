@@ -1,5 +1,6 @@
 'use client'
 
+import Card from '@/components/cards/Card'
 import Loading from '@/components/Loading'
 import useAPIFetch from '@/hooks/useAPIFetch'
 import { useParseJson } from '@/hooks/useParseJson'
@@ -50,8 +51,7 @@ export default function Page() {
             {loading && <Loading />}
             {error && <div>Error: {error}</div>}
             {jsonResponse && data && (
-                <div className='compare-result p-6 bg-white rounded-md flex flex-col gap-4'>
-                    {/* Render JSON object properly */}
+                <Card>
                     <div className="text-base whitespace-pre-wrap">
                         <p className='font-bold'>Similarities:</p>
                         <p>{jsonResponse.similarities}</p>
@@ -73,7 +73,7 @@ export default function Page() {
                             ))}
                         </ul>
                     </div>
-                </div>
+                </Card>
             )}
         </div>
     )

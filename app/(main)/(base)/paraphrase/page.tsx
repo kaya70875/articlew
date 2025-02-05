@@ -16,6 +16,7 @@ import IconShortened from '@/components/svg/IconShortened';
 import IconExpanded from '@/components/svg/IconExpanded';
 import IconAcademic from '@/components/svg/IconAcademic';
 import InformationBubble from '@/components/reusables/InformationBubble';
+import Card from '@/components/cards/Card';
 
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 
@@ -50,6 +51,11 @@ export default function page() {
         }
     ]
 
+    const icons = [
+        { icon: <Speaker isSpeaking={false} />, onClick: (sent: string) => speakSentence(sent) },
+        { icon: <CopyIcon props={{ color: '#1f2937', cursor: 'pointer' }} />, onClick: (sent: string) => navigator.clipboard.writeText(sent) },
+    ]
+
     const handleParaphraseClick = () => {
         if (textAreaRef.current) {
             setSentence(textAreaRef.current.value);
@@ -80,15 +86,7 @@ export default function page() {
 
                     <div className='w-full flex flex-col gap-4'>
                         {data?.paraphrase.map((sen, index) => (
-                            <div className='p-4 bg-white flex flex-col gap-8 justify-between rounded-md' key={index}>
-                                <p className='text-base'>{sen}</p>
-                                <div className='flex items-center gap-4'>
-                                    <div className='cursor-pointer' onClick={() => speakSentence(sen)}>
-                                        <Speaker isSpeaking={false} />
-                                    </div>
-                                    <CopyIcon props={{ color: '#1f2937', cursor: 'pointer', onClick: () => navigator.clipboard.writeText(sen) }} />
-                                </div>
-                            </div>
+                            <Card text={sen} icons={icons} key={index} />
                         ))}
                     </div>
                 </div>}
