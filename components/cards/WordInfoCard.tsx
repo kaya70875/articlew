@@ -105,7 +105,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
             {wordInfo && (
                 <>
                     {relevantSpeechData?.length > 0 && renderSection(relevantSpeech, relevantSpeechData)}
-                    <div className={`overflow-hidden transition-all duration-300 ${showMore ? 'max-h-[1500px]' : 'max-h-0'}`}>
+                    <div className={`overflow-hidden transition-all duration-300 ${showMore ? 'max-h-[1500px]' : 'max-h-0'}`} key={0}>
                         {speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
                             speech.data.length > 0 && renderSection(speech.name, speech.data)
                         ))}
