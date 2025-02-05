@@ -9,7 +9,7 @@
 * **Authentication**: Secure login and sign-up functionality for personalized experiences.
 * **Paraphrase** : Users can input a sentence and get diffirent variations of this sentence.
 * **Compare** : Compare two words about its differences and similarities.
-* **Sentence Fix** : Improve your sentences and any grammar errors with AI suggestions.
+* **Sentence Fix** : Improve your sentences and fix any grammar errors with AI suggestions.
 
 ## Future Enhancements:
 * Sentence difficulty levels (beginner, intermediate, advanced).
