@@ -6,6 +6,8 @@ import Speaker from '../svg/Speaker';
 import { runSpeaker, speakSentence } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
 import EllipseHeader from '../reusables/EllipseHeader';
+import ChevronUp from '../svg/ChevronUp';
+import ChevronDown from '../svg/ChevronDown';
 
 interface WordInfoCardProps {
     currentWord: string;
@@ -15,19 +17,42 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
 
     const { data: wordInfo, loading: wordInfoLoading, error: wordInfoError } = useAPIFetch<FastApiWordResponse>(currentWord ? `/wordInfo/${currentWord}` : null);
     const [isSpeaking, setIsSpeaking] = useState(false);
+    const [showMore, setShowMore] = useState(false);
 
     const router = useRouter();
+
+    const speechs = [
+        {
+            name: 'verb',
+            data: wordInfo?.verb || []
+        },
+        {
+            name: 'noun',
+            data: wordInfo?.noun || []
+        },
+        {
+            name: 'adjective',
+            data: wordInfo?.adjectives || []
+        },
+        {
+            name: 'adverb',
+            data: wordInfo?.adverb || []
+        }
+    ]
+
+    const relevantSpeech = wordInfo?.pos || '';
+    const relevantSpeechData = speechs.find(speech => speech.name === relevantSpeech)?.data || [];
 
     const renderSection = (title: string, items: { definition: string; synonyms: string[]; examples: string[]; }[]) => {
         return (
             <div className='flex w-full gap-4 flex-col'>
-                {items.map((item, index) => (
+                {items.slice(0, 3).map((item, index) => (
                     <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-4 rounded-md shadow-md'>
                         <div className='flex flex-col gap-2 w-full'>
                             <p className='text-sm text-gray-600'>{title}</p>
                             <p className='font-medium max-w-3xl px-4'>{item.definition}</p>
 
-                            {item.examples?.map((example, index) => (
+                            {item.examples?.slice(0, 1).map((example, index) => (
                                 <p className='text-sm text-gray-600 px-8' key={index} >{example}</p>
                             ))}
                         </div>
@@ -60,20 +85,29 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
     return (
         <div className='flex flex-col gap-8 p-6 bg-lightBlue rounded-md'>
             <EllipseHeader ellipseColor='bg-primaryBlue' text='Dictionary' />
-            <div className="word-itself flex items-center gap-3">
-                <div className='cursor-pointer' onClick={handleSpeakWord}>
-                    <Speaker isSpeaking={isSpeaking} />
+            <div className='flex items-center w-full justify-between'>
+                <div className="word-itself flex items-center gap-3">
+                    <div className='cursor-pointer' onClick={handleSpeakWord}>
+                        <Speaker isSpeaking={isSpeaking} />
+                    </div>
+                    <p className='font-bold'>{currentWord}</p>
                 </div>
-                <p className='font-bold'>{currentWord}</p>
+                <div className='items-center flex gap-2 cursor-pointer' onClick={() => setShowMore(prev => !prev)}>
+                    <p className='text-sm font-semibold '>Show more...</p>
+                    {showMore ? <ChevronUp /> : <ChevronDown />}
+                </div>
             </div>
+
             {wordInfoError && <p>Error fetching word info</p>}
             {wordInfoLoading && <Loading />}
             {wordInfo && (
                 <>
-                    {wordInfo.noun?.length > 0 && renderSection('Noun', wordInfo.noun)}
-                    {wordInfo.verb?.length > 0 && renderSection('Verb', wordInfo.verb)}
-                    {wordInfo.adjectives?.length > 0 && renderSection('Adjective', wordInfo.adjectives)}
-                    {wordInfo.adverb?.length > 0 && renderSection('Adverb', wordInfo.adverb)}
+                    {relevantSpeechData?.length > 0 && renderSection(relevantSpeech, relevantSpeechData)}
+                    <div className={`overflow-hidden transition-all duration-300 ${showMore ? 'max-h-[1500px]' : 'max-h-0'}`}>
+                        {speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
+                            speech.data.length > 0 && renderSection(speech.name, speech.data)
+                        ))}
+                    </div>
                 </>
             )}
         </div>
