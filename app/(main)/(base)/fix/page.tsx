@@ -10,6 +10,7 @@ import Speaker from '@/components/svg/Speaker';
 import CopyIcon from '@/components/svg/CopyIcon';
 import { extractSpanContent, speakSentence } from '@/utils/helpers';
 import Loading from '@/components/Loading';
+import Card from '@/components/cards/Card';
 
 export default function Page() {
 
@@ -25,6 +26,10 @@ export default function Page() {
     }
 
     const rawContent = extractSpanContent(data?.response[1] ?? '');
+    const icons = [
+        { icon: <Speaker isSpeaking={false} />, onClick: () => speakSentence(rawContent) },
+        { icon: <CopyIcon props={{ color: '#1f2937', cursor: 'pointer' }} />, onClick: () => navigator.clipboard.writeText(rawContent) },
+    ]
 
     return (
         <div className='w-1/2 flex flex-col gap-8'>
@@ -41,15 +46,7 @@ export default function Page() {
                     <p className='text-base' dangerouslySetInnerHTML={{ __html: data?.response[0] ?? '' }}></p>
                 </div>
 
-                <div className='p-4 bg-white flex flex-col gap-8 justify-between rounded-md'>
-                    <p className='text-base' dangerouslySetInnerHTML={{ __html: data?.response[1] ?? '' }}></p>
-                    <div className='flex items-center gap-4'>
-                        <div className='cursor-pointer' onClick={() => speakSentence(rawContent)}>
-                            <Speaker isSpeaking={false} />
-                        </div>
-                        <CopyIcon props={{ color: '#1f2937', cursor: 'pointer', onClick: () => navigator.clipboard.writeText(rawContent) }} />
-                    </div>
-                </div>
+                <Card text={data.response[1]} icons={icons} />
             </div>)}
         </div>
     )
