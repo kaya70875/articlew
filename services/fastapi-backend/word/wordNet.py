@@ -25,6 +25,7 @@ def get_word_info_extended(word : str) -> dict:
         "adverb": [],
         "verb": [],
         "noun": [],
+        'pos' : most_common_pos(word)
     }
     
     # Loop through each synset to check its part of speech
@@ -33,7 +34,7 @@ def get_word_info_extended(word : str) -> dict:
         word_info = {
             "definition": synset.definition(),
             "synonyms": [lemma.name().replace('_' , ' ') for lemma in synset.lemmas()],
-            "examples": synset.examples() if synset.examples() else []
+            "examples": synset.examples() if synset.examples() else [],
         }
         
         if pos == 'a':  # Adjective
@@ -73,4 +74,4 @@ def most_common_pos(word : str) -> str:
     tag_counts = Counter(word_tags)
     
     # Return the most common tag
-    return tag_counts.most_common(1)[0]
+    return tag_counts.most_common(1)[0][0].lower()
