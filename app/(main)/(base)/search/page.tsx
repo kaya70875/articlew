@@ -2,7 +2,6 @@
 
 import AIWordAnalysis from '@/components/AIWordAnalysis';
 import FilterModal, { categoriesList } from '@/components/FilterModal';
-import Loading from '@/components/Loading';
 import EllipseHeader from '@/components/reusables/EllipseHeader';
 import SentenceCard from '@/components/cards/SentenceCard';
 import WordInfoCard from '@/components/cards/WordInfoCard';
@@ -13,12 +12,12 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import NoResultsCard from '@/components/cards/NoResultsCard';
 
-export default function page() {
+export default function Page() {
 
   const router = useRouter();
 
   const params = useSearchParams();
-  const currentWord = params.get('word') || '';
+  const currentWord = params.get('word') || 'welcome';
   const currentPage = parseInt(params.get('page') || '1', 10);
 
   const [word, setWord] = useState(currentWord);
@@ -27,7 +26,7 @@ export default function page() {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { data, loading, error } = useAPIFetch<FastApiResponse>(currentWord ? `/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}` : null);
+  const { data, loading, error } = useAPIFetch<FastApiResponse>(`/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}`);
 
   const totalPage = data?.total_results ? Math.ceil(data.total_results / 10) : 1;
 
@@ -65,7 +64,8 @@ export default function page() {
         </div>
       </div>
 
-      {loading && <Loading />}
+      {loading && <div>loading...</div>}
+      {error && <div>An error occured.</div>}
 
       <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
