@@ -12,7 +12,8 @@ export const getSourceName = (url: string) => {
     const { hostname } = new URL(url);
     return hostname.replace("www.", "").replace(/\.[a-z]{2,}$/i, "");
   } catch (error) {
-      return console.log(error);
+    console.error(error);
+    return url;
   }
 };
 
