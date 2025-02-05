@@ -3,7 +3,7 @@ import { FastApiWordResponse } from '@/types/sentence';
 import React, { useState } from 'react'
 import Loading from '../Loading';
 import Speaker from '../svg/Speaker';
-import { runSpeaker, speakSentence } from '@/utils/helpers';
+import { speakSentence } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
 import EllipseHeader from '../reusables/EllipseHeader';
 import ChevronUp from '../svg/ChevronUp';
@@ -11,9 +11,10 @@ import ChevronDown from '../svg/ChevronDown';
 
 interface WordInfoCardProps {
     currentWord: string;
+    setWord: (word: string) => void;
 }
 
-export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
+export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps) {
 
     const { data: wordInfo, loading: wordInfoLoading, error: wordInfoError } = useAPIFetch<FastApiWordResponse>(currentWord ? `/wordInfo/${currentWord}` : null);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -61,8 +62,8 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
                             <p className='text-sm text-gray-600'>Synonyms</p>
                             <div className='flex items-center gap-4'>
                                 {item.synonyms.slice(0, 4).map((synonym, index) => (
-                                    <div className="syn-card p-2 flex items-center justify-center border border-primaryText rounded-md cursor-pointer" key={index} onClick={() => handleSynonymClick(synonym)}>
-                                        <p className='text-sm text-primaryText font-semibold'>{synonym}</p>
+                                    <div className="syn-card p-2 flex items-center justify-center border text-primaryText transition-all duration-100 ease-in border-primaryText hover:bg-primaryText hover:text-whitef rounded-md cursor-pointer" key={index} onClick={() => handleSynonymClick(synonym)}>
+                                        <div className='text-sm font-semibold'>{synonym}</div>
                                     </div>
                                 ))}
                             </div>
@@ -76,6 +77,7 @@ export default function WordInfoCard({ currentWord }: WordInfoCardProps) {
 
     const handleSynonymClick = (synonym: string) => {
         router.push(`/search?word=${synonym}`);
+        setWord(synonym);
     };
 
     const handleSpeakWord = async () => {

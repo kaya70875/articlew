@@ -65,7 +65,6 @@ export default function Page() {
       </div>
 
       {loading && <div>loading...</div>}
-      {error && <div>An error occured.</div>}
 
       <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
@@ -73,7 +72,7 @@ export default function Page() {
 
       {data ? (
         <div className='flex flex-col gap-8'>
-          <WordInfoCard currentWord={currentWord} />
+          <WordInfoCard setWord={setWord} currentWord={currentWord} />
           {currentWord && (<header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
             <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
             <AIWordAnalysis currentWord={currentWord} />
