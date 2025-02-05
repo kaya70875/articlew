@@ -19,12 +19,13 @@ export type FastApiWordResponse = {
   adverb: WordInfo[];
   verb: WordInfo[];
   noun: WordInfo[];
+  pos: string;
 };
 
 export type WordInfo = {
   definition: string;
   synonyms: string[];
-  examples : string[];
+  examples: string[];
 };
 
 export type Sentence = {

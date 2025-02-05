@@ -10,3 +10,4 @@ class WordInfoResponse(BaseModel):
     adverb: List[WordInfo]
     verb: List[WordInfo]
     noun: List[WordInfo]
+    pos : str
