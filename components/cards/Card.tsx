@@ -6,11 +6,11 @@ import { css } from '@emotion/react';
 
 type IconProps = {
     icon: React.ReactSVGElement | React.ReactElement;
-    onClick?: () => void;
+    onClick?: (arg: string) => void;
 }
 
 interface CardProps {
-    text: string;
+    text?: string | React.JSX.Element;
     icons?: IconProps[];
     source?: string;
     children?: React.ReactNode;
@@ -39,11 +39,11 @@ export default function Card({ text, icons, source, children, padding, borderRad
 
     return (
         <div className='shadow-lg' css={cardBase}>
-            <p className='text-base' dangerouslySetInnerHTML={{ __html: text ?? '' }}></p>
-            <div className='w-full flex items-center justify-between'>
+            {text && <p className='text-base' dangerouslySetInnerHTML={{ __html: text ?? '' }} />}
+            {icons && <div className='w-full flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     {icons?.map((icon, index) => (
-                        <div key={index} className='cursor-pointer' onClick={icon.onClick}>
+                        <div key={index} className='cursor-pointer' onClick={() => icon.onClick?.(text as string)}>
                             {icon.icon}
                         </div>
                     ))}
@@ -51,7 +51,7 @@ export default function Card({ text, icons, source, children, padding, borderRad
                 <InformationBubble information='View source'>
                     <p className='text-primaryBlue hover:underline cursor-pointer capitalize' onClick={handleSourceClick}>{source && getSourceName(source)}</p>
                 </InformationBubble>
-            </div>
+            </div>}
 
             {children}
         </div>
