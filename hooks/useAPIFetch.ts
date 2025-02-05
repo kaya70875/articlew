@@ -7,17 +7,6 @@ const fetcher = async <T>(url: string): Promise<T> => {
   return response.data;
 };
 
-// Custom retry function
-const shouldRetryOnError = (error: any) => {
-  // Don't retry if the error is due to 404
-  if (error.response && error.response.status === 404) {
-    return false;
-  }
-
-  // Retry on all other errors
-  return true;
-};
-
 // Generic Fetch Hook
 const useAPIFetch = <T>(endpoint: string | null) => {
   const { data, error, isValidating } = useSWR<T>(endpoint, fetcher, {
@@ -25,7 +14,10 @@ const useAPIFetch = <T>(endpoint: string | null) => {
     revalidateOnReconnect: false,
     revalidateOnMount: true,
     dedupingInterval: 60000,
-    shouldRetryOnError: shouldRetryOnError,
+    shouldRetryOnError: (error) => {
+      if(error.status === 404) return false;
+      return true;
+    },
   });
 
   return {
