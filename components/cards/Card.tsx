@@ -17,16 +17,17 @@ interface CardProps {
 
     padding?: string;
     borderRadius?: string;
+    gap?: string;
 }
 
-export default function Card({ text, icons, source, children, padding, borderRadius }: CardProps) {
+export default function Card({ text, icons, source, children, padding, borderRadius, gap }: CardProps) {
 
     const cardBase = css`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         background-color: #fff;
-        gap : 1.75rem;
+        gap: ${gap || '1.75rem'};
         padding: ${padding || '1.35rem'};
         border-radius: ${borderRadius || '0.75rem'};
     `
