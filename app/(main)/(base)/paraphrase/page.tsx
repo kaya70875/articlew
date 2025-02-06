@@ -23,7 +23,7 @@ type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poe
 export default function page() {
 
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-    const [sentence, setSentence] = useState('');
+    const [sentence, setSentence] = useState('How can I write this sentence in different ways?');
     const [context, setContext] = useState<Context>('Casual');
 
     const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/paraphrase/${encodeURIComponent(sentence)}/${context}` : null);
@@ -65,7 +65,7 @@ export default function page() {
     return (
         <div className='w-full flex items-center justify-center'>
             <div className='main-container items-center justify-center'>
-                <TextArea textAreaRef={textAreaRef}>
+                <TextArea textAreaRef={textAreaRef} defaultValue={sentence}>
                     <div className='flex flex-row-reverse items-center gap-2'>
                         {buttonTypes.map((buttonType, index) => (
                             <InformationBubble information={buttonType.name} key={index}>
