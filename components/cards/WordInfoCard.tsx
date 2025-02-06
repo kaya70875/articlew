@@ -48,14 +48,11 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
 
     const relevantSpeech = wordInfo?.pos || '';
     const relevantSpeechData = speechs.find(speech => speech.name === relevantSpeech)?.data || [];
-    console.log(relevantSpeechData[0]);
 
     useEffect(() => {
         if (!cardContainerRef.current || !wordInfo) return;
 
         const firstTwoCards = Array.from(cardContainerRef.current.children).slice(0, 2) as HTMLDivElement[];
-        console.log('c', cardContainerRef.current.children[0]);
-        console.log(firstTwoCards);
         const totalHeight = firstTwoCards.reduce((acc, card) => acc + card.offsetHeight, 0);
         setCollapsedHeight(totalHeight);
 
@@ -121,20 +118,23 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
 
             {wordInfoError && <p>Error fetching word info</p>}
             {wordInfoLoading && <Loading />}
-
-            <>
-                {/*Consider the padding for element height*/}
-                <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-4`} key={0}
-                    style={{ maxHeight: showMore ? '1500px' : `${collapsedHeight + 16 * 2}px` }}
-                >
-                    {relevantSpeechData?.length > 0 && renderSection(relevantSpeech, relevantSpeechData)}
-                    {/*First render relevant data then check if collapsed height is calculated if it is render the rest of the data*/}
-                    {collapsedHeight && speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
-                        speech.data.length > 0 && renderSection(speech.name, speech.data)
-                    ))}
-                </div>
-            </>
-
+            {wordInfo && (
+                <>
+                    {/*Consider the padding for element height*/}
+                    <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-4`} key={0}
+                        style={{ maxHeight: showMore ? '1500px' : `${collapsedHeight + 16}px` }}
+                    >
+                        {relevantSpeechData?.length > 0 && renderSection(relevantSpeech, relevantSpeechData)}
+                        {/*First render relevant data then check if collapsed height is calculated if it is render the rest of the data*/}
+                        {relevantSpeechData.length > 0 ? (collapsedHeight && speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
+                            speech.data.length > 0 && renderSection(speech.name, speech.data)
+                        ))) : (speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
+                            speech.data.length > 0 && renderSection(speech.name, speech.data)
+                        )))}
+                        {/* If relevant data is empty, then do not look for if collapsed height is calculated or not just render all data */}
+                    </div>
+                </>
+            )}
         </div>
     )
 }
