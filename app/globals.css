@@ -37,7 +37,7 @@ span , .span {
 }
 
 .main-container {
-  @apply flex flex-col gap-8 w-full;
+  @apply flex flex-col gap-8 w-full 2xl:w-2/3 xl:w-[80%];
 }
 
 .hero-input {
