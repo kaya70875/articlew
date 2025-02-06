@@ -1,9 +1,10 @@
 'use client'
 
+import useScreenSize from '@/hooks/useScreenSize'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -55,14 +56,15 @@ export default function Sidebar() {
         },
     ]
 
+    const { isBelow: isTablet } = useScreenSize(1024);
+
     return (
-        <div className='w-sidebar-width flex flex-col justify-start p-6 gap-8 h-screen fixed top-0 bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)]'>
-            <h4>leva.word</h4>
-            <ul className="nav-items flex flex-col  justify-center w-full gap-8">
+        <div className={`flex flex-col justify-start p-6 gap-8 h-screen fixed top-0 bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)] ${isTablet ? 'w-[12%]' : 'w-sidebar-width'}`}>
+            <ul className="nav-items flex flex-col justify-center items-center lg:items-start w-full gap-8">
                 {sidebarItems.map((item, index) => (
-                    <Link href={item.route} key={index} className={`flex items-center rounded-full gap-3 text-primaryText hover:text-primaryBlue`}>
+                    <Link href={item.route} key={index} className={`flex items-center rounded-full gap-3 text-primaryText group hover:text-primaryBlue`}>
                         <div className={`icon ${pathname === item.route ? 'text-primaryBlue' : ''}`}>{item.icon}</div>
-                        <a className={`font-semibold ${pathname === item.route ? '!text-primaryBlue' : ''}`}>{item.name}</a>
+                        {!isTablet && <p className={`font-semibold group-hover:text-inherit ${pathname === item.route ? 'text-primaryBlue' : ''}`}>{item.name}</p>}
                     </Link>
 
                 ))}
@@ -72,7 +74,7 @@ export default function Sidebar() {
                         <p className='text-sm'>A</p>
                     </div>
 
-                    <p className='font-semibold'>Log Out</p>
+                    {!isTablet && <p className='font-semibold'>Log Out</p>}
                 </div>
             </ul>
 
