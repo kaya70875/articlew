@@ -58,8 +58,6 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
 
     }, [currentWord, wordInfo])
 
-    console.log(collapsedHeight);
-
     const renderSection = (title: string, items: { definition: string; synonyms: string[]; examples: string[]; }[]) => {
         return (
             <div className='flex w-full gap-4 flex-col' ref={cardContainerRef}>
@@ -108,12 +106,13 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
                     <div className='cursor-pointer' onClick={handleSpeakWord}>
                         <Speaker isSpeaking={isSpeaking} />
                     </div>
-                    <p className='font-bold'>{currentWord}</p>
+                    <p className='font-bold text-lg'>{currentWord}</p>
                 </div>
-                <div className='items-center flex gap-2 cursor-pointer' onClick={() => setShowMore(prev => !prev)}>
-                    <p className='text-sm font-semibold '>Show more...</p>
+                <div className='items-center flex gap-2 cursor-pointer group hover:text-gray-600' onClick={() => setShowMore(prev => !prev)}>
+                    <p className='text-sm font-semibold group-hover:text-inherit'>Show more...</p>
                     {showMore ? <ChevronUp /> : <ChevronDown />}
                 </div>
+
             </div>
 
             {wordInfoError && <p>Error fetching word info</p>}

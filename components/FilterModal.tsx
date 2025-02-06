@@ -42,7 +42,7 @@ export default function FilterModal({ categories, setCategories, onClose }: Filt
     }
 
     return (
-        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10'>
             <div className='bg-main flex flex-col gap-4 p-12 rounded-lg w-1/3'>
                 <header className="modal-header flex flex-col gap-4">
                     <div className='flex items-center justify-between w-full'>

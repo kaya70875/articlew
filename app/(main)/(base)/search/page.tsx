@@ -52,7 +52,7 @@ export default function Page() {
 
   return (
     <div className='flex flex-col gap-8 w-2/3'>
-      <div className='sticky top-0 bg-whitef w-full'>
+      <div className='sticky top-0 bg-whitef w-full z-10'>
         <div className='input-wrapper py-4 relative w-full'>
           <input type="text" className='hero-input w-full' onChange={(e) => setWord(e.target.value)} value={word} onKeyDown={handleKeyDown} />
           <div className="filter-icon hover:bg-gray-200 p-2 rounded-md flex items-center gap-2 absolute right-8 top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={() => setModalOpen(true)}>

@@ -44,7 +44,7 @@ export default function Card({ text, icons, source, children, padding, borderRad
             {icons && <div className='w-full flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     {icons?.map((icon, index) => (
-                        <div key={index} className='cursor-pointer' onClick={() => icon.onClick?.(text as string)}>
+                        <div key={index} className='cursor-pointer hover:text-gray-600' onClick={() => icon.onClick?.(text as string)}>
                             {icon.icon}
                         </div>
                     ))}
