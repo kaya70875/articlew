@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import noResults from '@/public/images/no-results.png'
 
 export default function NoResultsCard() {
     return (
@@ -8,6 +9,8 @@ export default function NoResultsCard() {
                 <h3>No Results.</h3>
                 <p>We are still trying to expand our database. So you can try again later.</p>
             </header>
+
+            <Image src={noResults} alt='no-results' width={300} height={300} />
         </div>
     )
 }
