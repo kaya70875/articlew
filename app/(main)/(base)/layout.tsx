@@ -1,17 +1,20 @@
-import Sidebar from "@/components/Sidebar";
-import { Open_Sans } from "next/font/google";
+'use client';
 
-const openSans = Open_Sans({ subsets: ["latin"] });
+import Sidebar from "@/components/Sidebar";
+import useScreenSize from "@/hooks/useScreenSize";
 
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+
+    const { isBelow: isTablet } = useScreenSize(1024);
+
     return (
         <main className="bg-main h-full flex">
             <Sidebar />
-            <article className="ml-sidebar-width px-24 py-12 w-full flex items-center justify-center">
+            <article className={`${isTablet ? 'ml-[12%]' : 'ml-sidebar-width'} 2xl:px-24 xl:px-16 lg:px-12 md:px-8 py-12 w-full flex items-center justify-center`}>
                 {children}
             </article>
         </main>
