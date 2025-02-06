@@ -1,6 +1,8 @@
+'use client';
+
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { FastApiWordResponse } from '@/types/sentence';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../Loading';
 import Speaker from '../svg/Speaker';
 import { speakSentence } from '@/utils/helpers';
@@ -19,6 +21,9 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
     const { data: wordInfo, loading: wordInfoLoading, error: wordInfoError } = useAPIFetch<FastApiWordResponse>(currentWord ? `/wordInfo/${currentWord}` : null);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [showMore, setShowMore] = useState(false);
+
+    const [collapsedHeight, setCollapsedHeight] = useState(0);
+    const cardContainerRef = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
 
@@ -43,12 +48,26 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
 
     const relevantSpeech = wordInfo?.pos || '';
     const relevantSpeechData = speechs.find(speech => speech.name === relevantSpeech)?.data || [];
+    console.log(relevantSpeechData[0]);
+
+    useEffect(() => {
+        if (!cardContainerRef.current || !wordInfo) return;
+
+        const firstTwoCards = Array.from(cardContainerRef.current.children).slice(0, 2) as HTMLDivElement[];
+        console.log('c', cardContainerRef.current.children[0]);
+        console.log(firstTwoCards);
+        const totalHeight = firstTwoCards.reduce((acc, card) => acc + card.offsetHeight, 0);
+        setCollapsedHeight(totalHeight);
+
+    }, [currentWord, wordInfo])
+
+    console.log(collapsedHeight);
 
     const renderSection = (title: string, items: { definition: string; synonyms: string[]; examples: string[]; }[]) => {
         return (
-            <div className='flex w-full gap-4 flex-col'>
-                {items.slice(0, 3).map((item, index) => (
-                    <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-4 rounded-md shadow-md'>
+            <div className='flex w-full gap-4 flex-col' ref={cardContainerRef}>
+                {items.map((item, index) => (
+                    <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-4 rounded-md shadow-lg'>
                         <div className='flex flex-col gap-2 w-full'>
                             <p className='text-sm text-gray-600'>{title}</p>
                             <p className='font-medium max-w-3xl px-4'>{item.definition}</p>
@@ -102,16 +121,20 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
 
             {wordInfoError && <p>Error fetching word info</p>}
             {wordInfoLoading && <Loading />}
-            {wordInfo && (
-                <>
+
+            <>
+                {/*Consider the padding for element height*/}
+                <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-4`} key={0}
+                    style={{ maxHeight: showMore ? '1500px' : `${collapsedHeight + 16 * 2}px` }}
+                >
                     {relevantSpeechData?.length > 0 && renderSection(relevantSpeech, relevantSpeechData)}
-                    <div className={`overflow-hidden transition-all duration-300 ${showMore ? 'max-h-[1500px]' : 'max-h-0'}`} key={0}>
-                        {speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
-                            speech.data.length > 0 && renderSection(speech.name, speech.data)
-                        ))}
-                    </div>
-                </>
-            )}
+                    {/*First render relevant data then check if collapsed height is calculated if it is render the rest of the data*/}
+                    {collapsedHeight && speechs.filter(speech => speech.name !== relevantSpeech).map(speech => (
+                        speech.data.length > 0 && renderSection(speech.name, speech.data)
+                    ))}
+                </div>
+            </>
+
         </div>
     )
 }
