@@ -9,16 +9,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        main : "#F3F4F6",
-        primaryText : "#1F2937",
-        primaryBlue : "#2563EB",
-        whitef : '#F5F5F5',
-        lightBlue : '#EEF3FF'
+        main: "#F3F4F6",
+        primaryText: "#1F2937",
+        primaryBlue: "#2563EB",
+        whitef: "#F5F5F5",
+        lightBlue: "#EEF3FF",
       },
-      spacing : {
-        'navbar-height' : '80px',
-        'sidebar-width' : '300px',
-        'default-padding' : '200px',
+      spacing: {
+        "navbar-height": "80px",
+        "sidebar-width": "200px",
+        "default-padding": "200px",
       },
     },
   },

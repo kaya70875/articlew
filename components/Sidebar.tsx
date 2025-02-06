@@ -56,8 +56,9 @@ export default function Sidebar() {
     ]
 
     return (
-        <div className='w-sidebar-width flex flex-col items-center justify-center h-screen fixed top-0 bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)]'>
-            <ul className="nav-items flex flex-col justify-center w-full px-16 gap-8">
+        <div className='w-sidebar-width flex flex-col justify-start p-6 gap-8 h-screen fixed top-0 bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)]'>
+            <h4>leva.word</h4>
+            <ul className="nav-items flex flex-col  justify-center w-full gap-8">
                 {sidebarItems.map((item, index) => (
                     <Link href={item.route} key={index} className={`flex items-center rounded-full gap-3 text-primaryText hover:text-primaryBlue`}>
                         <div className={`icon ${pathname === item.route ? 'text-primaryBlue' : ''}`}>{item.icon}</div>
