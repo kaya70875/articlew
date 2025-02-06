@@ -32,7 +32,7 @@ export default function Page() {
     ]
 
     return (
-        <div className='w-1/2 flex flex-col gap-8'>
+        <div className='main-container'>
             <TextArea textAreaRef={textAreaRef}>
                 <button className='p-2 flex items-center justify-center bg-orange-300 text-primaryText font-medium rounded-md w-28' onClick={handleFixButton}>Fix</button>
             </TextArea>

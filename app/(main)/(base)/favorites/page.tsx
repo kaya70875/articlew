@@ -58,7 +58,7 @@ export default function Page() {
     }, [searchValue])
 
     return (
-        <div className='flex flex-col w-full gap-8 p-4'>
+        <div className='main-container p-4'>
             <header className='w-full flex flex-col gap-2'>
                 <h2>Your Favorites</h2>
                 <InputField placeholder='Search in favorites' label='' onChange={(e) => setSearchValue(e.target.value)} />

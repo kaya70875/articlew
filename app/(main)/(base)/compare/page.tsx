@@ -28,7 +28,7 @@ export default function Page() {
     const jsonResponse = useParseJson(data?.response!)
 
     return (
-        <div className='flex flex-col p-6 bg-lightBlue rounded-md gap-8 w-1/2'>
+        <div className='main-container p-6 bg-lightBlue rounded-md'>
             <div className='flex flex-col gap-4 bg-white rounded-md p-4'>
                 <div className='flex items-center gap-4 w-full justify-around p-6'>
                     <div className='compare-card'>

@@ -36,6 +36,10 @@ span , .span {
   @apply text-primaryBlue font-semibold;
 }
 
+.main-container {
+  @apply flex flex-col gap-8 w-full;
+}
+
 .hero-input {
   @apply border-2 border-gray-200 px-5 py-4 rounded-lg text-primaryText font-semibold;
 }

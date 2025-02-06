@@ -64,7 +64,7 @@ export default function page() {
 
     return (
         <div className='w-full flex items-center justify-center'>
-            <div className='w-2/3 flex flex-col gap-8 items-center justify-center'>
+            <div className='main-container items-center justify-center'>
                 <TextArea textAreaRef={textAreaRef}>
                     <div className='flex flex-row-reverse items-center gap-2'>
                         {buttonTypes.map((buttonType, index) => (

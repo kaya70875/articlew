@@ -51,7 +51,7 @@ export default function Page() {
   }, [currentPage]);
 
   return (
-    <div className='flex flex-col gap-8 w-2/3'>
+    <div className='main-container'>
       <div className='sticky top-0 bg-whitef w-full z-10'>
         <div className='input-wrapper py-4 relative w-full'>
           <input type="text" className='hero-input w-full' onChange={(e) => setWord(e.target.value)} value={word} onKeyDown={handleKeyDown} />
