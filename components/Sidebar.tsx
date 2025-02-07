@@ -2,9 +2,12 @@
 
 import useScreenSize from '@/hooks/useScreenSize'
 import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect } from 'react'
+import logo from '@/public/images/logo.jpg';
+import IconCompare from './svg/IconCompare'
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -47,10 +50,7 @@ export default function Sidebar() {
         },
         {
             name: 'Compare',
-            icon: (<svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M4.21 13.89L3 23L8 20L13 23L11.79 13.88" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            icon: (<IconCompare />
             ),
             route: '/compare'
         },
@@ -60,6 +60,12 @@ export default function Sidebar() {
 
     return (
         <div className={`flex flex-col justify-start p-6 gap-8 h-screen fixed top-0 bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)] ${isTablet ? 'w-[12%]' : 'w-sidebar-width'}`}>
+
+            <div className='logo flex items-center gap-2 cursor-pointer'>
+                <Image className='rounded-xl' src={logo} alt="logo" width={48} height={48} />
+                <h4 className='text-xl'>articlew</h4>
+            </div>
+
             <ul className="nav-items flex flex-col justify-center items-center lg:items-start w-full gap-8">
                 {sidebarItems.map((item, index) => (
                     <Link href={item.route} key={index} className={`flex items-center rounded-full gap-3 text-primaryText group hover:text-primaryBlue`}>
@@ -68,6 +74,14 @@ export default function Sidebar() {
                     </Link>
 
                 ))}
+
+                <Link href={'/premium'} className='premium-button flex items-center gap-3 rounded-xl group text-[#3A1D0D]'>
+                    <div className="icon"><svg width="14" height="20" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M4.21 13.89L3 23L8 20L13 23L11.79 13.88" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg></div>
+                    <h5 className='font-medium group'>Go Premium</h5>
+                </Link>
 
                 <div className='logout-section absolute bottom-24 flex items-center gap-3 cursor-pointer' onClick={() => signOut()}>
                     <div className='bg-blue-300 flex items-center justify-center p-4 w-12 h-12 rounded-full'>

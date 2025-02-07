@@ -48,6 +48,10 @@ span , .span {
   @apply bg-primaryBlue px-10 py-2 rounded-lg text-whitef;
 }
 
+.premium-button {
+  @apply bg-orange-400 p-3 rounded-xl font-normal transition-all duration-100 ease-in hover:bg-orange-300 hover:text-primaryText;
+}
+
 .ghost-button {
   @apply bg-slate-200 cursor-pointer p-2 text-primaryText font-medium rounded-md;
 }
