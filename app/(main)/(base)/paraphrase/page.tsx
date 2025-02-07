@@ -69,13 +69,13 @@ export default function page() {
                     <div className='flex flex-row-reverse items-center gap-2'>
                         {buttonTypes.map((buttonType, index) => (
                             <InformationBubble information={buttonType.name} key={index}>
-                                <button key={index} className={`relative ${context === buttonType.name ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'} px-4 py-2 rounded-full`} onClick={() => setContext(buttonType.name as Context)}>
+                                <button key={index} className={`relative ${context === buttonType.name ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-blue-300'} transition-all duration-100 ease-in p-2 md:p-3 rounded-full`} onClick={() => setContext(buttonType.name as Context)}>
                                     {buttonType.icon}
                                 </button>
                             </InformationBubble>
                         ))}
                     </div>
-                    <button className='primary-button' onClick={handleParaphraseClick}>Paraphrase</button>
+                    <button className='text-sm md:text-base p-2 md:px-4 py-2 bg-orange-400 rounded-xl text-primaryText font-medium' onClick={handleParaphraseClick}>Paraphrase</button>
                 </TextArea>
 
                 {loading && <Loading />}
