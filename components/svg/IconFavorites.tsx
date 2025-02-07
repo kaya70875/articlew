@@ -2,8 +2,9 @@ import * as React from "react"
 const IconFavorites = ({ props }: { props?: React.SVGProps<SVGSVGElement> }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width={24}
-        height={24}
+        width={21}
+        height={16}
+        viewBox="0 0 21 21"
         fill="none"
         className={props?.className}
         {...props}

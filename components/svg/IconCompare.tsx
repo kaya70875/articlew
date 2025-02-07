@@ -2,8 +2,8 @@ import * as React from "react"
 const IconCompare = ({ props }: { props?: React.SVGProps<SVGSVGElement> }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width={22}
-        height={22}
+        width={18}
+        height={18}
         viewBox="0 0 24 24"
         className={props?.className}
         {...props}
