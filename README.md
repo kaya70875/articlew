@@ -1,5 +1,5 @@
-# LearnWithArticles
-**LearnWithArticles** is a unique educational app designed to enhance your English learning and writing skills. With this app, users can input a word and receive example sentences, definitions, and contextual usages from a variety of topics and articles. Users also can use AI features like 'Paraphrase', 'Sentence Fix', 'Word Compare' which is useful for English writing and learning. The app leverages cutting-edge technology to help students and language enthusiasts improve their vocabulary and sentence-building skills.
+# articlew
+**articlew** is a unique educational app designed to enhance your English learning and writing skills. With this app, users can input a word and receive example sentences, definitions, and contextual usages from a variety of topics and articles. Users also can use AI features like 'Paraphrase', 'Sentence Fix', 'Word Compare' which is useful for English writing and learning. The app leverages cutting-edge technology to help students and language enthusiasts improve their vocabulary and sentence-building skills.
 
 ## Features
 * **Word-Based Sentence Generation**: Input any word and get example sentences from different topics (e.g., science, news, or general knowledge).
