@@ -73,11 +73,11 @@ export default function Page() {
       {data ? (
         <div className='flex flex-col gap-8'>
           <WordInfoCard setWord={setWord} currentWord={currentWord} />
-          {currentWord && (<header className="ai-feedback bg-lightBlue rounded-md w-full p-6 flex flex-col gap-4">
+          {currentWord && (<header className="card-container">
             <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
             <AIWordAnalysis currentWord={currentWord} />
           </header>)}
-          <article className='flex flex-col gap-8 p-6 bg-lightBlue w-full'>
+          <article className='flex flex-col gap-8 p-2 md:p-6 bg-lightBlue w-full'>
             <EllipseHeader ellipseColor='bg-blue-300' text='Exact' />
             <div className='sentence-cards flex flex-col gap-8'>
               {data?.sentences?.map((sentence, index) => (

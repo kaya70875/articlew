@@ -81,7 +81,7 @@ export default function page() {
                 {loading && <Loading />}
                 {error && <p>{error}</p>}
 
-                {data && <div className='flex flex-col gap-4 bg-lightBlue w-full p-8 rounded-md'>
+                {data && <div className='card-container'>
                     <EllipseHeader ellipseColor='bg-orange-400' text='Rewrites' />
 
                     <div className='w-full flex flex-col gap-4'>

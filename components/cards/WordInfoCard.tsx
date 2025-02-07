@@ -99,7 +99,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
     }
 
     return (
-        <div className='flex flex-col gap-8 p-6 bg-lightBlue rounded-md'>
+        <div className='card-container'>
             <EllipseHeader ellipseColor='bg-primaryBlue' text='Dictionary' />
             <div className='flex items-center w-full justify-between'>
                 <div className="word-itself flex items-center gap-3">

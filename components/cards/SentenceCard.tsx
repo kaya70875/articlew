@@ -70,7 +70,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
 
   return (
     <Card text={highlightedSentence} icons={sentenceCardIcons} source={source}>
-      <section className={`grammar-analysis ${grammarClicked ? 'bg-lightBlue rounded-md p-4 flex flex-col gap-4' : 'h-0 hidden'} transition-all duration-300 ease-in-out`}>
+      <section className={`grammar-analysis ${grammarClicked ? 'card-container' : 'h-0 hidden'} transition-all duration-300 ease-in-out`}>
         {loading && <Loading />}
         {data?.response && <header className='flex items-center w-full justify-between'>
           <EllipseHeader ellipseColor='bg-red-400' text='Sentence Analysis' />

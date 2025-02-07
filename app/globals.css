@@ -40,6 +40,10 @@ span , .span {
   @apply flex flex-col gap-8 w-full 2xl:w-2/3 xl:w-[80%];
 }
 
+.card-container {
+  @apply bg-lightBlue rounded-xl w-full p-2 md:p-6 flex flex-col gap-8;
+}
+
 .hero-input {
   @apply border-2 border-gray-200 px-5 py-4 rounded-lg text-primaryText font-semibold;
 }
@@ -49,7 +53,7 @@ span , .span {
 }
 
 .premium-button {
-  @apply bg-orange-400 p-3 rounded-xl font-normal transition-all duration-100 ease-in hover:bg-orange-300 hover:text-primaryText;
+  @apply bg-orange-400 p-3 font-normal transition-all duration-100 ease-in hover:bg-orange-300 hover:text-primaryText;
 }
 
 .ghost-button {
