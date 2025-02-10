@@ -2,7 +2,6 @@
 
 import EllipseHeader from '@/components/reusables/EllipseHeader';
 import TextArea from '@/components/reusables/TextArea'
-import SentenceCard from '@/components/cards/SentenceCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { FastApiAIResponse } from '@/types/sentence';
 import React, { useRef, useState } from 'react'
@@ -11,6 +10,8 @@ import CopyIcon from '@/components/svg/CopyIcon';
 import { extractSpanContent, speakSentence } from '@/utils/helpers';
 import Loading from '@/components/Loading';
 import Card from '@/components/cards/Card';
+import fixSvg from '@/public/illustrations/files.svg';
+import BaseInformation from '@/components/reusables/BaseInformation';
 
 export default function Page() {
 
@@ -39,7 +40,7 @@ export default function Page() {
 
             {loading && <Loading />}
 
-            {data?.response && (<div className='card-container'>
+            {data?.response ? (<div className='card-container'>
                 <EllipseHeader ellipseColor='bg-orange-300' text='Sentence Fix' />
 
                 <div className='p-4 bg-white flex flex-col gap-8 justify-between rounded-md'>
@@ -47,7 +48,14 @@ export default function Page() {
                 </div>
 
                 <Card text={data.response[1]} icons={icons} />
-            </div>)}
+            </div>) : (
+                !loading && <BaseInformation svgFile={fixSvg}
+                    svgWidth={350}
+                    svgHeight={350}
+                    title='Fix your sentence'
+                    description='Fix your sentence with our AI-powered tool. Simply paste your sentence, and let our AI algorithm analyze and correct any grammatical errors, punctuation mistakes, and spelling errors. Our tool is designed to help you improve your writing and communication skills, making it easier for you to express yourself clearly and effectively.' />
+
+            )}
         </div>
     )
 }
