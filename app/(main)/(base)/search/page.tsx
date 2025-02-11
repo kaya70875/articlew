@@ -6,11 +6,11 @@ import EllipseHeader from '@/components/reusables/EllipseHeader';
 import SentenceCard from '@/components/cards/SentenceCard';
 import WordInfoCard from '@/components/cards/WordInfoCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
-import { FastApiResponse } from '@/types/sentence';
 import { Pagination } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import NoResultsCard from '@/components/cards/NoResultsCard';
+import { FastApiResponse } from '@/types/aiResponse';
 
 export default function Page() {
 

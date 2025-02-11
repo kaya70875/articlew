@@ -3,9 +3,7 @@
 import Loading from '@/components/Loading';
 import EllipseHeader from '@/components/reusables/EllipseHeader';
 import TextArea from '@/components/reusables/TextArea';
-import SentenceCard from '@/components/cards/SentenceCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
-import { FastApiAIResponse } from '@/types/sentence';
 import React, { useRef, useState } from 'react'
 import Speaker from '@/components/svg/Speaker';
 import { speakSentence } from '@/utils/helpers';
@@ -17,6 +15,7 @@ import IconExpanded from '@/components/svg/IconExpanded';
 import IconAcademic from '@/components/svg/IconAcademic';
 import InformationBubble from '@/components/reusables/InformationBubble';
 import Card from '@/components/cards/Card';
+import { FastApiAIResponse } from '@/types/aiResponse';
 
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 
