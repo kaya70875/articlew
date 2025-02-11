@@ -17,6 +17,11 @@ export type FastApiAIResponse = {
   paraphrase: string[];
 };
 
+export type FastApiAIFeedbackResponse = {
+  check: string;
+  analysis: string;
+};
+
 export type FastApiWordResponse = {
   adjectives: WordInfo[];
   adverb: WordInfo[];
@@ -30,4 +35,9 @@ export type FastApiCompareResponse = {
   differences: string;
   examples_word1: string[];
   examples_word2: string[];
+};
+
+export type FastApiFixGrammarResponse = {
+  original_sentence: string;
+  corrected_sentence: string;
 };
