@@ -3,7 +3,6 @@
 import EllipseHeader from '@/components/reusables/EllipseHeader';
 import TextArea from '@/components/reusables/TextArea'
 import useAPIFetch from '@/hooks/useAPIFetch';
-import { FastApiAIResponse } from '@/types/sentence';
 import React, { useRef, useState } from 'react'
 import Speaker from '@/components/svg/Speaker';
 import CopyIcon from '@/components/svg/CopyIcon';
@@ -12,13 +11,14 @@ import Loading from '@/components/Loading';
 import Card from '@/components/cards/Card';
 import fixSvg from '@/public/illustrations/files.svg';
 import BaseInformation from '@/components/reusables/BaseInformation';
+import { FastApiAIResponse, FastApiFixGrammarResponse } from '@/types/aiResponse';
 
 export default function Page() {
 
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [sentence, setSentence] = useState('');
 
-    const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/grammar/${encodeURIComponent(sentence)}` : null);
+    const { data, loading, error } = useAPIFetch<FastApiFixGrammarResponse>(sentence ? `/grammar/${encodeURIComponent(sentence)}` : null);
 
     const handleFixButton = () => {
         if (textAreaRef.current) {
@@ -26,7 +26,7 @@ export default function Page() {
         }
     }
 
-    const rawContent = extractSpanContent(data?.response[1] ?? '');
+    const rawContent = extractSpanContent(data?.corrected_sentence ?? '');
     const icons = [
         { icon: <Speaker isSpeaking={false} />, onClick: () => speakSentence(rawContent) },
         { icon: <CopyIcon props={{ color: '#1f2937', cursor: 'pointer' }} />, onClick: () => navigator.clipboard.writeText(rawContent) },
@@ -40,14 +40,14 @@ export default function Page() {
 
             {loading && <Loading />}
 
-            {data?.response ? (<div className='card-container'>
+            {data ? (<div className='card-container'>
                 <EllipseHeader ellipseColor='bg-orange-300' text='Sentence Fix' />
 
                 <div className='p-4 bg-white flex flex-col gap-8 justify-between rounded-md'>
-                    <p className='text-base' dangerouslySetInnerHTML={{ __html: data?.response[0] ?? '' }}></p>
+                    <p className='text-base' dangerouslySetInnerHTML={{ __html: data?.original_sentence ?? '' }}></p>
                 </div>
 
-                <Card text={data.response[1]} icons={icons} />
+                <Card text={data.corrected_sentence} icons={icons} />
             </div>) : (
                 !loading && <BaseInformation svgFile={fixSvg}
                     svgWidth={350}
