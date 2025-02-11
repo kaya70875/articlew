@@ -1,7 +1,6 @@
 'use client';
 
 import useAPIFetch from '@/hooks/useAPIFetch';
-import { FastApiWordResponse } from '@/types/sentence';
 import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../Loading';
 import Speaker from '../svg/Speaker';
@@ -10,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import EllipseHeader from '../reusables/EllipseHeader';
 import ChevronUp from '../svg/ChevronUp';
 import ChevronDown from '../svg/ChevronDown';
+import { FastApiWordResponse } from '@/types/aiResponse';
 
 interface WordInfoCardProps {
     currentWord: string;
