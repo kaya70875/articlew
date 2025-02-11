@@ -73,7 +73,7 @@ span , .span {
 }
 
 .compare-card {
-  @apply p-2 bg-white border border-gray-400 rounded-md
+  @apply p-2 flex flex-col gap-2;
 }
 
 .line {
