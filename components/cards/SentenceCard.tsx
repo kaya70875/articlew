@@ -4,13 +4,13 @@ import React, { useState } from 'react'
 import { mutate } from 'swr';
 import Speaker from '../svg/Speaker';
 import useAPIFetch from '@/hooks/useAPIFetch';
-import { FastApiAIResponse } from '@/types/sentence';
 import Loading from '../Loading';
 import EllipseHeader from '../reusables/EllipseHeader';
 import InformationBubble from '../reusables/InformationBubble';
 import IconAnalyze from '../svg/IconAnalyze';
 import IconHearth from '../svg/IconHearth';
 import Card from './Card';
+import { FastApiAIResponse } from '@/types/aiResponse';
 
 interface SentenceCardProps {
   sentence: string;

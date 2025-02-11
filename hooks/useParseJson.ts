@@ -1,4 +1,3 @@
-import { FastApiAIResponse } from "@/types/sentence";
 import { useEffect, useState } from "react";
 
 export const useParseJson = (json: string) => {
