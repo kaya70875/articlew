@@ -48,8 +48,7 @@ export default function Sidebar() {
     const { isBelow: isMobile } = useScreenSize(768);
 
     return (
-        <div className={`${isMobile ? 'w-full bottom-0' : 'h-screen top-0'} ${isTablet ? 'w-[12%] items-center' : 'w-sidebar-width items-start'} flex flex-col justify-start z-20 p-3 sm:p-6 gap-8 fixed bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)] `}>
-
+        <div className={`${isMobile ? 'w-full bottom-0' : 'h-screen top-0'} ${isTablet ? 'w-[12%] items-center' : 'w-sidebar-width items-start'} flex flex-col justify-start z-10 p-3 sm:p-6 gap-8 fixed bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)]`}>
             <div className='logo hidden md:flex items-center gap-2 cursor-pointer'>
                 <Image className='rounded-xl' src={logo} alt="logo" width={48} height={48} />
                 <h4 className='text-xl hidden lg:block'>articlew</h4>

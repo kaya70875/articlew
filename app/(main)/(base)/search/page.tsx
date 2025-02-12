@@ -66,9 +66,7 @@ export default function Page() {
 
       {loading && <div>loading...</div>}
 
-      <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />
-      </div>
+      {modalOpen && <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />}
 
       {data ? (
         <div className='flex flex-col gap-8'>
