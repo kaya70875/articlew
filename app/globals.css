@@ -32,10 +32,6 @@ li , .li {
   @apply list-none text-primaryText;
 }
 
-span , .span {
-  @apply text-primaryBlue font-semibold;
-}
-
 .main-container {
   @apply flex flex-col gap-8 w-full 2xl:w-2/3 xl:w-[80%];
 }
@@ -49,11 +45,11 @@ span , .span {
 }
 
 .primary-button {
-  @apply bg-primaryBlue px-10 py-2 rounded-lg text-whitef;
+  @apply bg-primaryBlue py-2 px-4 rounded-xl text-whitef hover:bg-opacity-90 transition-all duration-150 ease-in active:bg-opacity-50;
 }
 
 .premium-button {
-  @apply bg-orange-400 p-3 font-normal transition-all duration-100 ease-in hover:bg-orange-300 hover:text-primaryText;
+  @apply bg-orange-400 py-2 px-4 rounded-xl transition-all text-[#3A1D0D] font-medium duration-150 ease-in hover:bg-orange-300 hover:text-primaryText;
 }
 
 .ghost-button {
