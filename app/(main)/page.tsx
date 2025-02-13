@@ -14,7 +14,7 @@ export default function Home() {
           <h1 className="max-w-lg text-center">Master English, One Word at a Time</h1>
           <div className="line" />
 
-          <p className="max-w-xl text-center">Learn With Articles finds the phrase you are looking for from articles from different websites and <span>help you to improve and test your English writing.</span></p>
+          <p className="max-w-xl text-center">Learn With Articles finds the phrase you are looking for from articles from different websites and <span className="text-primaryBlue">help you to improve and test your English writing.</span></p>
 
           <button className="primary-button !py-4">
             <Link href={'/signup'}>Start Learning Now</Link>
@@ -30,7 +30,7 @@ export default function Home() {
             <Image src={undraw_learning} alt="undraw_learning" width={300} height={300} />
             <div className="flex flex-col gap-4">
               <h3>Find Sentences From Different Topics</h3>
-              <p className="max-w-xl">Learn With Articles finds sentence from <span>different topics and sources based on your interest or project.</span> In this way you can fully understand the usage of the word that you search.</p>
+              <p className="max-w-xl">Learn With Articles finds sentence from <span className="text-primaryBlue">different topics and sources based on your interest or project.</span> In this way you can fully understand the usage of the word that you search.</p>
             </div>
           </div>
 
@@ -38,7 +38,7 @@ export default function Home() {
             <Image src={undraw_texting} alt="undraw_texting" width={500} height={500} />
             <div className="flex flex-col gap-4">
               <h3>Every Day Updated</h3>
-              <p className="max-w-xl">Learn With Articles updates every day. You can learn new words while you follow news about <span>‘science’ , ‘sport’</span> and more !</p>
+              <p className="max-w-xl">Learn With Articles updates every day. You can learn new words while you follow news about <span className="text-primaryBlue">‘science’ , ‘sport’</span> and more !</p>
             </div>
           </div>
 

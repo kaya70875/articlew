@@ -73,7 +73,7 @@ export const speakSentence = (sentence: string) => {
 
 export const extractSpanContent = (htmlString: string): string => {
   // Regular expression to match the <span> tag and its content
-  const spanRegex = /<span[^>]*>(.*?)<\/span>/g;
+  const spanRegex = /<span class='text-primaryBlue'[^>]*>(.*?)<\/span>/g;
   // Replace the <span> tags with their inner content
   return htmlString.replace(spanRegex, "$1");
 };
@@ -98,7 +98,8 @@ export const highlighWord = (
 ) => {
   const highlightedSentence = sentence?.replace(
     new RegExp(`(${word})`, "gi"),
-    (match) => `<span class="font-bold underline ${className}">${match}</span>`
+    (match) =>
+      `<span class="font-bold underline text-primaryBlue ${className}">${match}</span>`
   );
 
   return highlightedSentence;
