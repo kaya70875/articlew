@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans, Inter, Lora } from "next/font/google";
 import SessionProvider from "../../providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -11,6 +11,9 @@ export const metadata: Metadata = {
 };
 
 const openSans = Open_Sans({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
+const lora = Lora({ subsets: ["latin"] });
+
 
 export default async function RootLayout({
   children,
@@ -23,7 +26,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${openSans.className} antialiased`} suppressHydrationWarning
+        className={`${lora.className} antialiased`} suppressHydrationWarning
       >
         <main className="bg-main min-h-screen">
           <SessionProvider session={session}>
