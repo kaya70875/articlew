@@ -12,6 +12,7 @@ import Card from '@/components/cards/Card';
 import fixSvg from '@/public/illustrations/files.svg';
 import BaseInformation from '@/components/reusables/BaseInformation';
 import { FastApiAIResponse, FastApiFixGrammarResponse } from '@/types/aiResponse';
+import IconFix from '@/components/svg/IconFix';
 
 export default function Page() {
 
@@ -35,7 +36,10 @@ export default function Page() {
     return (
         <div className='main-container'>
             <TextArea textAreaRef={textAreaRef}>
-                <button className='p-2 flex items-center justify-center bg-orange-300 text-primaryText font-medium rounded-md w-28' onClick={handleFixButton}>Fix</button>
+                <div className='premium-button flex items-center justify-center gap-2 w-32 cursor-pointer' onClick={handleFixButton}>
+                    <span>Fix</span>
+                    <IconFix />
+                </div>
             </TextArea>
 
             {loading && <Loading />}

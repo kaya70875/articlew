@@ -16,6 +16,7 @@ import IconAcademic from '@/components/svg/IconAcademic';
 import InformationBubble from '@/components/reusables/InformationBubble';
 import Card from '@/components/cards/Card';
 import { FastApiAIResponse } from '@/types/aiResponse';
+import IconParaphrase from '@/components/svg/IconParaphrase';
 
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 
@@ -74,7 +75,10 @@ export default function page() {
                             </InformationBubble>
                         ))}
                     </div>
-                    <button className='text-sm md:text-base p-2 md:px-4 py-2 bg-orange-400 rounded-xl text-primaryText font-medium' onClick={handleParaphraseClick}>Paraphrase</button>
+                    <div className="premium-button flex items-center justify-center gap-2 cursor-pointer" onClick={handleParaphraseClick}>
+                        <span onClick={handleParaphraseClick}>Paraphrase</span>
+                        <IconParaphrase />
+                    </div>
                 </TextArea>
 
                 {loading && <Loading />}

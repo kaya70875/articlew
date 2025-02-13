@@ -53,8 +53,8 @@ export default function Page() {
                 </div>
 
                 <div className="button-wrapper w-full flex flex-col items-center justify-center gap-4">
-                    <button className="primary-button w-full xs:w-1/2 md:w-1/4" onClick={handleClick}>Compare</button>
-                    <p className='font-medium'>Similarity Score : <span className='!text-primaryText font-semibold'>{similarityScore}%</span></p>
+                    <button className="primary-button w-48" onClick={handleClick}>Compare</button>
+                    <p className='font-medium'>Similarity Score : <span className='text-primaryText font-semibold'>{similarityScore}%</span></p>
                 </div>
             </div>
 
