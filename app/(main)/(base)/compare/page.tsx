@@ -21,8 +21,6 @@ export default function Page() {
         word_1 && word_2 ? `/compare/${word_1}/${word_2}` : null
     )
 
-    console.log('data', data);
-
     const { data: similarityData, loading: similarityLoading, error: similarityError } = useAPIFetch<FastApiAIResponse>(word_1 && word_2 ? `/wordSimilarity/${word_1}/${word_2}` : null)
 
     const handleClick = () => {
@@ -41,23 +39,21 @@ export default function Page() {
 
     return (
         <div className='main-container'>
-            <div className='flex flex-col gap-4 bg-white rounded-md p-4'>
-                <div className='flex items-center gap-4 w-full justify-between p-6'>
+            <div className='flex flex-col gap-4 bg-white rounded-xl p-4 items-center justify-center'>
+                <div className='flex flex-col sm:flex-row items-center gap-4 w-full justify-between p-2 md:p-3 lg:p-6'>
                     <div className='compare-card'>
-                        <p>Word 1</p>
+                        <p className='font-semibold' >First Word</p>
                         <input type="text" className='outline-none border border-primaryText rounded-lg w-56 text-primaryText py-2 px-3' ref={inputRef1} placeholder="Enter First Word" />
                     </div>
 
-                    <h4 className='font-bold'>AND</h4>
-
                     <div className='compare-card'>
-                        <p>Word 2</p>
+                        <p className='font-semibold' >Second Word</p>
                         <input type="text" className='outline-none border border-primaryText rounded-lg w-56 text-primaryText py-2 px-3' ref={inputRef2} placeholder="Enter Second Word" />
                     </div>
                 </div>
 
-                <div className="button-wrapper w-full flex flex-col items-center justify-center gap-12">
-                    <button className="primary-button w-1/4" onClick={handleClick}>Compare</button>
+                <div className="button-wrapper w-full flex flex-col items-center justify-center gap-4">
+                    <button className="primary-button w-full xs:w-1/2 md:w-1/4" onClick={handleClick}>Compare</button>
                     <p className='font-medium'>Similarity Score : <span className='!text-primaryText font-semibold'>{similarityScore}%</span></p>
                 </div>
             </div>
