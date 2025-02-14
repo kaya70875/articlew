@@ -4,6 +4,7 @@ import { Open_Sans, Inter, Lora } from "next/font/google";
 import SessionProvider from "../../providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { ToastProvider } from "@/context/ToastContext";
 
 export const metadata: Metadata = {
   title: "Learn With Articles",
@@ -30,7 +31,9 @@ export default async function RootLayout({
       >
         <main className="bg-main min-h-screen">
           <SessionProvider session={session}>
-            {children}
+            <ToastProvider>
+              {children}
+            </ToastProvider>
           </SessionProvider>
         </main>
       </body>
