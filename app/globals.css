@@ -41,7 +41,7 @@ li , .li {
 }
 
 .hero-input {
-  @apply border-2 border-gray-200 px-5 py-4 rounded-lg text-primaryText font-semibold;
+  @apply border-2 border-gray-200 px-5 py-4 rounded-xl text-primaryText font-semibold;
 }
 
 .primary-button {
@@ -49,7 +49,7 @@ li , .li {
 }
 
 .premium-button {
-  @apply bg-orange-400 py-2 px-4 rounded-xl transition-all text-[#3A1D0D] font-medium duration-150 ease-in hover:bg-orange-300 hover:text-primaryText;
+  @apply bg-orange-400 py-2 px-4 rounded-xl transition-all text-[#3A1D0D] font-medium duration-150 ease-in hover:bg-opacity-90 active:bg-opacity-50 hover:text-primaryText;
 }
 
 .ghost-button {
@@ -57,15 +57,15 @@ li , .li {
 }
 
 .sso-button {
-  @apply bg-whitef px-10 py-3 font-medium rounded-lg text-primaryBlue;
+  @apply bg-whitef px-10 py-3 font-medium rounded-xl text-primaryBlue;
 }
 
 .primary-button--revert {
-  @apply bg-whitef px-10 py-3 font-medium rounded-lg text-primaryBlue;
+  @apply bg-whitef px-10 py-3 font-medium rounded-xl text-primaryBlue;
 }
 
 .secondary-button {
-  @apply bg-primaryText px-10 py-2 rounded-lg text-whitef;
+  @apply bg-primaryText px-10 py-2 rounded-xl text-whitef;
 }
 
 .compare-card {
