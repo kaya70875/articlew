@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import NoResultsCard from '@/components/cards/NoResultsCard';
 import { FastApiResponse } from '@/types/aiResponse';
+import { useToast } from '@/context/ToastContext';
 
 export default function Page() {
 
@@ -27,13 +28,18 @@ export default function Page() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const { data, loading, error } = useAPIFetch<FastApiResponse>(`/sentences/${currentWord}?categories=${categories.join(',')}&page=${page}`);
+  const { showToast } = useToast();
 
   const totalPage = data?.total_results ? Math.ceil(data.total_results / 10) : 1;
 
+  const SEARCH_LIMIT = 100;
 
   const handleResults = async () => {
+    if (word.length > SEARCH_LIMIT) {
+      return showToast('Word is too long', 'warning');
+    };
     router.push(`/search?word=${word}&page=1`);
-  };
+  }
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);

@@ -7,6 +7,9 @@ import useAPIFetch from '@/hooks/useAPIFetch'
 import { useEffect, useRef, useState } from 'react'
 import compareSvg from '@/public/illustrations/search.svg'
 import { FastApiAIResponse, FastApiCompareResponse } from '@/types/aiResponse'
+import { useToast } from '@/context/ToastContext'
+
+const WORD_LIMIT = 20
 
 export default function Page() {
     const [word_1, setWord_1] = useState('')
@@ -22,21 +25,23 @@ export default function Page() {
     )
 
     const { data: similarityData, loading: similarityLoading, error: similarityError } = useAPIFetch<FastApiAIResponse>(word_1 && word_2 ? `/wordSimilarity/${word_1}/${word_2}` : null)
+    const { showToast } = useToast();
 
     const handleClick = () => {
         if (inputRef1.current && inputRef2.current) {
+            if (inputRef1.current.value.length > WORD_LIMIT && inputRef2.current.value.length > WORD_LIMIT) {
+                return showToast('Word is too long', 'warning');
+            }
             setWord_1(inputRef1.current.value)
             setWord_2(inputRef2.current.value)
         }
+
+        useEffect(() => {
+            if (similarityData) {
+                setSimilarityScore(similarityData.score.toString());
+            }
+        }, [similarityData])
     }
-
-    useEffect(() => {
-        if (similarityData) {
-            setSimilarityScore(similarityData.score.toString());
-        }
-    }, [similarityData])
-
-
     return (
         <div className='main-container'>
             <div className='flex flex-col gap-4 bg-white rounded-xl p-4 items-center justify-center'>

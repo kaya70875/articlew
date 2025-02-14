@@ -11,8 +11,11 @@ import Loading from '@/components/Loading';
 import Card from '@/components/cards/Card';
 import fixSvg from '@/public/illustrations/files.svg';
 import BaseInformation from '@/components/reusables/BaseInformation';
-import { FastApiAIResponse, FastApiFixGrammarResponse } from '@/types/aiResponse';
+import { FastApiFixGrammarResponse } from '@/types/aiResponse';
 import IconFix from '@/components/svg/IconFix';
+import { useToast } from '@/context/ToastContext';
+
+const INPUT_LIMIT = 600
 
 export default function Page() {
 
@@ -21,8 +24,13 @@ export default function Page() {
 
     const { data, loading, error } = useAPIFetch<FastApiFixGrammarResponse>(sentence ? `/grammar/${encodeURIComponent(sentence)}` : null);
 
+    const { showToast } = useToast();
+
     const handleFixButton = () => {
         if (textAreaRef.current) {
+            if (textAreaRef.current.value.length > INPUT_LIMIT) {
+                return showToast('Input limit exceeded', 'warning');
+            }
             setSentence(textAreaRef.current.value);
         }
     }

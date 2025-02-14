@@ -17,14 +17,18 @@ import InformationBubble from '@/components/reusables/InformationBubble';
 import Card from '@/components/cards/Card';
 import { FastApiAIResponse } from '@/types/aiResponse';
 import IconParaphrase from '@/components/svg/IconParaphrase';
+import { useToast } from '@/context/ToastContext';
 
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
+const INPUT_LIMIT = 400;
 
 export default function page() {
 
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [sentence, setSentence] = useState('How can I write this sentence in different ways?');
     const [context, setContext] = useState<Context>('Casual');
+
+    const { showToast } = useToast();
 
     const { data, loading, error } = useAPIFetch<FastApiAIResponse>(sentence ? `/paraphrase/${encodeURIComponent(sentence)}/${context}` : null);
 
@@ -58,6 +62,9 @@ export default function page() {
 
     const handleParaphraseClick = () => {
         if (textAreaRef.current) {
+            if (textAreaRef.current.value.length > INPUT_LIMIT) {
+                return showToast('Input limit exceeded', 'warning');
+            }
             setSentence(textAreaRef.current.value);
         }
     }
