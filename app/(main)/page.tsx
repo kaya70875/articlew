@@ -1,9 +1,9 @@
 import Navbar from "@/components/Navbar";
-import Image from "next/image";
 import undraw_learning from '@/public/images/undraw_learning.png';
 import undraw_texting from '@/public/images/undraw_texting.png';
 import undraw_ai from '@/public/images/undraw_artificial-intelligence_fuvd.svg';
 import Link from "next/link";
+import LandingCard from "@/components/reusables/LandingCard";
 
 export default function Home() {
   return (
@@ -27,29 +27,23 @@ export default function Home() {
         </div>
 
         <article className="content flex flex-col gap-24">
-          <div className="w-full flex items-center justify-between 2xl:justify-around">
-            <Image src={undraw_learning} alt="undraw_learning" width={300} height={300} />
-            <div className="flex flex-col gap-4">
-              <h3>Find Sentences From Different Topics</h3>
-              <p className="max-w-xl"><span className="font-semibold">Articlew</span> finds sentence from <span className="text-primaryBlue font-semibold">different topics and sources based on your interest or project.</span> In this way you can fully understand the usage of the word that you search.</p>
-            </div>
-          </div>
+          <LandingCard title="Find Sentences From Different Topics" description={
+            <p>
+              <span className="font-semibold">Articlew</span> finds sentence from <span className="text-primaryBlue font-semibold">different topics and sources based on your interest or project.</span> In this way you can fully understand the usage of the word that you search.
+            </p>
+          } image={undraw_learning} />
 
-          <div className="w-full flex flex-row-reverse items-center justify-between 2xl:justify-around">
-            <Image src={undraw_texting} alt="undraw_texting" width={500} height={500} />
-            <div className="flex flex-col gap-4">
-              <h3>Every Day Updated</h3>
-              <p className="max-w-xl"><span className="font-semibold">Articlew</span> updates every day. You can learn new words while you follow news about <span className="text-primaryBlue font-semibold">science, sport</span> and more !</p>
+          <LandingCard title="Every Day Updated" description={
+            <div>
+              <span className="font-semibold">Articlew</span> updates every day. You can learn new words while you follow news about <span className="text-primaryBlue font-semibold">science, sport</span> and more !
             </div>
-          </div>
+          } image={undraw_texting} />
 
-          <div className="w-full flex items-center justify-between 2xl:justify-around">
-            <Image src={undraw_ai} alt="undraw_texting" width={500} height={500} />
-            <div className="flex flex-col gap-4">
-              <h3>Smart AI Tools For Your Problems</h3>
-              <p className="max-w-xl"><span className="font-semibold">Articlew</span> provides intelligent tools to enhance your learning experience with <span className="text-primaryBlue font-semibold">AI-powered writing suggestions, grammar corrections, paraphrase and more</span> to help you master English effectively.</p>
-            </div>
-          </div>
+          <LandingCard title="Smart AI Tools For Your Problems" description={
+            <p>
+              <span className="font-semibold">Articlew</span> provides intelligent tools to enhance your learning experience with <span className="text-primaryBlue font-semibold">AI-powered writing suggestions, grammar corrections, paraphrase and more</span> to help you master English effectively.
+            </p>
+          } image={undraw_ai} />
         </article>
       </div>
       <div className="w-full bg-primaryBlue mt-24 p-12 flex gap-16 justify-center items-center">
