@@ -8,10 +8,10 @@ interface AuthFormProps {
 
 export default function AuthForm({ header, desc, children }: AuthFormProps) {
     return (
-        <div className='bg-white rounded-lg w-2/3 max-w-5xl flex flex-col p-24 gap-16 items-center justify-center'>
+        <div className='bg-white rounded-xl w-full xl:w-2/3 max-w-5xl flex flex-col p-6 md:p-24 gap-4 md:gap-16'>
             <header className='flex flex-col items-center justify-center gap-4'>
-                <h1>{header}</h1>
-                <p>{desc}</p>
+                <h2 className='text-center'>{header}</h2>
+                <p className='text-center'>{desc}</p>
             </header>
             {children}
         </div>

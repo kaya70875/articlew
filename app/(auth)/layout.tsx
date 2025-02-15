@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${openSans.className} antialiased`}>
-        <main className="bg-main flex items-center justify-center w-full h-screen">
+        <main className="bg-main flex justify-center w-full py-12">
           {children}
         </main>
       </body>

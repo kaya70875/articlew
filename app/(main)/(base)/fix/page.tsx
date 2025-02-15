@@ -51,6 +51,7 @@ export default function Page() {
             </TextArea>
 
             {loading && <Loading />}
+            {error && <p>Error When Fixing Grammar: {error}</p>}
 
             {data ? (<div className='card-container'>
                 <EllipseHeader ellipseColor='bg-primaryPurple' text='Sentence Fix' />

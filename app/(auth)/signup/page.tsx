@@ -17,15 +17,15 @@ export default function Page() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const {createUser} = useAuthActions();
-  const [errorMessage , setErrorMessage] = useState<string | null>(null);
-  const [loading , setLoading] = useState(false);
+  const { createUser } = useAuthActions();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     const response = await createUser(data);
 
-    if(response?.message) {
+    if (response?.message) {
       setLoading(false);
       return setErrorMessage(response.message);
     }
@@ -40,14 +40,14 @@ export default function Page() {
   return (
     <AuthForm
       header="Sign Up"
-      desc="Sign Up to continue and explore this beautiful website"
+      desc="Create your account and start improving your English skills."
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-8 items-center justify-between w-full"
       >
         {errorMessage && <p className="text-red-500 text-base">{errorMessage}</p>}
-        <div className="flex items-center gap-24 justify-between w-full">
+        <div className="flex flex-col xs:flex-row items-center gap-0 xs:gap-12 md:gap-24 justify-between w-full">
           <Controller
             name="name"
             control={control}
@@ -134,7 +134,7 @@ export default function Page() {
           <button
             type="submit"
             disabled={loading}
-            className="secondary-button w-1/4 flex justify-center items-center !py-3 disabled:bg-gray-600"
+            className="secondary-button w-full xs:w-1/4 flex justify-center items-center !py-3 disabled:bg-gray-600"
           >
             Sign Up
           </button>

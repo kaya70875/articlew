@@ -11,7 +11,7 @@ interface LandingCardProps {
 export default function LandingCard({ title, description, image, cardBackgroundColor }: LandingCardProps) {
     return (
         <div className={`w-full p-4 rounded-xl shadow-lg ${cardBackgroundColor}`}>
-            <div className="w-full flex flex-row-reverse items-center justify-between 2xl:justify-around">
+            <div className="w-full flex flex-col md:flex-row-reverse gap-8 md:gap-0 items-center justify-between 2xl:justify-around">
                 <Image src={image} alt="undraw_texting" width={300} height={300} />
                 <div className="flex flex-col gap-4">
                     <h3>{title}</h3>
