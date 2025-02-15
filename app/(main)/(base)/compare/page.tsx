@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import compareSvg from '@/public/illustrations/search.svg'
 import { FastApiAIResponse, FastApiCompareResponse } from '@/types/aiResponse'
 import { useToast } from '@/context/ToastContext'
+import IconCompare from '@/components/svg/IconCompare'
 
 const WORD_LIMIT = 20
 
@@ -35,13 +36,14 @@ export default function Page() {
             setWord_1(inputRef1.current.value)
             setWord_2(inputRef2.current.value)
         }
-
-        useEffect(() => {
-            if (similarityData) {
-                setSimilarityScore(similarityData.score.toString());
-            }
-        }, [similarityData])
     }
+
+    useEffect(() => {
+        if (similarityData) {
+            setSimilarityScore(similarityData.score.toString());
+        }
+    }, [similarityData])
+
     return (
         <div className='main-container'>
             <div className='flex flex-col gap-4 bg-white rounded-xl p-4 items-center justify-center'>
@@ -58,8 +60,13 @@ export default function Page() {
                 </div>
 
                 <div className="button-wrapper w-full flex flex-col items-center justify-center gap-4">
-                    <button className="primary-button w-48" onClick={handleClick}>Compare</button>
+                    <div className="flex items-center justify-center text-white gap-2 cursor-pointer premium-button w-48" onClick={handleClick}>
+                        <IconCompare />
+                        <span className='text-whitef font-medium'>Compare</span>
+                    </div>
                     <p className='font-medium'>Similarity Score : <span className='text-primaryText font-semibold'>{similarityScore}%</span></p>
+                    {similarityLoading && <Loading className='w-12 h-12' />}
+                    {similarityError && <div>Similarity score cannot calculated.</div>}
                 </div>
             </div>
 

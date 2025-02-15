@@ -53,7 +53,7 @@ export default function Page() {
             {loading && <Loading />}
 
             {data ? (<div className='card-container'>
-                <EllipseHeader ellipseColor='bg-orange-300' text='Sentence Fix' />
+                <EllipseHeader ellipseColor='bg-primaryPurple' text='Sentence Fix' />
 
                 <div className='p-4 bg-white flex flex-col gap-8 justify-between rounded-md'>
                     <p className='text-base' dangerouslySetInnerHTML={{ __html: data?.original_sentence ?? '' }}></p>

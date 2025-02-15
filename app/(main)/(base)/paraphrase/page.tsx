@@ -22,7 +22,7 @@ import { useToast } from '@/context/ToastContext';
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 const INPUT_LIMIT = 400;
 
-export default function page() {
+export default function Page() {
 
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const [sentence, setSentence] = useState('How can I write this sentence in different ways?');
@@ -92,7 +92,7 @@ export default function page() {
                 {error && <p>{error}</p>}
 
                 {data && <div className='card-container'>
-                    <EllipseHeader ellipseColor='bg-orange-400' text='Rewrites' />
+                    <EllipseHeader ellipseColor='bg-primaryPurple' text='Rewrites' />
 
                     <div className='w-full flex flex-col gap-4'>
                         {data?.paraphrase.map((sen, index) => (
