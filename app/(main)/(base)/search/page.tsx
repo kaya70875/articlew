@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import NoResultsCard from '@/components/cards/NoResultsCard';
 import { FastApiResponse } from '@/types/aiResponse';
 import { useToast } from '@/context/ToastContext';
+import OverviewSkeleton from '@/components/skeletons/OverviewSkeleton';
 
 export default function Page() {
 
@@ -70,7 +71,11 @@ export default function Page() {
         </div>
       </div>
 
-      {loading && <div>loading...</div>}
+      {loading &&
+        <div className='flex flex-col gap-4'>
+          <OverviewSkeleton />
+          <OverviewSkeleton />
+        </div>}
 
       {modalOpen && <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />}
 
