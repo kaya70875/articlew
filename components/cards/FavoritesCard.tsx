@@ -7,6 +7,9 @@ import Dropdown from '../Dropdown';
 import ModalComp from '../ModalComp';
 import useFetch from '@/hooks/useFetch';
 import { useCategoryActions } from '@/hooks/useCategoryActions';
+import Card from './Card';
+import IconDots from '../svg/IconDots';
+import Loading from '../Loading';
 
 interface FavoriteCardProps {
   favorites: FavoriteSentences[];
@@ -14,7 +17,10 @@ interface FavoriteCardProps {
 
 export default function FavoritesCard({ favorites }: FavoriteCardProps) {
   const { data: categories, loading, error } = useFetch<CategorySentence[]>('/api/words/categories');
+
   const user = getCurrentUser();
+  const userid = user?.id;
+
   const { handleFavorites } = useSentenceCardActions();
   const { assignCategory } = useCategoryActions();
 
@@ -30,13 +36,17 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
   }, [selectedSentenceId, favorites]);
 
   const handleDelete = async (sentence: string) => {
-    await handleFavorites(sentence, user?.id!, '', 'DELETE');
+    if (!userid) return;
+
+    await handleFavorites(sentence, userid, '', 'DELETE');
     mutate('/api/words/getFavorites');
   };
 
   const handleAssignCategory = async () => {
+    if (!userid) return;
+
     if (selectedSentenceId && choosedCategory) {
-      await assignCategory(choosedCategory, selectedSentenceId, user?.id!);
+      await assignCategory(choosedCategory, selectedSentenceId, userid);
       mutate('/api/words/getFavorites');
       setModal(false);
     }
@@ -45,18 +55,12 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
   return (
     <>
       {favorites?.map((sentence, index) => (
-        <div key={index} className='flex flex-col gap-8 p-8 bg-lightBlue w-full rounded-md'>
+        <Card text={sentence.sentence} key={index} >
           <div className='flex w-full items-center justify-between gap-4'>
-            <p dangerouslySetInnerHTML={{ __html: sentence.sentence }} />
             <Dropdown
               position='right'
               dropdownTitle={(
-                <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="24" height="24" fill="none" />
-                  <circle cx="7" cy="12" r="0.5" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="12" cy="12" r="0.5" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="17" cy="12" r="0.5" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <IconDots />
               )}
             >
               <li className='w-full'>
@@ -67,8 +71,11 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
               </li>
             </Dropdown>
           </div>
-        </div>
+        </Card>
       ))}
+
+      {error && <p className='text-red-400'>Error: {error}</p>}
+      {loading && <Loading />}
 
       {modal && (
         <ModalComp
@@ -77,7 +84,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
           buttonTitle='Assign'
           createNewCategory={handleAssignCategory}
         >
-          {categories?.map((category, index) => (
+          {categories?.length ? categories?.map((category, index) => (
             <div
               className={`category-wrapper cursor-pointer bg-lightBlue p-4 flex items-center gap-4`}
               key={index}
@@ -86,7 +93,9 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
               <input type="checkbox" readOnly checked={choosedCategory === category.category} />
               <p>{category.category}</p>
             </div>
-          ))}
+          )) : (
+            <p>No Categories Yet.</p>
+          )}
         </ModalComp>
       )}
     </>
