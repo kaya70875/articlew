@@ -49,7 +49,7 @@ li , .li {
 }
 
 .premium-button {
-  @apply bg-orange-400 py-2 px-4 rounded-xl transition-all text-[#3A1D0D] font-medium duration-150 ease-in hover:bg-opacity-90 active:bg-opacity-50 hover:text-primaryText;
+  @apply bg-primaryPurple py-2 px-4 rounded-xl transition-all text-whitef font-medium duration-150 ease-in hover:bg-opacity-90 active:bg-opacity-50;
 }
 
 .ghost-button {
