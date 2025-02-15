@@ -1,12 +1,11 @@
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { getCurrentUser, getSourceName, highlighWord, prettyAIResponse, runSpeaker, speakSentence } from '@/utils/helpers';
+import { getCurrentUser, highlighWord, prettyAIResponse, speakSentence } from '@/utils/helpers';
 import React, { useState } from 'react'
 import { mutate } from 'swr';
 import Speaker from '../svg/Speaker';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import Loading from '../Loading';
 import EllipseHeader from '../reusables/EllipseHeader';
-import InformationBubble from '../reusables/InformationBubble';
 import IconAnalyze from '../svg/IconAnalyze';
 import IconHearth from '../svg/IconHearth';
 import Card from './Card';
@@ -34,7 +33,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   const sentenceCardIcons = [
     {
       name: 'Sentences',
-      icon: (<IconHearth />),
+      icon: (<IconHearth props={{ color: favorite ? '#2563EB' : '' }} />),
       onClick: () => handleSentenceCardActions('Sentences'),
     },
     {
