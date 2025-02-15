@@ -19,7 +19,6 @@ interface WordInfoCardProps {
 export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps) {
 
     const { data: wordInfo, loading: wordInfoLoading, error: wordInfoError } = useAPIFetch<FastApiWordResponse>(currentWord ? `/wordInfo/${currentWord}` : null);
-    const [isSpeaking, setIsSpeaking] = useState(false);
     const [showMore, setShowMore] = useState(false);
 
     const [collapsedHeight, setCollapsedHeight] = useState(0);
@@ -104,7 +103,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
             <div className='flex items-center w-full justify-between'>
                 <div className="word-itself flex items-center gap-3">
                     <div className='cursor-pointer' onClick={handleSpeakWord}>
-                        <Speaker isSpeaking={isSpeaking} />
+                        <Speaker isSpeaking={false} />
                     </div>
                     <p className='font-bold text-lg'>{currentWord}</p>
                 </div>

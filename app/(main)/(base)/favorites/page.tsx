@@ -55,7 +55,7 @@ export default function Page() {
             const filteredByWord = data?.filter(item => item.sentence.toLowerCase().includes(searchValue.toLowerCase()));
             setFilteredData(filteredByWord ?? []);
         }
-    }, [searchValue])
+    }, [searchValue, data]);
 
     return (
         <div className='main-container p-4'>
@@ -76,6 +76,7 @@ export default function Page() {
                         {categories.map((category, index) => (
                             <li className='flex items-center w-full justify-between' key={index} onClick={() => handleChoosingCategory(category.category)}>
                                 {categoriesLoading && <Loading />}
+                                {categoriesError && <p>Error: {categoriesError}</p>}
                                 <p className='text-base cursor-pointer'>{category.category}</p>
                                 <p onClick={(e) => handleRemoveCategory(category.category, e)} className='text-sm cursor-pointer'>x</p>
                             </li>
@@ -102,7 +103,9 @@ export default function Page() {
                 </ModalComp>
             </div>
 
-
+            {error || filteredError && (
+                <p>Error fetching data</p>
+            )}
 
             {loading || filteredLoading ? (
                 <Loading />

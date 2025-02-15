@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
-import undraw_learning from '../../public/images/undraw_learning.png';
-import undraw_texting from '../../public/images/undraw_texting.png';
+import undraw_learning from '@/public/images/undraw_learning.png';
+import undraw_texting from '@/public/images/undraw_texting.png';
+import undraw_ai from '@/public/images/undraw_artificial-intelligence_fuvd.svg';
 import Link from "next/link";
 
 export default function Home() {
@@ -26,7 +27,7 @@ export default function Home() {
         </div>
 
         <article className="content flex flex-col gap-24">
-          <div className="w-full flex items-center justify-between">
+          <div className="w-full flex items-center justify-between 2xl:justify-around">
             <Image src={undraw_learning} alt="undraw_learning" width={300} height={300} />
             <div className="flex flex-col gap-4">
               <h3>Find Sentences From Different Topics</h3>
@@ -34,7 +35,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full flex flex-row-reverse items-center justify-between">
+          <div className="w-full flex flex-row-reverse items-center justify-between 2xl:justify-around">
             <Image src={undraw_texting} alt="undraw_texting" width={500} height={500} />
             <div className="flex flex-col gap-4">
               <h3>Every Day Updated</h3>
@@ -42,6 +43,13 @@ export default function Home() {
             </div>
           </div>
 
+          <div className="w-full flex items-center justify-between 2xl:justify-around">
+            <Image src={undraw_ai} alt="undraw_texting" width={500} height={500} />
+            <div className="flex flex-col gap-4">
+              <h3>Smart AI Tools For Your Problems</h3>
+              <p className="max-w-xl"><span className="font-semibold">Articlew</span> provides intelligent tools to enhance your learning experience with <span className="text-primaryBlue font-semibold">AI-powered writing suggestions, grammar corrections, paraphrase and more</span> to help you master English effectively.</p>
+            </div>
+          </div>
         </article>
       </div>
       <div className="w-full bg-primaryBlue mt-24 p-12 flex gap-16 justify-center items-center">

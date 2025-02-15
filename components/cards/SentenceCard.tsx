@@ -28,7 +28,6 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   const user = getCurrentUser();
 
   const [favorite, setFavorite] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const sentenceCardIcons = [
     {
@@ -43,18 +42,20 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
     },
     {
       name: 'Speaker',
-      icon: (<Speaker isSpeaking={isSpeaking} />),
+      icon: (<Speaker isSpeaking={false} />),
       onClick: () => handleSentenceCardActions('Speaker'),
     }
   ]
 
   const highlightedSentence = highlighWord(sentence, word);
-  const prettierResponse = prettyAIResponse(data?.response!);
+  const prettierResponse = prettyAIResponse(data?.response ?? '');
 
   const handleSentenceCardActions = async (name: name) => {
+    if (!user) return;
+
     if (name === 'Sentences') {
       setFavorite(prev => !prev);
-      await handleFavorites(highlightedSentence, user?.id!, word, favorite ? 'DELETE' : 'POST');
+      await handleFavorites(highlightedSentence, user?.id, word, favorite ? 'DELETE' : 'POST');
       mutate('/api/words/getFavorites');
     }
 

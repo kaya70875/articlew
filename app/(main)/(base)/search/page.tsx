@@ -77,6 +77,8 @@ export default function Page() {
           <OverviewSkeleton />
         </div>}
 
+      {error && <p className='text-red-500'>{error}</p>}
+
       {modalOpen && <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />}
 
       {data ? (
