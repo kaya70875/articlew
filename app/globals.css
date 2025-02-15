@@ -65,7 +65,7 @@ li , .li {
 }
 
 .secondary-button {
-  @apply bg-primaryText px-10 py-2 rounded-xl text-whitef;
+  @apply bg-primaryText px-6 py-2 rounded-xl text-whitef hover:bg-opacity-80 transition-all duration-150 ease-in active:bg-opacity-50;
 }
 
 .compare-card {
