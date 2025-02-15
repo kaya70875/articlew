@@ -15,7 +15,7 @@ export default function Dropdown({ dropdownTitle = 'Dropdown', addButton = false
 
     return (
         <div className='dropdown relative'>
-            <button className='relative' onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
+            <button className='relative hover:text-gray-500' onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
             <div
                 className={`dropdown-menu absolute top-full mt-2 p-4 bg-slate-200 rounded-md ${position === 'left' ? 'left-0' : 'right-0'
                     } ${isOpen ? 'block' : 'hidden'}`}
