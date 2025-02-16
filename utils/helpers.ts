@@ -36,6 +36,14 @@ export const getCurrentWord = () => {
   return params.get("word") || "";
 };
 
+// utils/scrollToTop.js
+export const scrollToTop = (behavior = "smooth" as ScrollBehavior) => {
+  window.scrollTo({
+    top: 0,
+    behavior: behavior,
+  });
+};
+
 export const runSpeaker = async (
   sentence: string,
   setIsSpeaking: React.Dispatch<React.SetStateAction<boolean>>

@@ -13,6 +13,7 @@ import NoResultsCard from '@/components/cards/NoResultsCard';
 import { FastApiResponse } from '@/types/aiResponse';
 import { useToast } from '@/context/ToastContext';
 import OverviewSkeleton from '@/components/skeletons/OverviewSkeleton';
+import { scrollToTop } from '@/utils/helpers';
 
 export default function Page() {
 
@@ -40,6 +41,7 @@ export default function Page() {
       return showToast('Word is too long', 'warning');
     };
     router.push(`/search?word=${word}&page=1`);
+    scrollToTop();
   }
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
