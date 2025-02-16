@@ -58,7 +58,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
         <Card text={sentence.sentence} key={index} >
           <div className='flex w-full items-center justify-between gap-4'>
             <Dropdown
-              position='right'
+              position='left'
               dropdownTitle={(
                 <IconDots />
               )}
