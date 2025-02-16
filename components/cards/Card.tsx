@@ -15,12 +15,11 @@ interface CardProps {
     source?: string;
     children?: React.ReactNode;
 
-    padding?: string;
     borderRadius?: string;
     gap?: string;
 }
 
-export default function Card({ text, icons, source, children, padding, borderRadius, gap }: CardProps) {
+export default function Card({ text, icons, source, children, borderRadius, gap }: CardProps) {
 
     const cardBase = css`
         display: flex;
@@ -28,7 +27,6 @@ export default function Card({ text, icons, source, children, padding, borderRad
         justify-content: space-between;
         background-color: #fff;
         gap: ${gap || '1.75rem'};
-        padding: ${padding || '1.35rem'};
         border-radius: ${borderRadius || '0.75rem'};
     `
 
@@ -39,12 +37,12 @@ export default function Card({ text, icons, source, children, padding, borderRad
     }
 
     return (
-        <div className='shadow-lg' css={cardBase}>
+        <div className='shadow-lg p-3 xs:p-6' css={cardBase}>
             {text && <p className='text-base' dangerouslySetInnerHTML={{ __html: text ?? '' }} />}
             {icons && <div className='w-full flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     {icons?.map((icon, index) => (
-                        <div key={index} className='cursor-pointer hover:text-gray-600' onClick={() => icon.onClick?.(text as string)}>
+                        <div key={index} className='cursor-pointer text-primaryText hover:text-gray-600' onClick={() => icon.onClick?.(text as string)}>
                             {icon.icon}
                         </div>
                     ))}

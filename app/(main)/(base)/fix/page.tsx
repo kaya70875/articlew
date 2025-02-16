@@ -38,7 +38,7 @@ export default function Page() {
     const rawContent = extractSpanContent(data?.corrected_sentence ?? '');
     const icons = [
         { icon: <Speaker isSpeaking={false} />, onClick: () => speakSentence(rawContent) },
-        { icon: <CopyIcon props={{ color: '#1f2937', cursor: 'pointer' }} />, onClick: () => navigator.clipboard.writeText(rawContent) },
+        { icon: <CopyIcon />, onClick: () => navigator.clipboard.writeText(rawContent) },
     ]
 
     return (

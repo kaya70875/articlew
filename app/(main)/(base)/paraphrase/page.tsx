@@ -57,7 +57,7 @@ export default function Page() {
 
     const icons = [
         { icon: <Speaker isSpeaking={false} />, onClick: (sent: string) => speakSentence(sent) },
-        { icon: <CopyIcon props={{ color: '#1f2937', cursor: 'pointer' }} />, onClick: (sent: string) => navigator.clipboard.writeText(sent) },
+        { icon: <CopyIcon />, onClick: (sent: string) => navigator.clipboard.writeText(sent) },
     ]
 
     const handleParaphraseClick = () => {

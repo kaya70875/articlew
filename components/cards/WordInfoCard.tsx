@@ -61,19 +61,19 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
         return (
             <div className='flex w-full gap-4 flex-col' ref={cardContainerRef}>
                 {items.map((item, index) => (
-                    <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-4 rounded-md shadow-lg'>
+                    <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-2 xs:p-4 rounded-xl shadow-lg'>
                         <div className='flex flex-col gap-2 w-full'>
                             <p className='text-sm text-gray-600'>{title}</p>
-                            <p className='font-medium max-w-3xl px-4'>{item.definition}</p>
+                            <p className='font-medium max-w-3xl px-2 xs:px-4'>{item.definition}</p>
 
                             {item.examples?.slice(0, 1).map((example, index) => (
-                                <p className='text-sm text-gray-600 px-8' key={index} >{example}</p>
+                                <p className='text-sm text-gray-600 px-4 xs:px-8' key={index} >{example}</p>
                             ))}
                         </div>
 
                         <div className='flex flex-col gap-2 w-full'>
                             <p className='text-sm text-gray-600'>Synonyms</p>
-                            <div className='flex items-center gap-4'>
+                            <div className='flex items-center gap-4 flex-wrap sm:flex-nowrap'>
                                 {item.synonyms.slice(0, 4).map((synonym, index) => (
                                     <div className="syn-card p-2 flex items-center justify-center border text-primaryText transition-all duration-100 ease-in border-primaryText hover:bg-primaryText hover:text-whitef rounded-md cursor-pointer" key={index} onClick={() => handleSynonymClick(synonym)}>
                                         <div className='text-sm font-semibold'>{synonym}</div>
