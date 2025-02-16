@@ -76,7 +76,7 @@ export default function Page() {
                     <div className='flex flex-row-reverse items-center gap-2'>
                         {buttonTypes.map((buttonType, index) => (
                             <InformationBubble information={buttonType.name} key={index}>
-                                <button key={index} className={`relative ${context === buttonType.name ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-blue-300'} transition-all duration-100 ease-in p-2 md:p-3 rounded-full`} onClick={() => setContext(buttonType.name as Context)}>
+                                <button key={index} className={`relative ${context === buttonType.name ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} transition-all duration-150 ease-in p-2 md:p-3 rounded-full`} onClick={() => setContext(buttonType.name as Context)}>
                                     {buttonType.icon}
                                 </button>
                             </InformationBubble>
