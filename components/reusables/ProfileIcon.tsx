@@ -1,0 +1,15 @@
+'use client';
+
+import { getCurrentUser } from '@/utils/helpers'
+import React from 'react'
+
+export default function ProfileIcon() {
+
+    const currentUser = getCurrentUser();
+
+    return (
+        <div className='bg-blue-300 flex items-center justify-center p-4 w-12 h-12 rounded-full'>
+            <p className='text-sm'>{currentUser?.name?.charAt(0)}</p>
+        </div>
+    )
+}
