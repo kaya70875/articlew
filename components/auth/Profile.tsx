@@ -19,11 +19,11 @@ export default function Profile() {
             </header>
 
             <div className="items flex flex-col gap-4">
-                <Link href={'/account'} className='text-primaryText flex items-center gap-3 hover:opacity-80'>
+                <Link href={'/account'} className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer'>
                     <IconAccount />
                     <p>Account</p>
                 </Link>
-                <li className='text-primaryText flex items-center gap-3 hover:opacity-80' onClick={() => signOut()}>
+                <li className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer' onClick={() => signOut()}>
                     <IconSignout />
                     <p>Sign Out</p>
                 </li>
