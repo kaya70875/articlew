@@ -4,9 +4,12 @@ import Image from 'next/image'
 import React from 'react'
 import logo from '@/public/images/logo.jpg'
 import Link from 'next/link'
-import { signOut } from 'next-auth/react'
+import Dropdown from '../Dropdown';
+import Profile from '../auth/Profile';
+import ProfileIcon from '../reusables/ProfileIcon';
 
 export default function MobileNavbar() {
+
     return (
         <div className='w-full h-16 bg-main rounded-xl shadow-lg z-10 p-4 flex items-center justify-between'>
             <div className="logo">
@@ -22,13 +25,14 @@ export default function MobileNavbar() {
                     <h5 className='hidden lg:block font-medium group'>Go Premium</h5>
                 </Link>
 
-                <div className='cursor-pointer' onClick={() => signOut()}>
-                    <div className='bg-blue-300 flex items-center justify-center p-4 w-10 h-10 rounded-full'>
-                        <p className='text-sm'>AK</p>
+                <Dropdown basePosition='right' dropdownTitle={
+                    <div className='flex items-center gap-2'>
+                        <ProfileIcon />
+                        <p className='hidden lg:block font-semibold'>Profile</p>
                     </div>
-
-                    <p className='font-semibold hidden md:block'>Log Out</p>
-                </div>
+                } >
+                    <Profile />
+                </Dropdown>
             </div>
         </div>
     )
