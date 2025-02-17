@@ -19,7 +19,7 @@ export default function Profile() {
             </header>
 
             <div className="items flex flex-col gap-4">
-                <Link href={'/account'} className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer'>
+                <Link target='_blank' href={'/account'} className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer'>
                     <IconAccount />
                     <p>Account</p>
                 </Link>

@@ -1,11 +1,18 @@
+'use client';
+
 import Navbar from "@/components/Navbar";
 import undraw_learning from '@/public/images/undraw_learning.png';
 import undraw_texting from '@/public/images/undraw_texting.png';
 import undraw_ai from '@/public/images/undraw_artificial-intelligence_fuvd.svg';
 import Link from "next/link";
 import LandingCard from "@/components/reusables/LandingCard";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+
+  const session = useSession();
+  const isAuth = session.status === 'authenticated';
+
   return (
     <main className="landing pt-navbar-height">
       <Navbar />
@@ -18,7 +25,7 @@ export default function Home() {
           <p className="max-w-xl text-center"><span className="font-semibold">Articlew</span> finds the phrase you are looking for from articles from different websites and <span className="text-primaryBlue font-semibold">help you to improve and test your English writing.</span></p>
 
           <button className="primary-button !py-3">
-            <Link href={'/signup'}>Start Learning Now</Link>
+            <Link href={`${isAuth ? '/search' : '/signup'}`}>Start Learning Now</Link>
           </button>
         </header>
 
