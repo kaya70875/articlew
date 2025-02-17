@@ -1,7 +1,6 @@
 'use client'
 
 import useScreenSize from '@/hooks/useScreenSize'
-import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -12,6 +11,9 @@ import IconSearch from './svg/IconSearch'
 import IconFavorites from './svg/IconFavorites'
 import IconParaphrase from './svg/IconParaphrase'
 import IconFix from './svg/IconFix'
+import Dropdown from './Dropdown'
+import Profile from './auth/Profile'
+import ProfileIcon from './reusables/ProfileIcon'
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -71,12 +73,16 @@ export default function Sidebar() {
                     <h5 className='hidden lg:block font-medium group'>Go Premium</h5>
                 </Link>
 
-                <div className='logout-section absolute bottom-24 hidden md:flex items-center gap-3 cursor-pointer' onClick={() => signOut()}>
-                    <div className='bg-blue-300 flex items-center justify-center p-4 w-12 h-12 rounded-full'>
-                        <p className='text-sm'>A</p>
-                    </div>
+                <div className='logout-section absolute bottom-24 hidden md:flex items-center gap-3 cursor-pointer'>
+                    <Dropdown padding='2rem' position='right' dropdownTitle={
+                        <div className='flex items-center gap-2'>
+                            <ProfileIcon />
+                            <p className='hidden lg:block font-semibold'>Profile</p>
+                        </div>
 
-                    {!isTablet && <p className='font-semibold'>Log Out</p>}
+                    }>
+                        <Profile />
+                    </Dropdown>
                 </div>
             </ul>
 
