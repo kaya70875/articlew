@@ -64,8 +64,9 @@ export default function Page() {
                         <IconCompare />
                         <span className='text-whitef font-medium'>Compare</span>
                     </div>
-                    <p className='font-medium'>Similarity Score : <span className='text-primaryText font-semibold'>{similarityScore}%</span></p>
-                    {similarityLoading && <Loading className='w-12 h-12' />}
+                    <p className='font-medium'>Similarity Score : {
+                        !similarityLoading ? (<span className='text-primaryText font-semibold'>{similarityScore}%</span>
+                        ) : ('loading...')}</p>
                     {similarityError && <div>Similarity score cannot calculated.</div>}
                 </div>
             </div>
