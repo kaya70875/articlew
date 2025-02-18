@@ -75,9 +75,12 @@ export const authOptions: NextAuthOptions = {
         return false; // Deny sign-in if there's an error
       }
     },
-    async jwt({ user, token }) {
+    async jwt({ user, token, trigger, session }) {
       if (user) {
         token.id = user.id;
+      }
+      if (trigger === "update" && session) {
+        token.name = session.name;
       }
       return token;
     },

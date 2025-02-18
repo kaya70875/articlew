@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar'
 import ProfileIcon from '@/components/reusables/ProfileIcon'
 import { useToast } from '@/context/ToastContext';
 import { useAuthActions } from '@/hooks/useAuthActions';
-import { getCurrentUser } from '@/utils/helpers'
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
 
 export default function Page() {
@@ -21,7 +21,8 @@ export default function Page() {
         lastname: '',
     })
 
-    const currentUser = getCurrentUser();
+    const { data: session, update } = useSession();
+    const currentUser = session?.user;
     const { changePassword, updateProfile } = useAuthActions();
     const { showToast } = useToast();
 
@@ -47,6 +48,7 @@ export default function Page() {
         if (!name && !lastname) return;
 
         await updateProfile(name, lastname && lastname);
+        update({ ...session, name: profile.name, lastname: profile.lastname });
         showToast('Profile updated', 'success');
     }
 
@@ -68,7 +70,7 @@ export default function Page() {
 
                     <div className='flex flex-col gap-8'>
                         <div className='flex items-center gap-4'>
-                            <InputField onChange={(e) => setProfile({ ...profile, name: e.target.value })} defaultValue={currentUser?.name?.toString()} label='Name' />
+                            <InputField type='text' onChange={(e) => setProfile({ ...profile, name: e.target.value })} defaultValue={currentUser?.name?.toString()} label='Name' />
                             <InputField type='text' onChange={(e) => setProfile({ ...profile, lastname: e.target.value })} label='Lastname' />
                         </div>
 
