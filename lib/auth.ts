@@ -36,6 +36,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: currentUser._id.toString(),
           name: currentUser.name,
+          lastname: currentUser.lastname,
           email: currentUser.email,
         };
       },
@@ -78,14 +79,17 @@ export const authOptions: NextAuthOptions = {
     async jwt({ user, token, trigger, session }) {
       if (user) {
         token.id = user.id;
+        token.lastname = user.lastname;
       }
       if (trigger === "update" && session) {
         token.name = session.name;
+        token.lastname = session.lastname;
       }
       return token;
     },
     async session({ session, token }) {
       session.user.id = token.id;
+      session.user.lastname = token.lastname;
       return session;
     },
     async redirect({ baseUrl }) {

@@ -10,6 +10,11 @@ import React, { useState } from 'react'
 
 export default function Page() {
 
+    const { data: session, update } = useSession();
+    const currentUser = session?.user;
+    const { changePassword, updateProfile } = useAuthActions();
+    const { showToast } = useToast();
+
     const [password, setPassword] = useState({
         currentPassword: '',
         newPassword: '',
@@ -17,14 +22,9 @@ export default function Page() {
     })
 
     const [profile, setProfile] = useState({
-        name: '',
-        lastname: '',
+        name: currentUser?.name ?? '',
+        lastname: currentUser?.lastname ?? '',
     })
-
-    const { data: session, update } = useSession();
-    const currentUser = session?.user;
-    const { changePassword, updateProfile } = useAuthActions();
-    const { showToast } = useToast();
 
     const handleChangePassword = async () => {
         if (password.newPassword !== password.passwordAgain) {
@@ -63,7 +63,7 @@ export default function Page() {
                     <div className='flex gap-8 px-4'>
                         <ProfileIcon />
                         <div className='flex flex-col gap-2'>
-                            <p>{currentUser?.name}</p>
+                            <p>{currentUser?.name} {currentUser?.lastname}</p>
                             <p>{currentUser?.email}</p>
                         </div>
                     </div>
@@ -71,7 +71,7 @@ export default function Page() {
                     <div className='flex flex-col gap-8'>
                         <div className='flex items-center gap-4'>
                             <InputField type='text' onChange={(e) => setProfile({ ...profile, name: e.target.value })} defaultValue={currentUser?.name?.toString()} label='Name' />
-                            <InputField type='text' onChange={(e) => setProfile({ ...profile, lastname: e.target.value })} label='Lastname' />
+                            <InputField type='text' onChange={(e) => setProfile({ ...profile, lastname: e.target.value })} defaultValue={currentUser?.lastname?.toString()} label='Lastname' />
                         </div>
 
                         <button onClick={handleUpdateProfile} className="primary-button w-44">Update Profile</button>
