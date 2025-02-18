@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { getSourceName } from '@/utils/helpers';
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import InformationBubble from '../reusables/InformationBubble';
 import { css } from '@emotion/react';
 
@@ -9,12 +9,10 @@ type IconProps = {
     onClick?: (arg: string) => void;
 }
 
-interface CardProps {
+type CardProps = PropsWithChildren & {
     text?: string | React.JSX.Element;
     icons?: IconProps[];
     source?: string;
-    children?: React.ReactNode;
-
     borderRadius?: string;
     gap?: string;
 }
@@ -32,7 +30,7 @@ export default function Card({ text, icons, source, children, borderRadius, gap 
 
     const handleSourceClick = () => {
         if (typeof window !== 'undefined') {
-            window.open(source, '_blank');
+            window.open(source, '_blank', 'noopener,noreferrer');
         }
     }
 
