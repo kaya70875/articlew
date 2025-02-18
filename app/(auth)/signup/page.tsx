@@ -8,6 +8,7 @@ import { useAuthActions } from '@/hooks/useAuthActions';
 import { FormData } from '@/types/formData';
 import SSO from '@/components/auth/SSO';
 import Link from 'next/link';
+import { useToast } from '@/context/ToastContext';
 
 export default function Page() {
   const {
@@ -21,6 +22,8 @@ export default function Page() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const { showToast } = useToast();
+
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     const response = await createUser(data);
@@ -30,7 +33,7 @@ export default function Page() {
       return setErrorMessage(response.message);
     }
 
-    alert('User Created Successfully');
+    showToast('User Created Successfully', 'success');
     setErrorMessage(null);
     setLoading(false);
   };
