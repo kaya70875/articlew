@@ -14,6 +14,7 @@ import BaseInformation from '@/components/reusables/BaseInformation';
 import { FastApiFixGrammarResponse } from '@/types/aiResponse';
 import IconFix from '@/components/svg/IconFix';
 import { useToast } from '@/context/ToastContext';
+import ApiError from '@/components/errors/ApiError';
 
 const INPUT_LIMIT = 600
 
@@ -51,7 +52,7 @@ export default function Page() {
             </TextArea>
 
             {loading && <Loading />}
-            {error && <p>Error When Fixing Grammar: {error}</p>}
+            {error && <ApiError error={error} errorMessage='Failed to fix sentence' />}
 
             {data ? (<div className='card-container'>
                 <EllipseHeader ellipseColor='bg-primaryPurple' text='Sentence Fix' />

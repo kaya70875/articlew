@@ -9,6 +9,7 @@ import compareSvg from '@/public/illustrations/search.svg'
 import { FastApiAIResponse, FastApiCompareResponse } from '@/types/aiResponse'
 import { useToast } from '@/context/ToastContext'
 import IconCompare from '@/components/svg/IconCompare'
+import ApiError from '@/components/errors/ApiError'
 
 const WORD_LIMIT = 20
 
@@ -67,13 +68,13 @@ export default function Page() {
                     <p className='font-medium'>Similarity Score : {
                         !similarityLoading ? (<span className='text-primaryText font-semibold'>{similarityScore}%</span>
                         ) : ('loading...')}</p>
-                    {similarityError && <div>Similarity score cannot calculated.</div>}
+                    {similarityError && <ApiError error={similarityError} errorMessage='Similarity score cannot calculated.' />}
                 </div>
             </div>
 
 
             {loading && <Loading />}
-            {error && <div>Error: {error}</div>}
+            {error && <ApiError error={error} errorMessage='Failed to compare words.' />}
             {data && data ? (
                 <Card>
                     <div className="text-base whitespace-pre-wrap">

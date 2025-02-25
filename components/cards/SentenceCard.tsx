@@ -10,6 +10,7 @@ import IconAnalyze from '../svg/IconAnalyze';
 import IconHearth from '../svg/IconHearth';
 import Card from './Card';
 import { FastApiAIResponse } from '@/types/aiResponse';
+import ApiError from '../errors/ApiError';
 
 interface SentenceCardProps {
   sentence: string;
@@ -71,6 +72,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   return (
     <Card text={highlightedSentence} icons={sentenceCardIcons} source={source}>
       <section className={`grammar-analysis ${grammarClicked ? 'card-container' : 'h-0 hidden'} transition-all duration-300 ease-in-out`}>
+        {error && <ApiError error={error} errorMessage='Error while doing grammar analysis. Please try again later.' />}
         {loading && <Loading />}
         {data?.response && <header className='flex items-center w-full justify-between'>
           <EllipseHeader ellipseColor='bg-red-400' text='Sentence Analysis' />

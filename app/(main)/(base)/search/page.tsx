@@ -14,6 +14,7 @@ import { FastApiResponse } from '@/types/aiResponse';
 import { useToast } from '@/context/ToastContext';
 import OverviewSkeleton from '@/components/skeletons/OverviewSkeleton';
 import { scrollToTop } from '@/utils/helpers';
+import ApiError from '@/components/errors/ApiError';
 
 export default function Page() {
 
@@ -79,7 +80,7 @@ export default function Page() {
           <OverviewSkeleton />
         </div>}
 
-      {error && <p className='text-red-500'>{error}</p>}
+      {error && <ApiError error={error} errorMessage='Something went wrong while fetching sentences. Please check your internet connection and try again.' />}
 
       {modalOpen && <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />}
 

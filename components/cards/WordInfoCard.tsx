@@ -10,6 +10,7 @@ import EllipseHeader from '../reusables/EllipseHeader';
 import ChevronUp from '../svg/ChevronUp';
 import ChevronDown from '../svg/ChevronDown';
 import { FastApiWordResponse } from '@/types/aiResponse';
+import ApiError from '../errors/ApiError';
 
 interface WordInfoCardProps {
     currentWord: string;
@@ -20,6 +21,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
 
     const { data: wordInfo, loading: wordInfoLoading, error: wordInfoError } = useAPIFetch<FastApiWordResponse>(currentWord ? `/wordInfo/${currentWord}` : null);
     const [showMore, setShowMore] = useState(false);
+
 
     const [collapsedHeight, setCollapsedHeight] = useState(0);
     const cardContainerRef = useRef<HTMLDivElement>(null);
@@ -113,8 +115,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
                 </div>
 
             </div>
-
-            {wordInfoError && <p>Error fetching word info</p>}
+            {wordInfoError && <ApiError error={wordInfoError} errorMessage='Error while getting word informations.' />}
             {wordInfoLoading && <Loading />}
             {wordInfo && (
                 <>
@@ -133,6 +134,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
                     </div>
                 </>
             )}
+
         </div>
     )
 }

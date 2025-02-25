@@ -14,6 +14,7 @@ import {
 import { getCurrentUser } from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import { mutate } from 'swr';
+import ApiError from '@/components/errors/ApiError';
 
 export default function Page() {
     const { data, loading, error } = useFetch<FavoriteSentences[]>('/api/words/getFavorites');
@@ -76,7 +77,7 @@ export default function Page() {
                         {categories.map((category, index) => (
                             <li className='flex items-center w-full justify-between' key={index} onClick={() => handleChoosingCategory(category.category)}>
                                 {categoriesLoading && <Loading />}
-                                {categoriesError && <p>Error: {categoriesError}</p>}
+                                {categoriesError && <ApiError error={categoriesError} errorMessage='Failed to get categories' />}
                                 <p className='text-base cursor-pointer'>{category.category}</p>
                                 <p onClick={(e) => handleRemoveCategory(category.category, e)} className='text-sm cursor-pointer'>x</p>
                             </li>
@@ -104,7 +105,7 @@ export default function Page() {
             </div>
 
             {error || filteredError && (
-                <p>Error fetching data</p>
+                <ApiError error={error} errorMessage='Error fetching favorites' />
             )}
 
             {loading || filteredLoading ? (

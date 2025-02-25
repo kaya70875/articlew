@@ -18,6 +18,7 @@ import Card from '@/components/cards/Card';
 import { FastApiAIResponse } from '@/types/aiResponse';
 import IconParaphrase from '@/components/svg/IconParaphrase';
 import { useToast } from '@/context/ToastContext';
+import ApiError from '@/components/errors/ApiError';
 
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 const INPUT_LIMIT = 400;
@@ -89,7 +90,7 @@ export default function Page() {
                 </TextArea>
 
                 {loading && <Loading />}
-                {error && <p>{error}</p>}
+                {error && <ApiError error={error} errorMessage='Failed to paraphrase sentence' />}
 
                 {data && <div className='card-container'>
                     <EllipseHeader ellipseColor='bg-primaryPurple' text='Rewrites' />
