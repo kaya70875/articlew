@@ -47,21 +47,27 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
         }
     ]
 
+    console.log(collapsedHeight);
+
     const relevantSpeech = wordInfo?.pos || '';
     const relevantSpeechData = speechs.find(speech => speech.name === relevantSpeech)?.data || [];
 
     useEffect(() => {
         if (!cardContainerRef.current || !wordInfo) return;
 
-        const firstTwoCards = Array.from(cardContainerRef.current.children).slice(0, 2) as HTMLDivElement[];
+        const relevantSpeechDiv = cardContainerRef.current.firstChild as HTMLDivElement;
+        const firstTwoCards = Array.from(relevantSpeechDiv.children).slice(0, 2) as HTMLDivElement[];
+        console.log(firstTwoCards)
+
         const totalHeight = firstTwoCards.reduce((acc, card) => acc + card.offsetHeight, 0);
         setCollapsedHeight(totalHeight);
 
     }, [currentWord, wordInfo])
 
+
     const renderSection = (title: string, items: { definition: string; synonyms: string[]; examples: string[]; }[]) => {
         return (
-            <div className='flex w-full gap-4 flex-col' ref={cardContainerRef}>
+            <div className='flex w-full gap-4 flex-col'>
                 {items.map((item, index) => (
                     <div key={index} className='flex w-full justify-between gap-2 items-center bg-white p-2 xs:p-4 rounded-xl shadow-lg'>
                         <div className='flex flex-col gap-2 w-full'>
@@ -121,7 +127,8 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
                 <>
                     {/*Consider the padding for element height*/}
                     <div className={`overflow-hidden transition-all duration-300 flex flex-col gap-4`} key={0}
-                        style={{ maxHeight: showMore ? '1500px' : `${collapsedHeight + 16}px` }}
+                        style={{ maxHeight: showMore ? '1500px' : `${collapsedHeight + 24}px` }}
+                        ref={cardContainerRef}
                     >
                         {relevantSpeechData?.length > 0 && renderSection(relevantSpeech, relevantSpeechData)}
                         {/*First render relevant data then check if collapsed height is calculated if it is render the rest of the data*/}
