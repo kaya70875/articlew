@@ -7,6 +7,7 @@ import undraw_ai from '@/public/images/undraw_artificial-intelligence_fuvd.svg';
 import Link from "next/link";
 import LandingCard from "@/components/reusables/LandingCard";
 import { useSession } from "next-auth/react";
+import Footer from "./components/Footer";
 
 export default function Home() {
 
@@ -59,6 +60,8 @@ export default function Home() {
           <Link href={'/signup'}>Sign Up</Link>
         </button>
       </div>
+
+      <Footer />
     </main>
   );
 }
