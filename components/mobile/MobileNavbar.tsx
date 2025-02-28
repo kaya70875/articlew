@@ -11,7 +11,7 @@ import ProfileIcon from '../reusables/ProfileIcon';
 export default function MobileNavbar() {
 
     return (
-        <div className=' w-full h-16 bg-main p-4 flex items-center justify-between'>
+        <div className=' w-full h-16 p-4 flex items-center justify-between'>
             <div className="logo">
                 <Image className='rounded-xl' src={logo} width={40} height={40} alt='logo' />
             </div>
