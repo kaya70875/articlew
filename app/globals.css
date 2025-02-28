@@ -57,7 +57,7 @@ p , .p {
 }
 
 li , .li {
-  @apply list-none text-primaryText;
+  @apply list-none;
 }
 
 .main-container {
