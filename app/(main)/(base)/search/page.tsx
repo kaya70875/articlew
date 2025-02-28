@@ -4,11 +4,11 @@ import AIWordAnalysis from '@/components/AIWordAnalysis';
 import FilterModal, { categoriesList } from '@/components/FilterModal';
 import EllipseHeader from '@/components/reusables/EllipseHeader';
 import SentenceCard from '@/components/cards/SentenceCard';
-import WordInfoCard from '@/components/cards/WordInfoCard';
+import WordInfoCard from '@/components/cards/wordinfo/WordInfoCard';
 import useAPIFetch from '@/hooks/useAPIFetch';
 import { Pagination } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import NoResultsCard from '@/components/cards/NoResultsCard';
 import { FastApiResponse } from '@/types/aiResponse';
 import { useToast } from '@/context/ToastContext';
@@ -37,20 +37,21 @@ export default function Page() {
 
   const SEARCH_LIMIT = 100;
 
-  const handleResults = async () => {
+  const handleResults = useCallback(() => {
     if (word.length > SEARCH_LIMIT) {
       return showToast('Word is too long', 'warning');
     };
     router.push(`/search?word=${word}&page=1`);
     scrollToTop();
-  }
+  }, [word, router, showToast]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+
+  const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     router.push(`/search?word=${word}&categories=${categories.join(',')}&page=${value}`);
-  };
+  }, [word, router, categories]);
 
-  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleResults();
     }
@@ -85,7 +86,7 @@ export default function Page() {
       {modalOpen && <FilterModal onClose={() => setModalOpen(false)} categories={categories} setCategories={setCategories} />}
 
       {data ? (
-        <div className='flex flex-col gap-8'>
+        <div className='content-wrapper flex flex-col gap-8'>
           <WordInfoCard setWord={setWord} currentWord={currentWord} />
           {currentWord && (<header className="card-container">
             <EllipseHeader ellipseColor='bg-purple-400' text='AI Feedback' />
