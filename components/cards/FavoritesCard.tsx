@@ -1,7 +1,7 @@
 import { CategorySentence, FavoriteSentences } from '@/types/sentence';
 import React, { useState, useEffect } from 'react';
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { getCurrentUser } from '@/utils/helpers';
+import { useCurrentUser } from '@/utils/helpers';
 import { mutate } from 'swr';
 import Dropdown from '../Dropdown';
 import ModalComp from '../ModalComp';
@@ -18,7 +18,7 @@ interface FavoriteCardProps {
 export default function FavoritesCard({ favorites }: FavoriteCardProps) {
   const { data: categories, loading, error } = useFetch<CategorySentence[]>('/api/words/categories');
 
-  const user = getCurrentUser();
+  const user = useCurrentUser();
   const userid = user?.id;
 
   const { handleFavorites } = useSentenceCardActions();

@@ -1,4 +1,3 @@
-import { useSentenceCardActions } from "@/hooks/useSentenceCardActions";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 
@@ -22,7 +21,7 @@ export const getSourceName = (url: string) => {
  * @returns user : object;
  */
 
-export const getCurrentUser = () => {
+export const useCurrentUser = () => {
   const session = useSession();
   return session.data?.user;
 };
@@ -31,7 +30,7 @@ export const getCurrentUser = () => {
  * Gets current word from the URL.
  * @returns currentWord : string;
  */
-export const getCurrentWord = () => {
+export const useCurrentWord = () => {
   const params = useSearchParams();
   return params.get("word") || "";
 };
@@ -42,19 +41,6 @@ export const scrollToTop = (behavior = "smooth" as ScrollBehavior) => {
     top: 0,
     behavior: behavior,
   });
-};
-
-export const runSpeaker = async (
-  sentence: string,
-  setIsSpeaking: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-  const { readSentenceWithAI } = useSentenceCardActions();
-  setIsSpeaking(true);
-  const response = await readSentenceWithAI(sentence);
-  const audio = new Audio(response.audioUrl);
-  audio.onended = () => setIsSpeaking(false);
-  audio.onerror = () => setIsSpeaking(false);
-  audio.play();
 };
 
 /**

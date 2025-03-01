@@ -1,6 +1,6 @@
 'use client';
 
-import { getCurrentUser } from '@/utils/helpers'
+import { useCurrentUser } from '@/utils/helpers'
 import Link from 'next/link';
 import React from 'react'
 import IconAccount from '../svg/IconAccount';
@@ -9,7 +9,7 @@ import { signOut } from 'next-auth/react';
 
 export default function Profile() {
 
-    const currentUser = getCurrentUser();
+    const currentUser = useCurrentUser();
 
     return (
         <div className='flex flex-col gap-8'>

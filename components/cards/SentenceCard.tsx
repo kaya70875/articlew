@@ -1,5 +1,5 @@
 import { useSentenceCardActions } from '@/hooks/useSentenceCardActions';
-import { getCurrentUser, highlighWord, prettyAIResponse, speakSentence } from '@/utils/helpers';
+import { useCurrentUser, highlighWord, prettyAIResponse, speakSentence } from '@/utils/helpers';
 import React, { useState } from 'react'
 import { mutate } from 'swr';
 import Speaker from '../svg/Speaker';
@@ -26,7 +26,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   const { data, loading, error } = useAPIFetch<FastApiAIResponse>(grammarClicked ? `/analysis/${encodeURIComponent(sentence)}/${word}` : null);
 
   const { handleFavorites } = useSentenceCardActions();
-  const user = getCurrentUser();
+  const user = useCurrentUser();
 
   const [favorite, setFavorite] = useState(false);
 

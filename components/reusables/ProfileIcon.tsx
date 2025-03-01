@@ -1,11 +1,11 @@
 'use client';
 
-import { getCurrentUser } from '@/utils/helpers'
+import { useCurrentUser } from '@/utils/helpers'
 import React from 'react'
 
 export default function ProfileIcon() {
 
-    const currentUser = getCurrentUser();
+    const currentUser = useCurrentUser();
 
     return (
         <div className='bg-blue-300 flex items-center justify-center p-4 w-12 h-12 rounded-full'>

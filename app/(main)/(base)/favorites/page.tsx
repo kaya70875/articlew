@@ -11,7 +11,7 @@ import {
     CategorySentence,
     FavoriteSentences
 } from '@/types/sentence';
-import { getCurrentUser } from '@/utils/helpers';
+import { useCurrentUser } from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 import ApiError from '@/components/errors/ApiError';
@@ -21,7 +21,7 @@ export default function Page() {
     const { data: categoriesData, loading: categoriesLoading, error: categoriesError } = useFetch<CategorySentence[]>('/api/words/categories'); // Fetch categories like 'top 10'
     const { addCategory, deleteCategory } = useCategoryActions();
 
-    const user = getCurrentUser();
+    const user = useCurrentUser();
     const userId = user?.id;
 
     const [inputValue, setInputValue] = useState('');
