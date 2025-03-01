@@ -11,7 +11,7 @@ import ChevronDown from '../../svg/ChevronDown';
 import { FastApiWordResponse } from '@/types/aiResponse';
 import ApiError from '../../errors/ApiError';
 import RenderSpeechs from './shared/RenderSpeechs';
-
+import CardContainer from '@/components/reusables/containers/CardContainer';
 interface WordInfoCardProps {
     currentWord: string;
     setWord: (word: string) => void;
@@ -61,7 +61,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
     }, [currentWord, wordInfo])
 
     return (
-        <div className='card-container'>
+        <CardContainer>
             <EllipseHeader ellipseColor='bg-primaryBlue' text='Dictionary' />
             <div className='flex items-center w-full justify-between'>
                 <div className="word-itself flex items-center gap-3">
@@ -90,6 +90,6 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
                 </>
             )}
 
-        </div>
+        </CardContainer>
     )
 }
