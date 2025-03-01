@@ -3,7 +3,7 @@ import { getSourceName } from '@/utils/helpers';
 import React, { PropsWithChildren } from 'react'
 import InformationBubble from '../reusables/InformationBubble';
 import { css } from '@emotion/react';
-
+import SafeHTML from '../security/SafeHTML';
 export type IconProps = {
     icon: React.ReactSVGElement | React.ReactElement;
     onClick?: (arg: string) => void;
@@ -36,7 +36,7 @@ export default function Card({ text, icons, source, children, borderRadius, gap 
 
     return (
         <div className='shadow-lg p-3 xs:p-6' css={cardBase}>
-            {text && <p className='text-base' dangerouslySetInnerHTML={{ __html: text ?? '' }} />}
+            {text && <SafeHTML className='text-base' html={text as string} />}
             {icons && <div className='w-full flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     {icons?.map((icon, index) => (

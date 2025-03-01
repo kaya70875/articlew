@@ -16,7 +16,7 @@ import IconFix from '@/components/svg/IconFix';
 import { useToast } from '@/context/ToastContext';
 import ApiError from '@/components/errors/ApiError';
 import CardContainer from '@/components/reusables/containers/CardContainer';
-
+import SafeHTML from '@/components/security/SafeHTML';
 const INPUT_LIMIT = 600
 
 export default function Page() {
@@ -60,7 +60,7 @@ export default function Page() {
                     <EllipseHeader ellipseColor='bg-primaryPurple' text='Sentence Fix' />
 
                     <div className='p-4 bg-white flex flex-col gap-8 justify-between rounded-md'>
-                        <p className='text-base' dangerouslySetInnerHTML={{ __html: data?.original_sentence ?? '' }} />
+                        <SafeHTML html={data?.original_sentence ?? ''} />
                     </div>
 
                     <Card text={data.corrected_sentence} icons={icons} />

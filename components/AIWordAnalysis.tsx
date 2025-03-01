@@ -6,7 +6,8 @@ import CorrectIcon from './svg/CorrectIcon';
 import IconWrong from './svg/IconWrong';
 import Card from './cards/Card';
 import { FastApiAIFeedbackResponse } from '@/types/aiResponse';
-
+import SafeHTML from './security/SafeHTML';
+import ApiError from './errors/ApiError';
 interface AIWordAnalysisProps {
     currentWord: string;
 }
@@ -24,10 +25,11 @@ export default function AIWordAnalysis({ currentWord }: AIWordAnalysisProps) {
             {aiLoading && <Loading />}
             {ai && <div className="check flex items-center gap-2">
                 {ai?.check.includes('is a correct') ? (<CorrectIcon props={{ color: '#AEC976' }} />) : (<IconWrong props={{ color: 'red' }} />)}
-                <p className='text-lg' dangerouslySetInnerHTML={{ __html: highlighWord(ai?.check, currentWord, 'text-primaryText') }}></p>
+                <SafeHTML className='text-lg' html={highlighWord(ai?.check, currentWord, 'text-primaryText')} />
             </div>}
 
-            {ai && <p className='text-base' dangerouslySetInnerHTML={{ __html: highligedResponse }} />}
+            {ai && <SafeHTML className='text-base' html={highligedResponse} />}
+            {aiError && <ApiError error={aiError} errorMessage='Failed to generate AI feedback' />}
         </Card>
     )
 }

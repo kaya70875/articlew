@@ -11,7 +11,7 @@ import IconHearth from '../svg/IconHearth';
 import Card from './Card';
 import { FastApiAIResponse } from '@/types/aiResponse';
 import ApiError from '../errors/ApiError';
-
+import SafeHTML from '../security/SafeHTML';
 interface SentenceCardProps {
   sentence: string;
   word: string;
@@ -78,7 +78,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
           <EllipseHeader ellipseColor='bg-red-400' text='Sentence Analysis' />
           <button onClick={() => setGrammarClicked(false)}>x</button>
         </header>}
-        <p className='text-base' dangerouslySetInnerHTML={{ __html: prettierResponse }}></p>
+        <SafeHTML className='text-base' html={prettierResponse} />
       </section>
     </Card>
   )
