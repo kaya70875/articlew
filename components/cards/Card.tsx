@@ -4,7 +4,7 @@ import React, { PropsWithChildren } from 'react'
 import InformationBubble from '../reusables/InformationBubble';
 import { css } from '@emotion/react';
 
-type IconProps = {
+export type IconProps = {
     icon: React.ReactSVGElement | React.ReactElement;
     onClick?: (arg: string) => void;
 }
