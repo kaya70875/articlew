@@ -30,28 +30,5 @@ export const useSentenceCardActions = () => {
       );
     }
   };
-
-  const readSentenceWithAI = async (sentence: string) => {
-    try {
-      const res = await fetch("/api/ai/ai-speaker", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sentence,
-        }),
-      });
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.log(errorData);
-        return errorData;
-      }
-
-      return await res.json();
-    } catch (e) {
-      console.error(`There was an error reading the sentence with AI: ${e}`);
-    }
-  };
-  return { handleFavorites, readSentenceWithAI };
+  return { handleFavorites };
 };
