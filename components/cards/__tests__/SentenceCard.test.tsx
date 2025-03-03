@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import SentenceCard from "../SentenceCard";
 import { highlighWord } from "@/utils/helpers";
+import { mutate } from "swr";
 
 const mockHandleFavorites = jest.fn();
 
@@ -27,6 +28,16 @@ jest.mock('../../../hooks/useSentenceCardActions', () => {
         })
     }
 })
+
+jest.mock('swr', () => ({
+    __esModule: true,
+    default: () => ({
+        data: null,
+        error: null,
+        isValidating: false
+    }),
+    mutate: jest.fn()
+}));
 
 describe('SentenceCard', () => {
     it('should render', () => {
@@ -65,10 +76,33 @@ describe('SentenceCard', () => {
         fireEvent.click(favoriteButton);
 
         const highlightedSentence = highlighWord('Hello, world!', 'world');
-        console.log(highlightedSentence);
 
         await waitFor(() => {
             expect(mockHandleFavorites).toHaveBeenCalledWith(highlightedSentence, '1', 'world', 'POST');
+        })
+    })
+
+    it('should run mutate function when the favorite button is clicked', async () => {
+        render(<SentenceCard sentence='Hello, world!' word='world' source='https://www.google.com' />);
+        const favoriteButton = screen.getByText('Add to favorites');
+        if (favoriteButton) {
+            fireEvent.click(favoriteButton);
+        }
+
+        await waitFor(() => {
+            expect(mutate).toHaveBeenCalledTimes(1);
+            expect(mutate).toHaveBeenCalledWith('/api/words/getFavorites');
+        })
+    })
+
+    describe('Style', () => {
+        it('should render the correct style when the word is in the favorites', () => {
+            render(<SentenceCard sentence='Hello, world!' word='world' source='https://www.google.com' />);
+            const favoriteButton = screen.getByText('Add to favorites');
+            fireEvent.click(favoriteButton);
+
+            const favoriteButtonIcon = screen.getByTestId('favorite-button-icon');
+            expect(favoriteButtonIcon).toHaveClass('text-primaryBlue');
         })
     })
 
