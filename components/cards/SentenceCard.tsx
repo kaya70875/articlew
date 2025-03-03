@@ -33,7 +33,7 @@ export default function SentenceCard({ sentence, word, source }: SentenceCardPro
   const sentenceCardIcons = [
     {
       name: 'Sentences',
-      icon: (<IconHearth props={{ color: favorite ? '#2563EB' : '' }} />),
+      icon: (<IconHearth props={{ className: favorite ? 'text-primaryBlue' : '' }} />),
       onClick: () => handleSentenceCardActions('Sentences'),
     },
     {
