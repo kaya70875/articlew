@@ -9,6 +9,7 @@ const IconHearth = ({ props }: { props?: React.SVGProps<SVGSVGElement> }) => (
             fill="none"
             className={props?.className}
             viewBox="0 0 25 25"
+            data-testid='favorite-button-icon'
             {...props}
         >
             <path
