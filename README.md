@@ -25,6 +25,7 @@
 * **Backend**: FastAPI , Next.Js
 * **Database**: MongoDB
 * **Scripts**: Python-based crawlers and algorithms for generating sentences from web content.
+* **Tests**: Jest, React-testing-library
 * Additional Libraries:
   * transformers for advanced NLP tasks.
   * SWR for efficient data fetching in the frontend.
