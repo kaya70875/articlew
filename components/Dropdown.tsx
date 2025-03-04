@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import useClickOutside from '@/hooks/useClickOutside';
 import { css } from '@emotion/react';
 import { JSX } from '@emotion/react/jsx-runtime';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     dropdownTitle?: string | JSX.Element;
@@ -45,15 +46,18 @@ export default function Dropdown({ dropdownTitle = 'Dropdown', addButton = false
         margin-left: 1rem;
     `
 
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+    useClickOutside(dropdownRef, setIsOpen);
+
     return (
-        <div className='dropdown' css={dropdownBase}>
+        <div className='dropdown' css={dropdownBase} ref={dropdownRef}>
             <button className='relative hover:text-gray-500' onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
             <div
                 className='dropdown-menu' css={position === 'bottom' ? dropdownMenuDefault : dropdownMenuRight}>
                 <ul className='flex flex-col gap-4 w-full'>
                     {
                         addButton && <li onClick={handleNewCategoryClick}>
-                            <p className='text-base font-semibold cursor-pointer'>+ Add New Category</p>
+                            <p data-dropdown-clickable className='text-base font-semibold cursor-pointer'>+ Add New Category</p>
                             <div className="line !w-full mt-2"></div>
                         </li>
                     }

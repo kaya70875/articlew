@@ -21,11 +21,11 @@ export default function Profile() {
             <div className="items flex flex-col gap-4">
                 <Link target='_blank' href={'/account'} className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer'>
                     <IconAccount />
-                    <p>Account</p>
+                    <p data-dropdown-clickable>Account</p>
                 </Link>
                 <li className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer' onClick={() => signOut()}>
                     <IconSignout />
-                    <p>Sign Out</p>
+                    <p data-dropdown-clickable >Sign Out</p>
                 </li>
             </div>
         </div>

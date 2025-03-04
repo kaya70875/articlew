@@ -78,8 +78,8 @@ export default function Page() {
                             <li className='flex items-center w-full justify-between' key={index} onClick={() => handleChoosingCategory(category.category)}>
                                 {categoriesLoading && <Loading />}
                                 {categoriesError && <ApiError error={categoriesError} errorMessage='Failed to get categories' />}
-                                <p className='text-base cursor-pointer'>{category.category}</p>
-                                <p onClick={(e) => handleRemoveCategory(category.category, e)} className='text-sm cursor-pointer'>x</p>
+                                <p data-dropdown-clickable className='text-base cursor-pointer'>{category.category}</p>
+                                <p data-dropdown-clickable onClick={(e) => handleRemoveCategory(category.category, e)} className='text-sm cursor-pointer'>x</p>
                             </li>
                         ))}
                     </Dropdown>
