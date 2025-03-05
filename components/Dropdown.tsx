@@ -51,9 +51,9 @@ export default function Dropdown({ dropdownTitle = 'Dropdown', addButton = false
 
     return (
         <div className='dropdown' css={dropdownBase} ref={dropdownRef}>
-            <button className='relative hover:text-gray-500' onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
+            <button data-testid='dropdown-button' className='relative hover:text-gray-500' onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
             <div
-                className='dropdown-menu' css={position === 'bottom' ? dropdownMenuDefault : dropdownMenuRight}>
+                className='dropdown-menu' data-testid='dropdown-menu' css={position === 'bottom' ? dropdownMenuDefault : dropdownMenuRight}>
                 <ul className='flex flex-col gap-4 w-full'>
                     {
                         addButton && <li onClick={handleNewCategoryClick}>
