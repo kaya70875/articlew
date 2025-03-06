@@ -45,7 +45,7 @@ export default function Home() {
             <div>
               <span className="font-semibold">Articlew</span> updates every day. You can learn new words while you follow news about <span className="text-primaryBlue font-semibold">science, sport</span> and more !
             </div>
-          } image={undraw_texting} />
+          } image={undraw_texting} cardDirection="row" />
 
           <LandingCard title="Smart AI Tools For Your Problems" description={
             <p>
