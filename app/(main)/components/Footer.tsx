@@ -30,20 +30,20 @@ export default function Footer() {
     const features = ['Search', 'Rewrite', 'Sentence Fix', 'Paraphrase', 'Compare']
 
     return (
-        <div className='w-full bg-primaryText p-8 flex justify-around'>
+        <div className='w-full bg-primaryText p-4 md:p-8 flex flex-col gap-6 md:gap-0 items-center md:items-stretch md:flex-row justify-around'>
             <section className="main flex flex-col gap-4">
                 <div className='flex items-center gap-2'>
                     <Image src={logo} className='rounded-xl' width={48} height={48} alt='logo' />
                     <h4 className='text-whitef'>Articlew</h4>
                 </div>
-                <div className="socials flex items-center gap-4">
+                <div className="socials flex items-center justify-center md:justify-start gap-4">
                     {socials.map((social, i) => (
                         <Link href={social.direct} className='text-whitef cursor-pointer hover:opacity-50 transition-all duration-150 ease-in' key={i}>{social.icon}</Link>
                     ))}
                 </div>
                 <p className='text-xs text-whitef'>© 2025 articlew. All rights reserved.</p>
             </section>
-            <section className="middle flex justify-between w-1/6">
+            <section className="middle flex justify-center md:justify-between w-1/6 gap-4">
                 <div className="explore flex flex-col gap-4">
                     <p className='text-whitef font-semibold'>Explore</p>
                     <ul className='flex flex-col gap-2 text-whitef'>
