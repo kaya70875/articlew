@@ -14,6 +14,30 @@ export default function Home() {
   const session = useSession();
   const isAuth = session.status === 'authenticated';
 
+  const landingCards = [
+    {
+      title: "Find Sentences From Different Topics",
+      description: "Articlew finds sentence from different topics and sources based on your interest or project.",
+      image: { src: undraw_learning, alt: 'undraw_learning', width: 200, height: 200 },
+      variant: 'dark',
+      cardDirection: 'row'
+    },
+    {
+      title: "Every Day Updated",
+      description: "Articlew updates every day. You can learn new words while you follow news about science, sport and more !",
+      image: { src: undraw_texting },
+      variant: 'blue',
+      cardDirection: 'row-reverse'
+    },
+    {
+      title: "Smart AI Tools For Your Problems",
+      description: "Articlew provides intelligent tools to enhance your learning experience with AI-powered writing suggestions, grammar corrections, paraphrase and more to help you master English effectively.",
+      image: { src: undraw_ai },
+      variant: 'purple',
+      cardDirection: 'row'
+    }
+  ] as const;
+
   return (
     <main className="landing pt-navbar-height">
       <Navbar />
@@ -35,23 +59,10 @@ export default function Home() {
         </div>
 
         <article className="content flex flex-col gap-24">
-          <LandingCard title="Find Sentences From Different Topics" description={
-            <p>
-              <span className="font-semibold">Articlew</span> finds sentence from <span className="text-primaryBlue font-semibold">different topics and sources based on your interest or project.</span> In this way you can fully understand the usage of the word that you search.
-            </p>
-          } image={undraw_learning} />
+          {landingCards.map((card, index) => (
+            <LandingCard key={index} title={card.title} description={card.description} cardDirection={card.cardDirection} image={card.image} variant={card.variant} />
+          ))}
 
-          <LandingCard title="Every Day Updated" description={
-            <div>
-              <span className="font-semibold">Articlew</span> updates every day. You can learn new words while you follow news about <span className="text-primaryBlue font-semibold">science, sport</span> and more !
-            </div>
-          } image={undraw_texting} cardDirection="row" />
-
-          <LandingCard title="Smart AI Tools For Your Problems" description={
-            <p>
-              <span className="font-semibold">Articlew</span> provides intelligent tools to enhance your learning experience with <span className="text-primaryBlue font-semibold">AI-powered writing suggestions, grammar corrections, paraphrase and more</span> to help you master English effectively.
-            </p>
-          } image={undraw_ai} />
         </article>
       </div>
       <div className="w-full bg-primaryBlue mt-24 p-12 flex gap-16 justify-center items-center">
