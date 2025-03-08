@@ -14,6 +14,10 @@ declare module "next-auth" {
     id: string;
     lastname: string;
   }
+
+  interface DefaultUser {
+    isPremium?: boolean;
+  }
 }
 
 declare module "next-auth/jwt" {
