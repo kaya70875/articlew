@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minLenght: [8, "Password must be at least 8 characters"],
   },
+  isPremium: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

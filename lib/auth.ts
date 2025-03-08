@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user }) {
-      const { email, name } = user;
+      const { email, name, isPremium = false } = user;
 
       try {
         const db = await connectToDB();
@@ -67,6 +67,7 @@ export const authOptions: NextAuthOptions = {
           await usersCollection.insertOne({
             name,
             email,
+            isPremium,
           });
         }
 
