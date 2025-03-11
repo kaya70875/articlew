@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
               email: existingUser?.email || "",
             },
             process.env.AUTH_SECRET || "",
-            { expiresIn: "1h" },
+            { expiresIn: "4h" },
             (err, token) => {
               if (err) reject(err);
               resolve(token || "");
