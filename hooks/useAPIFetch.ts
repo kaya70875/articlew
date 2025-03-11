@@ -1,27 +1,45 @@
-import useSWR from "swr";
-import axiosInstance from "@/lib/axoisInstance";
+"use client";
 
-// Generic Fetcher Function
-const fetcher = async <T>(url: string): Promise<T> => {
-  const response = await axiosInstance.get<T>(url);
-  return response.data;
-};
+import useSWR from "swr";
+import { useSession } from "next-auth/react";
+import axiosInstance, {
+  createAuthenticatedInstance,
+} from "@/lib/axoisInstance";
 
 // Generic Fetch Hook
 const useAPIFetch = <T>(endpoint: string | null) => {
-  const { data, error, isValidating } = useSWR<T>(endpoint, fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    revalidateOnMount: true,
-    dedupingInterval: 60000,
-    shouldRetryOnError: (error) => {
-      if(error.status === 404) return false;
-      return true;
-    },
-  });
+  // Get the session inside the hook
+  const { data: session } = useSession();
+
+  // Create a fetcher function that uses the session
+  const fetcher = async (url: string): Promise<T> => {
+    try {
+      // Use authenticated instance if we have a token
+      const instance = session?.accessToken
+        ? createAuthenticatedInstance(session.accessToken, session.provider)
+        : axiosInstance;
+
+      const response = await instance.get<T>(url);
+      return response.data;
+    } catch (error) {
+      console.error("Fetch error:", error);
+      throw error;
+    }
+  };
+
+  const { data, error, isValidating } = useSWR<T>(
+    endpoint,
+    endpoint ? fetcher : null,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateOnMount: true,
+      dedupingInterval: 60000,
+    }
+  );
 
   return {
-    data: data || null, // Return null if no data
+    data: data || null,
     loading: isValidating,
     error: error?.message || "",
   };
