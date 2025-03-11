@@ -25,7 +25,6 @@ export async function POST(req: Request) {
       lastname: lastname,
       email: email,
       password: hashedPassword,
-      isPremium: false,
     });
 
     const savedUser = await currentUser.save();
