@@ -99,4 +99,16 @@ export const authOptions: NextAuthOptions = {
       return `${baseUrl}/search`;
     },
   },
+  cookies: {
+    sessionToken: {
+      name: "__Secure-next-auth.session-token",
+      options: {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        path: "/",
+        domain: ".learn-with-articles-next.vercel.app", // optional, if you want to share across subdomains
+      },
+    },
+  },
 };
