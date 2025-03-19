@@ -1,12 +1,20 @@
+"use client";
+
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
-const axiosInstance = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
-  timeout: 50000,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+export function AuthAxios() {
+  const { data: session } = useSession();
 
-export default axiosInstance;
+  const axiosInstance = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+    timeout: 50000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session?.accessToken}`,
+      "X-Provider": session?.provider,
+    },
+  });
+
+  return axiosInstance;
+}
