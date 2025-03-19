@@ -4,6 +4,18 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectToDB } from "@/utils/database";
 import Google from "next-auth/providers/google";
+import refreshAccessToken from "./refreshAccessToken";
+import createTokens from "./createTokens";
+
+const JWT_SECRET = process.env.AUTH_SECRET;
+const REFRESH_TOKEN_EXPIRATION = "30d";
+const ACCESS_TOKEN_EXPIRATION = "1m";
+
+if (!JWT_SECRET) {
+  throw new Error(
+    "JWT_SECRET is not defined. Please set it in your environment variables."
+  );
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -33,12 +45,22 @@ export const authOptions: NextAuthOptions = {
 
         if (!passwordMatch) throw new Error("Wrong Password");
 
+        const { accessToken, refreshToken } = await createTokens(
+          currentUser,
+          JWT_SECRET,
+          ACCESS_TOKEN_EXPIRATION,
+          REFRESH_TOKEN_EXPIRATION
+        );
+
         return {
           id: currentUser._id.toString(),
           name: currentUser.name,
           lastname: currentUser.lastname,
           email: currentUser.email,
           userType: currentUser.userType,
+          accessToken,
+          refreshToken,
+          accessTokenExpires: Date.now() + 60 * 1000,
         };
       },
     }),
@@ -46,9 +68,16 @@ export const authOptions: NextAuthOptions = {
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
   ],
-  secret: process.env.AUTH_SECRET,
+  secret: JWT_SECRET,
   session: {
     strategy: "jwt",
   },
@@ -78,37 +107,45 @@ export const authOptions: NextAuthOptions = {
         return false; // Deny sign-in if there's an error
       }
     },
-    async jwt({ user, token, trigger, session }) {
-      if (user) {
-        token.id = user.id;
-        token.lastname = user.lastname;
+    async jwt({ user, token, trigger, session, account }) {
+      if (account && user) {
+        return {
+          ...token,
+          id: user.id,
+          lastname: user.lastname,
+          provider: account.provider,
+          accessToken: user.accessToken ?? account.access_token,
+          refreshToken: user.refreshToken ?? account.refresh_token,
+          accessTokenExpires: user.accessTokenExpires,
+          user,
+        };
+      }
+
+      if (Date.now() > token.accessTokenExpires) {
+        return await refreshAccessToken(token, JWT_SECRET);
       }
 
       if (trigger === "update" && session) {
         token.name = session.name;
         token.lastname = session.lastname;
       }
+
       return token;
     },
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.lastname = token.lastname;
+      session.provider = token.provider;
+
+      if (token) {
+        session.accessToken = token.accessToken;
+        session.refreshToken = token.refreshToken;
+      }
+
       return session;
     },
     async redirect({ baseUrl }) {
       return `${baseUrl}/search`;
-    },
-  },
-  cookies: {
-    sessionToken: {
-      name: "__Secure-next-auth.session-token",
-      options: {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-        path: "/",
-        domain: ".learn-with-articles-next.vercel.app", // optional, if you want to share across subdomains
-      },
     },
   },
 };
