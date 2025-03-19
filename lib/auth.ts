@@ -7,7 +7,7 @@ import Google from "next-auth/providers/google";
 import refreshAccessToken from "./refreshAccessToken";
 import createTokens from "./createTokens";
 
-const JWT_SECRET = process.env.AUTH_SECRET;
+const JWT_SECRET = process.env.NEXTAUTH_SECRET;
 const REFRESH_TOKEN_EXPIRATION = "30d";
 const ACCESS_TOKEN_EXPIRATION = "1m";
 
@@ -107,6 +107,7 @@ export const authOptions: NextAuthOptions = {
         return false; // Deny sign-in if there's an error
       }
     },
+
     async jwt({ user, token, trigger, session, account }) {
       if (account && user) {
         return {
