@@ -1,8 +1,11 @@
+"use client";
+
 import useSWR from "swr";
-import axiosInstance from "@/lib/axoisInstance";
+import { AuthAxios } from "@/lib/axoisInstance";
 
 // Generic Fetch Hook
 const useAPIFetch = <T>(endpoint: string | null) => {
+  const axiosInstance = AuthAxios();
   const fetcher = async (url: string): Promise<T> => {
     try {
       const response = await axiosInstance.get<T>(url);
