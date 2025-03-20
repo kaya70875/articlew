@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
+import axios from "axios";
 
 const ACCESS_TOKEN_EXPIRATION = "1m";
 
-export default async function refreshAccessToken(token: JWT, secret: string) {
+export async function refreshAccessToken(token: JWT, secret: string) {
   try {
     // Verify the refresh token (this could include checking its expiry)
     jwt.verify(token.refreshToken, secret);
@@ -15,7 +16,6 @@ export default async function refreshAccessToken(token: JWT, secret: string) {
     return {
       ...token,
       accessToken: newAccessToken,
-      // Optionally update accessTokenExpires (in milliseconds)
       accessTokenExpires: Date.now() + 60 * 1000,
     };
   } catch (error) {
@@ -24,5 +24,36 @@ export default async function refreshAccessToken(token: JWT, secret: string) {
       ...token,
       error: "RefreshAccessTokenError",
     };
+  }
+}
+
+export async function refreshGoogleAccessToken(
+  client_id: string,
+  client_secret: string,
+  token: JWT
+) {
+  try {
+    const response = await axios.post(
+      "https://oauth2.googleapis.com/token",
+      new URLSearchParams({
+        client_id: client_id,
+        client_secret: client_secret,
+        refresh_token: token.refreshToken,
+        grant_type: "refresh_token",
+      })
+    );
+
+    const { access_token, expires_in } = response.data;
+    return {
+      ...token,
+      accessToken: access_token,
+      accessTokenExpires: Date.now() + expires_in + 60 * 1000,
+    };
+  } catch (error: any) {
+    console.error(
+      "Error refreshing token:",
+      error.response?.data || error.message
+    );
+    return null;
   }
 }
