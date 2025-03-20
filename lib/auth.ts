@@ -4,16 +4,22 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectToDB } from "@/utils/database";
 import Google from "next-auth/providers/google";
-import refreshAccessToken from "./refreshAccessToken";
+import {
+  refreshAccessToken,
+  refreshGoogleAccessToken,
+} from "./refreshAccessToken";
 import createTokens from "./createTokens";
+import { JWT } from "next-auth/jwt";
 
 const JWT_SECRET = process.env.NEXTAUTH_SECRET;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 const REFRESH_TOKEN_EXPIRATION = "30d";
 const ACCESS_TOKEN_EXPIRATION = "1m";
 
 if (!JWT_SECRET) {
   throw new Error(
-    "JWT_SECRET is not defined. Please set it in your environment variables."
+    "SECRETS is not defined. Please set it in your environment variables."
   );
 }
 
@@ -66,8 +72,8 @@ export const authOptions: NextAuthOptions = {
     }),
 
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
           prompt: "consent",
@@ -117,13 +123,24 @@ export const authOptions: NextAuthOptions = {
           provider: account.provider,
           accessToken: user.accessToken ?? account.access_token,
           refreshToken: user.refreshToken ?? account.refresh_token,
-          accessTokenExpires: user.accessTokenExpires,
+          accessTokenExpires:
+            user.accessTokenExpires ?? Date.now() + account.expires_at! * 1000,
           user,
         };
       }
 
+      console.log(Date.now(), token.accessTokenExpires);
+
       if (Date.now() > token.accessTokenExpires) {
-        return await refreshAccessToken(token, JWT_SECRET);
+        if (account?.provider === "credentials") {
+          return await refreshAccessToken(token, JWT_SECRET);
+        } else {
+          return (await refreshGoogleAccessToken(
+            GOOGLE_CLIENT_ID,
+            GOOGLE_CLIENT_SECRET,
+            token
+          )) as JWT;
+        }
       }
 
       if (trigger === "update" && session) {
