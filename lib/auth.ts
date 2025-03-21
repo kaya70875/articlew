@@ -129,7 +129,7 @@ export const authOptions: NextAuthOptions = {
         };
       }
 
-      console.log(Date.now(), token.accessTokenExpires);
+      console.log("expire", Date.now(), token.accessTokenExpires);
 
       if (Date.now() > token.accessTokenExpires) {
         if (account?.provider === "credentials") {
