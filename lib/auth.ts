@@ -124,11 +124,10 @@ export const authOptions: NextAuthOptions = {
           accessToken: user.accessToken ?? account.access_token,
           refreshToken: user.refreshToken ?? account.refresh_token,
           accessTokenExpires:
-            user.accessTokenExpires ?? Date.now() + account.expires_at! * 1000,
+            user.accessTokenExpires ?? account.expires_at! * 1000,
           user,
         };
       }
-
       console.log("expire", Date.now(), token.accessTokenExpires);
 
       if (Date.now() > token.accessTokenExpires) {

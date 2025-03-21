@@ -12,6 +12,9 @@ export async function refreshAccessToken(token: JWT, secret: string) {
     const newAccessToken = jwt.sign({ sub: token.id }, secret, {
       expiresIn: ACCESS_TOKEN_EXPIRATION,
     });
+
+    console.log("Token Refreshed!");
+
     // Return updated token object with new access token and updated expiry
     return {
       ...token,
@@ -44,16 +47,22 @@ export async function refreshGoogleAccessToken(
     );
 
     const { access_token, expires_in } = response.data;
+
+    console.log("Token Refreshed!");
+
     return {
       ...token,
       accessToken: access_token,
-      accessTokenExpires: Date.now() + expires_in + 60 * 1000,
+      accessTokenExpires: Date.now() + expires_in * 1000,
     };
   } catch (error: any) {
     console.error(
       "Error refreshing token:",
       error.response?.data || error.message
     );
-    return null;
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
   }
 }
