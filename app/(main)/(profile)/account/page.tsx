@@ -65,6 +65,7 @@ export default function Page() {
                         <div className='flex flex-col gap-2'>
                             <p>{currentUser?.name} {currentUser?.lastname}</p>
                             <p>{currentUser?.email}</p>
+                            <p>Account Type: <span className='text-primaryBlue font-medium'>{currentUser?.userType}</span></p>
                         </div>
                     </div>
 

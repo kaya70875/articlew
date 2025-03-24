@@ -10,6 +10,7 @@ import {
 } from "./refreshAccessToken";
 import createTokens from "./createTokens";
 import { JWT } from "next-auth/jwt";
+import { UserType } from "@/types/userTypes";
 
 const JWT_SECRET = process.env.NEXTAUTH_SECRET;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
@@ -103,9 +104,12 @@ export const authOptions: NextAuthOptions = {
           await usersCollection.insertOne({
             name,
             email,
-            userType,
+            userType: userType,
           });
         }
+
+        // Assing userType to user object on oauth provider signIn.
+        user.userType = userType;
 
         return true;
       } catch (error) {
@@ -116,10 +120,14 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ user, token, trigger, session, account }) {
       if (account && user) {
+        console.log("user", user);
+        console.log("token", token);
+        console.log("account", account);
         return {
           ...token,
           id: user.id,
           lastname: user.lastname,
+          userType: user.userType,
           provider: account.provider,
           accessToken: user.accessToken ?? account.access_token,
           refreshToken: user.refreshToken ?? account.refresh_token,
@@ -152,6 +160,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.lastname = token.lastname;
+      session.user.userType = token.userType as UserType;
       session.provider = token.provider;
 
       if (token) {
