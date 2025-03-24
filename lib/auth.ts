@@ -131,7 +131,7 @@ export const authOptions: NextAuthOptions = {
       console.log("expire", Date.now(), token.accessTokenExpires);
 
       if (Date.now() > token.accessTokenExpires) {
-        if (account?.provider === "credentials") {
+        if (token.provider === "credentials") {
           return await refreshAccessToken(token, JWT_SECRET);
         } else {
           return (await refreshGoogleAccessToken(
