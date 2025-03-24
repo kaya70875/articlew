@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import ProfileIcon from '@/components/reusables/ProfileIcon'
 import { useToast } from '@/context/ToastContext';
 import { useAuthActions } from '@/hooks/useAuthActions';
+import { AccountThemes, UserType } from '@/types/userTypes';
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
 
@@ -52,6 +53,18 @@ export default function Page() {
         showToast('Profile updated', 'success');
     }
 
+    const accountTypeTheme: Record<UserType, AccountThemes> = {
+        Basic: {
+            className: 'text-primaryBlue'
+        },
+        Medium: {
+            className: 'text-primaryBlue font-medium'
+        },
+        Premium: {
+            className: 'text-primaryPurple font-semibold'
+        }
+    } as const;
+
     return (
         <div className='flex justify-center w-full h-full'>
             <div className='w-full lg:w-1/2 mt-navbar-height flex flex-col gap-8 p-4'>
@@ -65,7 +78,7 @@ export default function Page() {
                         <div className='flex flex-col gap-2'>
                             <p>{currentUser?.name} {currentUser?.lastname}</p>
                             <p>{currentUser?.email}</p>
-                            <p>Account Type: <span className='text-primaryBlue font-medium'>{currentUser?.userType}</span></p>
+                            <p>Account Type: <span className={accountTypeTheme[currentUser?.userType ?? 'Basic'].className}>{currentUser?.userType}</span></p>
                         </div>
                     </div>
 
