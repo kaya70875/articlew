@@ -53,7 +53,7 @@ export async function refreshGoogleAccessToken(
     return {
       ...token,
       accessToken: access_token,
-      accessTokenExpires: Date.now() + expires_in * 1000,
+      accessTokenExpires: Date.now() + 60 * 1000,
     };
   } catch (error: any) {
     console.error(
