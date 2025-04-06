@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 const COLLECTION_NAME = "fav_sentences";
 
-export async function GET(req: Request) {
+export async function GET() {
   const session = await getServerSession(authOptions);
   const userId = session?.user?.id;
 
