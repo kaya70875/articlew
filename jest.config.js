@@ -6,7 +6,7 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
-  testEnvironment: "jsdom",
+  testEnvironment: "jest-fixed-jsdom",
 };
 
 module.exports = createJestConfig(customJestConfig);
