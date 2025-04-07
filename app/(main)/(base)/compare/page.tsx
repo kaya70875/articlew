@@ -67,7 +67,7 @@ export default function Page() {
                     </div>
                     <p className='font-medium'>Similarity Score : {
                         !similarityLoading ? (<span className='text-primaryText font-semibold'>{similarityScore}%</span>
-                        ) : ('loading...')}</p>
+                        ) : ('Calculating...')}</p>
                     {similarityError && <ApiError error={similarityError} errorMessage='Similarity score cannot calculated.' />}
                 </div>
             </div>
