@@ -63,10 +63,10 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
               )}
             >
               <li className='w-full'>
-                <p className='text-base cursor-pointer' onClick={() => { setSelectedSentenceId(sentence._id); setModal(true); }}>Assign to a new category</p>
+                <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => { setSelectedSentenceId(sentence._id); setModal(true); }}>Assign to a new category</p>
               </li>
               <li className='w-full'>
-                <p className='text-base cursor-pointer' onClick={() => handleDelete(sentence.sentence)}>Delete</p>
+                <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => handleDelete(sentence.sentence)}>Delete</p>
               </li>
             </Dropdown>
           </div>
