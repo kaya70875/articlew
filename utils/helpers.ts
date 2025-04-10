@@ -56,23 +56,6 @@ export const speakSentence = (sentence: string) => {
 };
 
 /**
- * Extracts the content from a given HTML string that is wrapped in a `<span>` tag.
- * Returns the string inside the `<span>` tag with full text.
- *
- * Args:
- *  htmlString (str): The input HTML string containing the content to be extracted.
- * Returns:
- *  str: The extracted string from the `<span>` tag.
- */
-
-export const extractSpanContent = (htmlString: string): string => {
-  // Regular expression to match the <span> tag and its content
-  const spanRegex = /<span class='text-primaryBlue'[^>]*>(.*?)<\/span>/g;
-  // Replace the <span> tags with their inner content
-  return htmlString.replace(spanRegex, "$1");
-};
-
-/**
  * Highlights all occurrences of a specific word in a sentence by wrapping them in a `<span>` tag
  * with a CSS class for styling (e.g., bold and underline).
  *
