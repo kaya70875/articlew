@@ -6,7 +6,7 @@ import useAPIFetch from '@/hooks/useAPIFetch';
 import React, { useRef, useState } from 'react'
 import Speaker from '@/components/svg/Speaker';
 import CopyIcon from '@/components/svg/CopyIcon';
-import { extractSpanContent, speakSentence } from '@/utils/helpers';
+import { speakSentence } from '@/utils/helpers';
 import Loading from '@/components/Loading';
 import Card from '@/components/cards/Card';
 import fixSvg from '@/public/illustrations/files.svg';
@@ -37,7 +37,8 @@ export default function Page() {
         }
     }
 
-    const rawContent = extractSpanContent(data?.corrected_sentence ?? '');
+    const rawContent = data?.raw_sentence ?? '';
+
     const icons = [
         { icon: <Speaker isSpeaking={false} />, onClick: () => speakSentence(rawContent) },
         { icon: <CopyIcon />, onClick: () => navigator.clipboard.writeText(rawContent) },

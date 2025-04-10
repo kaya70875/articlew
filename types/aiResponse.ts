@@ -40,4 +40,5 @@ export type FastApiCompareResponse = {
 export type FastApiFixGrammarResponse = {
   original_sentence: string;
   corrected_sentence: string;
+  raw_sentence: string;
 };
