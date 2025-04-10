@@ -2,11 +2,16 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Card from "../Card";
-import { ArrowBack } from "@mui/icons-material";
+
+const DummySvg = (props: React.PropsWithChildren) => (
+  <svg width="100" height="100" viewBox="0 0 100 100" {...props}>
+    <circle cx="50" cy="50" r="40" fill="red" />
+  </svg>
+);
 
 // Mock the SafeHTML component
 jest.mock("../../security/SafeHTML", () => {
-  return function MockSafeHTML({ html, className }) {
+  return function MockSafeHTML({ html, className }: { html: string, className: string }) {
     return <div className={className}>{html}</div>;
   };
 });
@@ -28,7 +33,7 @@ describe("Card", () => {
 
   it("should render icons prop correctly", () => {
     render(
-      <Card icons={[{ icon: <ArrowBack data-testid="arrow-back-icon" /> }]} />
+      <Card icons={[{ icon: <DummySvg data-testid="arrow-back-icon" /> }]} />
     );
     expect(screen.getByTestId("arrow-back-icon")).toBeInTheDocument();
   });
@@ -40,14 +45,14 @@ describe("Card", () => {
         text="Test text"
         icons={[
           {
-            icon: <ArrowBack data-testid="arrow-back-icon" />,
+            icon: <DummySvg data-testid="arrow-back-icon" />,
             onClick: mockOnClick,
           },
         ]}
       />
     );
 
-    fireEvent.click(screen.getByTestId("arrow-back-icon").parentElement);
+    fireEvent.click(screen.getByTestId("arrow-back-icon").parentElement as HTMLElement);
     expect(mockOnClick).toHaveBeenCalledWith("Test text");
   });
 
@@ -68,8 +73,8 @@ describe("Card", () => {
       <Card
         text="Multiple icons"
         icons={[
-          { icon: <ArrowBack data-testid="icon1" />, onClick: mockOnClick1 },
-          { icon: <ArrowBack data-testid="icon2" />, onClick: mockOnClick2 },
+          { icon: <DummySvg data-testid="icon1" />, onClick: mockOnClick1 },
+          { icon: <DummySvg data-testid="icon2" />, onClick: mockOnClick2 },
         ]}
       />
     );
@@ -77,7 +82,7 @@ describe("Card", () => {
     expect(screen.getByTestId("icon1")).toBeInTheDocument();
     expect(screen.getByTestId("icon2")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByTestId("icon1").parentElement);
+    fireEvent.click(screen.getByTestId("icon1").parentElement as HTMLElement);
     expect(mockOnClick1).toHaveBeenCalledWith("Multiple icons");
     expect(mockOnClick2).not.toHaveBeenCalled();
   });
@@ -87,7 +92,7 @@ describe("Card", () => {
     render(
       <Card
         source="https://www.google.com"
-        icons={[{ icon: <ArrowBack data-testid="icon" /> }]}
+        icons={[{ icon: <DummySvg data-testid="icon" /> }]}
       />
     );
     expect(screen.getByText("google")).toBeInTheDocument();
@@ -101,7 +106,7 @@ describe("Card", () => {
     render(
       <Card
         source="https://www.google.com"
-        icons={[{ icon: <ArrowBack data-testid="icon" /> }]}
+        icons={[{ icon: <DummySvg data-testid="icon" /> }]}
       />
     );
 
