@@ -23,6 +23,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
+    console.error("Error while updating category", e);
     return NextResponse.json(
       { message: "Error updating category" },
       { status: 500 }
@@ -53,6 +54,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json(result, { status: 200 });
   } catch (e) {
+    console.error("Error while updating category", e);
     return NextResponse.json(
       { message: "Error updating category" },
       { status: 500 }
