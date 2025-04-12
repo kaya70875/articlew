@@ -47,7 +47,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
 
     if (selectedSentenceId && choosedCategory) {
       await assignCategory(choosedCategory, selectedSentenceId, userid);
-      mutate('/api/words/getFavorites');
+      mutate(`/api/words/updateCategory?category=${choosedCategory}`);
       setModal(false);
     }
   };
