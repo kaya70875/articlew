@@ -23,7 +23,7 @@ export type FastApiAIFeedbackResponse = {
 };
 
 export type FastApiWordResponse = {
-  adjectives: WordInfo[];
+  adjective: WordInfo[];
   adverb: WordInfo[];
   verb: WordInfo[];
   noun: WordInfo[];

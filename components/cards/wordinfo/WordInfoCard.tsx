@@ -36,7 +36,7 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
         },
         {
             name: 'adjective',
-            data: wordInfo?.adjectives || []
+            data: wordInfo?.adjective || []
         },
         {
             name: 'adverb',
@@ -53,10 +53,12 @@ export default function WordInfoCard({ currentWord, setWord }: WordInfoCardProps
         if (!cardContainerRef.current || !wordInfo) return;
 
         const relevantSpeechDiv = cardContainerRef.current.firstChild as HTMLDivElement;
-        const firstTwoCards = Array.from(relevantSpeechDiv.children).slice(0, 2) as HTMLDivElement[];
+        if (relevantSpeechDiv) {
+            const firstTwoCards = Array.from(relevantSpeechDiv?.children).slice(0, 2) as HTMLDivElement[];
 
-        const totalHeight = firstTwoCards.reduce((acc, card) => acc + card.offsetHeight, 0);
-        setCollapsedHeight(totalHeight);
+            const totalHeight = firstTwoCards.reduce((acc, card) => acc + card.offsetHeight, 0);
+            setCollapsedHeight(totalHeight);
+        }
 
     }, [currentWord, wordInfo])
 
