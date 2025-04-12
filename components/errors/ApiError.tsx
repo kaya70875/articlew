@@ -28,13 +28,13 @@ export default function ApiError({ errorMessage, error }: ApiError) {
         NOT_FOUND: {
             status: 404,
             className: 'border-primaryPurple',
-            message: `${error.response.data.detail}`, //Show original error message from backend.
+            message: `${error.response?.data?.detail}`, //Show original error message from backend.
             messageClassName: 'font-medium'
         },
         UNAUTHORIZED: {
             status: 401,
             className: 'border-red-500',
-            message: `${error.response.data.detail}`,
+            message: `${error.response?.data?.detail}`,
             messageClassName: 'text-red-500'
         },
         REQUEST_EXCEEDED: {
@@ -44,7 +44,7 @@ export default function ApiError({ errorMessage, error }: ApiError) {
             messageClassName: 'font-medium'
         },
         DEFAULT: {
-            status: 0, //Any status code will show DEFAULT error type.
+            status: 500, //Any status code will show DEFAULT error type.
             className: 'border-red-500',
             message: errorMessage, //Show custom error message.
             messageClassName: 'text-red-500',
