@@ -10,6 +10,7 @@ import { useCategoryActions } from '@/hooks/useCategoryActions';
 import Card from './Card';
 import IconDots from '../svg/IconDots';
 import Loading from '../Loading';
+import { useSearchParams } from 'next/navigation';
 
 interface FavoriteCardProps {
   favorites: FavoriteSentences[];
@@ -21,8 +22,10 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
   const user = useCurrentUser();
   const userid = user?.id;
 
+  const searchParams = useSearchParams();
+
   const { handleFavorites } = useSentenceCardActions();
-  const { assignCategory } = useCategoryActions();
+  const { assignCategory, removeFromCategory } = useCategoryActions();
 
   const [modal, setModal] = useState(false);
   const [choosedCategory, setChoosedCategory] = useState<string | null>(null);
@@ -52,6 +55,13 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
     }
   };
 
+  const handleRemoveFromCategory = async (sentence: FavoriteSentences) => {
+    if (!userid || !sentence.categoryId) return;
+
+    await removeFromCategory(sentence.sentence, sentence.categoryId);
+    mutate(`/api/words/updateCategory?category=${sentence.categoryId}`);
+  }
+
   return (
     <>
       {favorites?.map((sentence, index) => (
@@ -65,6 +75,12 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
               <li className='w-full'>
                 <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => { setSelectedSentenceId(sentence._id); setModal(true); }}>Assign to a new category</p>
               </li>
+              {
+                searchParams.has('category') &&
+                <li className='w-full'>
+                  <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => handleRemoveFromCategory(sentence)}>Remove from current category.</p>
+                </li>
+              }
               <li className='w-full'>
                 <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => handleDelete(sentence.sentence)}>Delete</p>
               </li>

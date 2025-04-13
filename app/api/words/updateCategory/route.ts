@@ -61,3 +61,46 @@ export async function GET(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: Request) {
+  // Find the sentence with userId and sentence. 2. Remove categoryId='ex:Science'
+
+  const { sentence, choosedCategory } = await req.json();
+
+  const session = await getServerSession(authOptions);
+  const userId = session?.user.id;
+
+  console.log("currentCat", choosedCategory);
+
+  try {
+    if (!userId) {
+      return NextResponse.json(
+        { message: "UserId or category cannot found!" },
+        { status: 400 }
+      );
+    }
+
+    const db = await connectToDB();
+    const collection = db?.collection("fav_sentences");
+    await collection?.findOneAndUpdate(
+      {
+        sentence: sentence,
+        userId: userId,
+      },
+      {
+        $unset: { categoryId: choosedCategory },
+      }
+    );
+
+    return NextResponse.json({
+      message: `Successfully removed from category ${choosedCategory}`,
+      status: 200,
+    });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({
+      message: "Error while removing category field from sentence.",
+      status: 500,
+    });
+  }
+}

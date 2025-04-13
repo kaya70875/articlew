@@ -15,12 +15,14 @@ import { useCurrentUser } from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 import ApiError from '@/components/errors/ApiError';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
     const { data, loading, error } = useFetch<FavoriteSentences[]>('/api/words/getFavorites');
     const { data: categoriesData, loading: categoriesLoading, error: categoriesError } = useFetch<CategorySentence[]>('/api/words/categories'); // Fetch categories like 'top 10'
     const { addCategory, deleteCategory } = useCategoryActions();
 
+    const router = useRouter();
     const user = useCurrentUser();
     const userId = user?.id;
 
@@ -34,6 +36,7 @@ export default function Page() {
     const { data: filteredFavorites, loading: filteredLoading, error: filteredError } = useFetch<FavoriteSentences[]>(selectedCategory ? `/api/words/updateCategory?category=${selectedCategory}` : null);
 
     const categories = categoriesData || [];
+
 
     const handleRemoveCategory = async (category: string, e: React.MouseEvent<HTMLParagraphElement>) => {
         e.stopPropagation();
@@ -50,6 +53,14 @@ export default function Page() {
     const handleChoosingCategory = (category: string) => {
         setSelectedCategory(category);
     }
+
+    useEffect(() => {
+        if (selectedCategory) {
+            router.push(`?category=${selectedCategory}`)
+        } else {
+            router.push('/favorites');
+        }
+    }, [selectedCategory, router])
 
     useEffect(() => {
         if (searchValue) {
