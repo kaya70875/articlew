@@ -95,7 +95,7 @@ export default function Page() {
                         ))}
                     </Dropdown>
 
-                    <button onClick={() => setSelectedCategory(null)} className='ghost-button'>See All</button>
+                    <button onClick={() => setSelectedCategory(null)} className='ghost-button'>Clear</button>
                 </div>
 
             </div>
