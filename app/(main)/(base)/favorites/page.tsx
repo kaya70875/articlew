@@ -115,6 +115,10 @@ export default function Page() {
                 </ModalComp>
             </div>
 
+            {data?.length === 0 && filteredFavorites?.length !== 0 && (
+                <p>No Favorites Yet.</p>
+            )}
+
             {error || filteredError && (
                 <ApiError error={error} errorMessage='Error fetching favorites' />
             )}
