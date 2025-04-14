@@ -28,7 +28,6 @@ export default function Dropdown({ dropdownTitle = 'Dropdown', addButton = false
         background-color: #e2e8f0;
         border-radius: 12px;
         min-width: max-content;
-        display: ${isOpen ? 'block' : 'none'};
         z-index: 20;
         ${basePosition}: 0;
     `
@@ -50,10 +49,10 @@ export default function Dropdown({ dropdownTitle = 'Dropdown', addButton = false
     useClickOutside(dropdownRef, setIsOpen);
 
     return (
-        <div className='dropdown' css={dropdownBase} ref={dropdownRef}>
+        <div className={`dropdown transition-all duration-200 ease-in`} css={dropdownBase} ref={dropdownRef}>
             <button data-testid='dropdown-button' className='relative hover:text-gray-500' onClick={() => setIsOpen(prev => !prev)}>{dropdownTitle}</button>
             <div
-                className='dropdown-menu' data-testid='dropdown-menu' css={position === 'bottom' ? dropdownMenuDefault : dropdownMenuRight}>
+                className={`${isOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'} transition-all duration-150 ease-in`} data-testid='dropdown-menu' css={position === 'bottom' ? dropdownMenuDefault : dropdownMenuRight}>
                 <ul className='flex flex-col gap-4 w-full'>
                     {
                         addButton && <li onClick={handleNewCategoryClick}>
@@ -61,7 +60,9 @@ export default function Dropdown({ dropdownTitle = 'Dropdown', addButton = false
                             <div className="line !w-full mt-2"></div>
                         </li>
                     }
+
                     {children}
+
                 </ul>
             </div>
 

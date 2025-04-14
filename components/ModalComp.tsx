@@ -16,7 +16,7 @@ export default function ModalComp({ onClose, modalTitle, createNewCategory, butt
                 <header className="modal-header flex flex-col gap-4">
                     <div className='flex items-center justify-between w-full'>
                         <h3>{modalTitle}</h3>
-                        <Iconx props={{ onClick: onClose, className: 'cursor-pointer hover:text-gray-300' }} />
+                        <Iconx props={{ onClick: onClose, className: 'cursor-pointer text-primaryText hover:opacity-80 transition-all duration-150 ease' }} />
                     </div>
                 </header>
 
