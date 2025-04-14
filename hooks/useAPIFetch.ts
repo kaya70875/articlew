@@ -11,7 +11,7 @@ const useAPIFetch = <T>(endpoint: string | null) => {
     return response.data;
   };
 
-  const { data, error, isValidating } = useSWR<T>(endpoint, fetcher, {
+  const { data, error, isLoading } = useSWR<T>(endpoint, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     revalidateOnMount: true,
@@ -20,7 +20,7 @@ const useAPIFetch = <T>(endpoint: string | null) => {
 
   return {
     data: data || null,
-    loading: isValidating,
+    loading: isLoading,
     error: error || null,
   };
 };
