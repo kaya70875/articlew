@@ -1,12 +1,10 @@
-import { CircularProgress, CircularProgressProps } from '@mui/material'
 import React from 'react'
+import { BeatLoader } from 'react-spinners';
 
-interface LoadingProps extends CircularProgressProps {}
-
-export default function Loading(props : LoadingProps) {
+export default function Loading() {
   return (
     <div className='flex items-center justify-center w-full h-48'>
-      <CircularProgress {...props} />
+      <BeatLoader size={12} color='#6c63ff' />
     </div>
   )
 }
