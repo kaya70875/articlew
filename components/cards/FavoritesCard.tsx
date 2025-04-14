@@ -12,6 +12,7 @@ import IconDots from '../svg/IconDots';
 import Loading from '../Loading';
 import { useSearchParams } from 'next/navigation';
 import ApiError from '../errors/ApiError';
+import ModalTransitionContainer from '../reusables/containers/ModalTransitionContainer';
 
 interface FavoriteCardProps {
   favorites: FavoriteSentences[];
@@ -74,16 +75,16 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
               )}
             >
               <li className='w-full'>
-                <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => { setSelectedSentenceId(sentence._id); setModal(true); }}>Assign to a new category</p>
+                <p className='text-base cursor-pointer hover:opacity-80' data-dropdown-clickable onClick={() => { setSelectedSentenceId(sentence._id); setModal(true); }}>Assign to a new category</p>
               </li>
               {
                 searchParams.has('category') &&
                 <li className='w-full'>
-                  <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => handleRemoveFromCategory(sentence)}>Remove from {sentence.categoryId}</p>
+                  <p className='text-base cursor-pointer hover:opacity-80' data-dropdown-clickable onClick={() => handleRemoveFromCategory(sentence)}>Remove from {sentence.categoryId}</p>
                 </li>
               }
               <li className='w-full'>
-                <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => handleDelete(sentence.sentence)}>Delete</p>
+                <p className='text-base cursor-pointer hover:opacity-80' data-dropdown-clickable onClick={() => handleDelete(sentence.sentence)}>Delete</p>
               </li>
             </Dropdown>
           </div>
@@ -93,7 +94,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
       {error && <ApiError error={error} errorMessage='Cannot get favorites.' />}
       {loading && <Loading />}
 
-      {modal && (
+      <ModalTransitionContainer modalOpen={modal}>
         <ModalComp
           onClose={() => setModal(false)}
           modalTitle='Assign to a new category'
@@ -113,7 +114,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
             <p>No Categories Yet.</p>
           )}
         </ModalComp>
-      )}
+      </ModalTransitionContainer>
     </>
   );
 }

@@ -16,6 +16,7 @@ import React, { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 import ApiError from '@/components/errors/ApiError';
 import { useRouter } from 'next/navigation';
+import ModalTransitionContainer from '@/components/reusables/containers/ModalTransitionContainer';
 
 export default function Page() {
     const { data, loading, error } = useFetch<FavoriteSentences[]>('/api/words/getFavorites');
@@ -104,7 +105,7 @@ export default function Page() {
                 <p>Showing categories for {selectedCategory}</p>
             )}
 
-            <div className={`filter-modal transition-all ease-in-out duration-300 ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <ModalTransitionContainer modalOpen={modalOpen}>
                 <ModalComp
                     modalTitle='Add New Category'
                     buttonTitle='Add'
@@ -113,7 +114,7 @@ export default function Page() {
                 >
                     <InputField onChange={(e) => setInputValue(e.target.value)} label='Category Name' />
                 </ModalComp>
-            </div>
+            </ModalTransitionContainer>
 
             {data?.length === 0 && filteredFavorites?.length !== 0 && (
                 <p>No Favorites Yet.</p>
