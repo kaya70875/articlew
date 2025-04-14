@@ -17,6 +17,7 @@ import { mutate } from 'swr';
 import ApiError from '@/components/errors/ApiError';
 import { useRouter } from 'next/navigation';
 import ModalTransitionContainer from '@/components/reusables/containers/ModalTransitionContainer';
+import DropdownLink from '@/components/dropdown/DropdownLink';
 
 export default function Page() {
     const { data, loading, error } = useFetch<FavoriteSentences[]>('/api/words/getFavorites');
@@ -90,8 +91,8 @@ export default function Page() {
                             <li className='flex items-center w-full justify-between' key={index} onClick={() => handleChoosingCategory(category.category)}>
                                 {categoriesLoading && <Loading />}
                                 {categoriesError && <ApiError error={categoriesError} errorMessage='Failed to get categories' />}
-                                <p data-dropdown-clickable className='text-base cursor-pointer'>{category.category}</p>
-                                <p data-dropdown-clickable onClick={(e) => handleRemoveCategory(category.category, e)} className='text-sm cursor-pointer'>x</p>
+                                <DropdownLink name={category.category} />
+                                <DropdownLink name='x' onClick={(e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => handleRemoveCategory(category.category, e)} />
                             </li>
                         ))}
                     </Dropdown>

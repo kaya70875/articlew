@@ -13,6 +13,7 @@ import Loading from '../Loading';
 import { useSearchParams } from 'next/navigation';
 import ApiError from '../errors/ApiError';
 import ModalTransitionContainer from '../reusables/containers/ModalTransitionContainer';
+import DropdownLink from '../dropdown/DropdownLink';
 
 interface FavoriteCardProps {
   favorites: FavoriteSentences[];
@@ -74,18 +75,9 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
                 <IconDots />
               )}
             >
-              <li className='w-full'>
-                <p className='text-base cursor-pointer hover:opacity-80' data-dropdown-clickable onClick={() => { setSelectedSentenceId(sentence._id); setModal(true); }}>Assign to a new category</p>
-              </li>
-              {
-                searchParams.has('category') &&
-                <li className='w-full'>
-                  <p className='text-base cursor-pointer hover:opacity-80' data-dropdown-clickable onClick={() => handleRemoveFromCategory(sentence)}>Remove from {sentence.categoryId}</p>
-                </li>
-              }
-              <li className='w-full'>
-                <p className='text-base cursor-pointer hover:opacity-80' data-dropdown-clickable onClick={() => handleDelete(sentence.sentence)}>Delete</p>
-              </li>
+              <DropdownLink name='Assign to a new category' onClick={() => { setSelectedSentenceId(sentence._id); setModal(true) }} />
+              {searchParams.has('category') && <DropdownLink name={`Remove from ${sentence.categoryId}`} onClick={() => handleRemoveFromCategory(sentence)} />}
+              <DropdownLink name='Delete' onClick={() => handleDelete(sentence.sentence)} />
             </Dropdown>
           </div>
         </Card>

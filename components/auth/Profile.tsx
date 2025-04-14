@@ -6,6 +6,7 @@ import React from 'react'
 import IconAccount from '../svg/IconAccount';
 import IconSignout from '../svg/IconSignout';
 import { signOut } from 'next-auth/react';
+import DropdownLink from '../dropdown/DropdownLink';
 
 export default function Profile() {
 
@@ -21,11 +22,11 @@ export default function Profile() {
             <div className="items flex flex-col gap-4">
                 <Link target='_blank' href={'/account'} className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer'>
                     <IconAccount />
-                    <p data-dropdown-clickable>Account</p>
+                    <DropdownLink name='Account' />
                 </Link>
                 <li className='text-primaryText flex items-center gap-3 hover:opacity-80 cursor-pointer' onClick={() => signOut()}>
                     <IconSignout />
-                    <p data-dropdown-clickable >Sign Out</p>
+                    <DropdownLink name='Sign Out' />
                 </li>
             </div>
         </div>
