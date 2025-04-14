@@ -64,7 +64,7 @@ export default function Page() {
 
     useEffect(() => {
         if (searchValue) {
-            const filteredByWord = data?.filter(item => item.sentence.toLowerCase().includes(searchValue.toLowerCase()));
+            const filteredByWord = data?.filter(item => item.highlightedWord.toLowerCase().includes(searchValue.toLowerCase()));
             setFilteredData(filteredByWord ?? []);
         }
     }, [searchValue, data]);
@@ -73,7 +73,7 @@ export default function Page() {
         <div className='main-container p-4'>
             <header className='w-full flex flex-col gap-2'>
                 <h2>Your Favorites</h2>
-                <InputField placeholder='Search in favorites' label='' onChange={(e) => setSearchValue(e.target.value)} />
+                <InputField placeholder='Search with words (ex: Prevent)' label='' onChange={(e) => setSearchValue(e.target.value)} />
             </header>
 
             <div className='filter-options flex items-center gap-4 w-full justify-between'>
