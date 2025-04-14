@@ -8,6 +8,7 @@ import SearchInput from './components/SearchInput';
 import SearchResults from './components/SearchResults';
 import SearchLoading from './components/SearchLoading';
 import useSearch from '@/hooks/useSearch';
+import ModalTransitionContainer from '@/components/reusables/containers/ModalTransitionContainer';
 
 export default function Page() {
   const {
@@ -46,13 +47,13 @@ export default function Page() {
         />
       )}
 
-      {modalOpen && (
+      <ModalTransitionContainer modalOpen={modalOpen}>
         <FilterModal
           onClose={closeFilterModal}
           categories={categories}
           setCategories={setCategories}
         />
-      )}
+      </ModalTransitionContainer>
 
       {data ? (
         <SearchResults
