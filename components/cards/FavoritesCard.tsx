@@ -11,6 +11,7 @@ import Card from './Card';
 import IconDots from '../svg/IconDots';
 import Loading from '../Loading';
 import { useSearchParams } from 'next/navigation';
+import ApiError from '../errors/ApiError';
 
 interface FavoriteCardProps {
   favorites: FavoriteSentences[];
@@ -78,7 +79,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
               {
                 searchParams.has('category') &&
                 <li className='w-full'>
-                  <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => handleRemoveFromCategory(sentence)}>Remove from current category.</p>
+                  <p className='text-base cursor-pointer' data-dropdown-clickable onClick={() => handleRemoveFromCategory(sentence)}>Remove from {sentence.categoryId}</p>
                 </li>
               }
               <li className='w-full'>
@@ -89,7 +90,7 @@ export default function FavoritesCard({ favorites }: FavoriteCardProps) {
         </Card>
       ))}
 
-      {error && <p className='text-red-400'>Error: {error}</p>}
+      {error && <ApiError error={error} errorMessage='Cannot get favorites.' />}
       {loading && <Loading />}
 
       {modal && (
