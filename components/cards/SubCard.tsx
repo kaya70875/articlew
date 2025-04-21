@@ -1,4 +1,5 @@
 'use client'
+import { useToast } from '@/context/ToastContext';
 // This component is used to display a subscription card with a title, description, and a checkout button.
 import { usePaddle } from '@/hooks/usePaddle';
 import { useSession } from 'next-auth/react';
@@ -15,9 +16,13 @@ export default function SubCard({ title, desc, priceId, amount }: SubCardProps) 
 
     const paddle = usePaddle();
     const { data: session } = useSession();
+    const { showToast } = useToast();
 
     const openCheckout = () => {
         try {
+            if (session?.user.subscription_status) return showToast('You already have a subscription', 'error');
+            if (!session?.user.email) return;
+
             paddle?.Checkout.open({
                 items: [{ priceId: priceId, quantity: 1 }],
                 customData: {

@@ -10,8 +10,6 @@ export default function Page() {
 
     const { data: prices, loading, error } = useAPIFetch<PaddlePrices[]>('/paddle/prices');
 
-    console.log('Products', prices);
-
     return (
         <div className='flex flex-col items-center justify-center w-full h-screen gap-4'>
             {prices?.map((price, index) => (
