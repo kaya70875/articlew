@@ -9,8 +9,11 @@ import { useAuthActions } from '@/hooks/useAuthActions';
 import { PaddleSubsctiption } from '@/types/paddle';
 import { AccountThemes, UserType } from '@/types/userTypes';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react'
+import PurchaseSuccess from '../../(base)/premium/components/PurchaseSuccessModal';
+import ModalTransitionContainer from '@/components/reusables/containers/ModalTransitionContainer';
+import Link from 'next/link';
 
 export default function Page() {
     const { data: session, update } = useSession();
@@ -19,7 +22,10 @@ export default function Page() {
     const { changePassword, updateProfile } = useAuthActions();
     const { showToast } = useToast();
 
-    const router = useRouter();
+    const params = useSearchParams();
+
+    const param = params.get('success');
+    const success = param === 'true';
 
     const { data: subscription, error } = useAPIFetch<PaddleSubsctiption>(`/paddle/subscriptions/${currentUser?.subscription_id}`)
 
@@ -92,8 +98,8 @@ export default function Page() {
                             <p>Account Type: <span className={accountTypeTheme[currentUser?.userType ?? 'Free'].className}>{currentUser?.userType}</span></p>
                             {currentUser?.subscription_status && (
                                 <div className='flex items-center gap-4'>
-                                    <button className="primary-button" onClick={() => router.push(subscription?.update_url ?? '')}>Manage Subscriptions</button>
-                                    <button className="secondary-button" onClick={() => router.push(subscription?.cancel_url ?? '')}>Cancel Subscription</button>
+                                    <Link className='font-semibold opacity-80 underline hover:opacity-70' href={subscription?.update_url ?? ''}>Manage Subscriptions</Link>
+                                    <Link className='font-semibold opacity-80 underline hover:opacity-70 text-red-600' href={subscription?.cancel_url ?? ''}>Cancel Subscription</Link>
                                 </div>
                             )}
                         </div>
@@ -115,6 +121,10 @@ export default function Page() {
                         <InputField type='password' label='New Password' onChange={(e) => setPassword({ ...password, newPassword: e.target.value })} />
                         <InputField type='password' label='Password Again' onChange={(e) => setPassword({ ...password, passwordAgain: e.target.value })} />
                     </div>
+
+                    <ModalTransitionContainer modalOpen={success}>
+                        <PurchaseSuccess />
+                    </ModalTransitionContainer>
 
                     <button onClick={handleChangePassword} className="primary-button w-44">Change Password</button>
                 </div>

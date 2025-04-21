@@ -22,6 +22,9 @@ export default function SubCard({ title, desc, priceId, amount }: SubCardProps) 
                 items: [{ priceId: priceId, quantity: 1 }],
                 customData: {
                     email: session?.user.email,
+                },
+                settings: {
+                    successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/account?success=true`,
                 }
 
             })

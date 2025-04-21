@@ -14,7 +14,7 @@ export default function Navbar() {
     const session = useSession();
 
     return (
-        <div className='w-full fixed top-0 left-0 px-4 md:px-[80px] xl:px-default-padding shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] z-50 bg-main'>
+        <div className='w-full fixed top-0 left-0 px-4 md:px-[80px] xl:px-default-padding shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] z-20 bg-main'>
             <nav className='py-8 w-full flex justify-between items-center'>
                 <div className="logo flex items-center gap-2">
                     <Image className='rounded-xl' src={logo} alt='logo' width={40} height={40} />
