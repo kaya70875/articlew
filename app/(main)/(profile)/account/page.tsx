@@ -4,17 +4,28 @@ import InputField from '@/components/inputs/InputField';
 import Navbar from '@/components/Navbar'
 import ProfileIcon from '@/components/reusables/ProfileIcon'
 import { useToast } from '@/context/ToastContext';
+import useAPIFetch from '@/hooks/useAPIFetch';
 import { useAuthActions } from '@/hooks/useAuthActions';
+import { PaddleSubsctiption } from '@/types/paddle';
 import { AccountThemes, UserType } from '@/types/userTypes';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 export default function Page() {
-
     const { data: session, update } = useSession();
+
     const currentUser = session?.user;
     const { changePassword, updateProfile } = useAuthActions();
     const { showToast } = useToast();
+
+    const router = useRouter();
+
+    const { data: subscription, error } = useAPIFetch<PaddleSubsctiption>(`/paddle/subscriptions/${currentUser?.subscription_id}`)
+
+    if (error) {
+        console.error('Error while getting subscription', error);
+    }
 
     const [password, setPassword] = useState({
         currentPassword: '',
@@ -54,10 +65,10 @@ export default function Page() {
     }
 
     const accountTypeTheme: Record<UserType, AccountThemes> = {
-        Basic: {
+        Free: {
             className: 'text-primaryBlue'
         },
-        Medium: {
+        Basic: {
             className: 'text-primaryBlue font-medium'
         },
         Premium: {
@@ -78,7 +89,13 @@ export default function Page() {
                         <div className='flex flex-col gap-2'>
                             <p>{currentUser?.name} {currentUser?.lastname}</p>
                             <p>{currentUser?.email}</p>
-                            <p>Account Type: <span className={accountTypeTheme[currentUser?.userType ?? 'Basic'].className}>{currentUser?.userType}</span></p>
+                            <p>Account Type: <span className={accountTypeTheme[currentUser?.userType ?? 'Free'].className}>{currentUser?.userType}</span></p>
+                            {currentUser?.subscription_status && (
+                                <div className='flex items-center gap-4'>
+                                    <button className="primary-button" onClick={() => router.push(subscription?.update_url ?? '')}>Manage Subscriptions</button>
+                                    <button className="secondary-button" onClick={() => router.push(subscription?.cancel_url ?? '')}>Cancel Subscription</button>
+                                </div>
+                            )}
                         </div>
                     </div>
 
