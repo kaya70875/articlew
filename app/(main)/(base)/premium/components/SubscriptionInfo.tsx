@@ -11,8 +11,6 @@ export default function SubscriptionInfo() {
 
     const { data: subscription, error } = useAPIFetch<PaddleSubsctiption>(`/paddle/subscriptions/${currentUser?.subscription_id}`)
 
-    console.log(subscription)
-
     if (error) {
         console.error('Error while getting subscription', error);
     }
