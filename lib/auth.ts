@@ -10,7 +10,7 @@ import {
 } from "./refreshAccessToken";
 import createTokens from "./createTokens";
 import { JWT } from "next-auth/jwt";
-import { UserType } from "@/types/userTypes";
+import { getUserWithEmail } from "./helpers";
 
 const JWT_SECRET = process.env.NEXTAUTH_SECRET;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
@@ -65,6 +65,8 @@ export const authOptions: NextAuthOptions = {
           lastname: currentUser.lastname,
           email: currentUser.email,
           userType: currentUser.userType,
+          subscription_id: currentUser.subscription_id || "",
+          subscription_status: currentUser.subscription_status || "false",
           accessToken,
           refreshToken,
           accessTokenExpires: Date.now() + 60 * 1000,
@@ -93,7 +95,13 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user }) {
-      const { email, name, userType = "Basic" } = user;
+      const {
+        email,
+        name,
+        userType = "Free",
+        subscription_id = "",
+        subscription_status = false,
+      } = user;
 
       try {
         const db = await connectToDB();
@@ -112,7 +120,10 @@ export const authOptions: NextAuthOptions = {
         }
 
         // Assing userType to user object on oauth provider signIn.
-        user.userType = userType;
+        user.userType = existingUser?.userType || userType;
+        user.subscription_id = existingUser?.subscription_id || subscription_id;
+        user.subscription_status =
+          existingUser?.subscription_status || subscription_status;
 
         return true;
       } catch (error) {
@@ -126,6 +137,7 @@ export const authOptions: NextAuthOptions = {
         return {
           ...token,
           id: user.id,
+          email: user.email,
           lastname: user.lastname,
           userType: user.userType,
           provider: account.provider,
@@ -157,9 +169,14 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      const existingUser = await getUserWithEmail(token.email);
+
       session.user.id = token.id;
       session.user.lastname = token.lastname;
-      session.user.userType = token.userType as UserType;
+      session.user.userType = existingUser?.userType || token.userType;
+      session.user.subscription_id = existingUser?.subscription_id || "";
+      session.user.subscription_status =
+        existingUser?.subscription_status || false;
       session.provider = token.provider;
 
       if (token) {
