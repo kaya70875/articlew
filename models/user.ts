@@ -25,7 +25,15 @@ const userSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    default: "Basic",
+    default: "Free",
+  },
+  subscription_id: {
+    type: String,
+    default: "",
+  },
+  subscription_status: {
+    type: Boolean,
+    default: false,
   },
 });
 
