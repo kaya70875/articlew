@@ -3,6 +3,7 @@ import NextAuth, { DefaultSession } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { UserType } from "./userTypes";
 
+export type SubscriptionStatus = "active" | "cancelled" | "inactive";
 declare module "next-auth" {
   interface Session {
     user: {
@@ -10,7 +11,7 @@ declare module "next-auth" {
       lastname: string;
       userType: UserType;
       subscription_id: string;
-      subscription_status: boolean;
+      subscription_status: SubscriptionStatus;
     } & DefaultSession["user"];
     accessToken: string;
     refreshToken: string;
@@ -26,7 +27,7 @@ declare module "next-auth" {
     refreshToken: string;
     accessTokenExpires: number;
     subscription_id: string;
-    subscription_status: boolean;
+    subscription_status: SubscriptionStatus;
   }
 }
 

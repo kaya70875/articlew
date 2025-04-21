@@ -20,7 +20,7 @@ export default function SubCard({ title, desc, priceId, amount }: SubCardProps) 
 
     const openCheckout = () => {
         try {
-            if (session?.user.subscription_status) return showToast('You already have a subscription', 'error');
+            if (session?.user.subscription_status === 'active') return showToast('You already have a subscription', 'error');
             if (!session?.user.email) return;
 
             paddle?.Checkout.open({

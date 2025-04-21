@@ -32,8 +32,8 @@ const userSchema = new mongoose.Schema({
     default: "",
   },
   subscription_status: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: "inactive",
   },
 });
 

@@ -11,6 +11,7 @@ import {
 import createTokens from "./createTokens";
 import { JWT } from "next-auth/jwt";
 import { getUserWithEmail } from "./helpers";
+import { SubscriptionStatus } from "@/types/next-auth";
 
 const JWT_SECRET = process.env.NEXTAUTH_SECRET;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
@@ -66,7 +67,9 @@ export const authOptions: NextAuthOptions = {
           email: currentUser.email,
           userType: currentUser.userType,
           subscription_id: currentUser.subscription_id || "",
-          subscription_status: currentUser.subscription_status || "false",
+          subscription_status:
+            (currentUser.subscription_status as SubscriptionStatus) ||
+            "inactive",
           accessToken,
           refreshToken,
           accessTokenExpires: Date.now() + 60 * 1000,
@@ -100,7 +103,7 @@ export const authOptions: NextAuthOptions = {
         name,
         userType = "Free",
         subscription_id = "",
-        subscription_status = false,
+        subscription_status = "inactive",
       } = user;
 
       try {
@@ -176,7 +179,7 @@ export const authOptions: NextAuthOptions = {
       session.user.userType = existingUser?.userType || token.userType;
       session.user.subscription_id = existingUser?.subscription_id || "";
       session.user.subscription_status =
-        existingUser?.subscription_status || false;
+        existingUser?.subscription_status || "inactive";
       session.provider = token.provider;
 
       if (token) {
