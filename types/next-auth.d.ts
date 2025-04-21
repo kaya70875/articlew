@@ -9,6 +9,8 @@ declare module "next-auth" {
       id: string;
       lastname: string;
       userType: UserType;
+      subscription_id: string;
+      subscription_status: boolean;
     } & DefaultSession["user"];
     accessToken: string;
     refreshToken: string;
@@ -23,6 +25,8 @@ declare module "next-auth" {
     accessToken: string;
     refreshToken: string;
     accessTokenExpires: number;
+    subscription_id: string;
+    subscription_status: boolean;
   }
 }
 
