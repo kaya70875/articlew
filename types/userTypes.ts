@@ -1,4 +1,4 @@
-export type UserType = "Basic" | "Medium" | "Premium";
+export type UserType = "Free" | "Basic" | "Premium";
 
 export type AccountThemes = {
   className: string;
