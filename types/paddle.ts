@@ -10,6 +10,7 @@ export interface PaddlePrices {
 export interface PaddleSubsctiption {
   subscription_id: string;
   next_billed_at: Date;
+  cancellation_effective_at: Date;
   update_url: string;
   cancel_url: string;
 }

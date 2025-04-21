@@ -4,16 +4,14 @@ import InputField from '@/components/inputs/InputField';
 import Navbar from '@/components/Navbar'
 import ProfileIcon from '@/components/reusables/ProfileIcon'
 import { useToast } from '@/context/ToastContext';
-import useAPIFetch from '@/hooks/useAPIFetch';
 import { useAuthActions } from '@/hooks/useAuthActions';
-import { PaddleSubsctiption } from '@/types/paddle';
 import { AccountThemes, UserType } from '@/types/userTypes';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react'
 import PurchaseSuccess from '../../(base)/premium/components/PurchaseSuccessModal';
 import ModalTransitionContainer from '@/components/reusables/containers/ModalTransitionContainer';
-import Link from 'next/link';
+import SubscriptionInfo from '../../(base)/premium/components/SubscriptionInfo';
 
 export default function Page() {
     const { data: session, update } = useSession();
@@ -26,12 +24,6 @@ export default function Page() {
 
     const param = params.get('success');
     const success = param === 'true';
-
-    const { data: subscription, error } = useAPIFetch<PaddleSubsctiption>(`/paddle/subscriptions/${currentUser?.subscription_id}`)
-
-    if (error) {
-        console.error('Error while getting subscription', error);
-    }
 
     const [password, setPassword] = useState({
         currentPassword: '',
@@ -96,12 +88,7 @@ export default function Page() {
                             <p>{currentUser?.name} {currentUser?.lastname}</p>
                             <p>{currentUser?.email}</p>
                             <p>Account Type: <span className={accountTypeTheme[currentUser?.userType ?? 'Free'].className}>{currentUser?.userType}</span></p>
-                            {currentUser?.subscription_status && (
-                                <div className='flex items-center gap-4'>
-                                    <Link className='font-semibold opacity-80 underline hover:opacity-70' href={subscription?.update_url ?? ''}>Manage Subscriptions</Link>
-                                    <Link className='font-semibold opacity-80 underline hover:opacity-70 text-red-600' href={subscription?.cancel_url ?? ''}>Cancel Subscription</Link>
-                                </div>
-                            )}
+                            <SubscriptionInfo />
                         </div>
                     </div>
 
