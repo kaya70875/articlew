@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
+import { emailTemplate } from "@/components/email/EmailTemplate";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Verify Your Articlew Account",
-      html: `<p>Click <a href="${verifyLink}">here</a> to verify your account.</p>`,
+      html: emailTemplate(verifyLink),
     });
 
     return NextResponse.json(
