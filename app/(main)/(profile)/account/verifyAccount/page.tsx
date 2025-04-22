@@ -2,8 +2,12 @@
 
 import Loading from '@/components/Loading';
 import axios from 'axios';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
+import successSvg from '@/public/images/success.svg';
+import errorSvg from '@/public/images/error.svg';
+import Link from 'next/link';
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
@@ -35,9 +39,18 @@ export default function Page() {
             {loading ? (
                 <Loading />
             ) : success ? (
-                <div className="text-green-600 text-lg">Your email has been verified!</div>
+                <div className='flex flex-col gap-4 items-center justify-center'>
+                    <Image src={successSvg} width={128} height={128} alt='success' />
+                    <h1 className='text-2xl font-bold'>Email verified successfully!</h1>
+                    <Link className='primary-button' href={'/premium'}>Go Back</Link>
+                </div>
             ) : (
-                <div className="text-red-500 text-lg">Verification failed or token is invalid.</div>
+                <div className='flex flex-col gap-4 items-center justify-center'>
+                    <Image src={errorSvg} width={128} height={128} alt='success' />
+                    <h1 className='text-2xl font-bold'>Verification Failed</h1>
+                    <p>Token might be expired please try again.</p>
+                    <Link className='primary-button' href={'/premium'}>Go Back</Link>
+                </div>
             )}
         </div>
     );

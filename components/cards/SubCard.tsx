@@ -22,6 +22,7 @@ export default function SubCard({ title, desc, priceId, amount }: SubCardProps) 
         try {
             if (session?.user.subscription_status === 'active') return showToast('You already have a subscription', 'error');
             if (!session?.user.email) return;
+            if (!session.user.userVerified) return showToast('Please verify your email before upgrading', 'error');
 
             paddle?.Checkout.open({
                 items: [{ priceId: priceId, quantity: 1 }],
