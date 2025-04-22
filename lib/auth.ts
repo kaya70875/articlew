@@ -65,6 +65,7 @@ export const authOptions: NextAuthOptions = {
           name: currentUser.name,
           lastname: currentUser.lastname,
           email: currentUser.email,
+          userVerified: currentUser.userVerified || false,
           userType: currentUser.userType,
           subscription_id: currentUser.subscription_id || "",
           subscription_status:
@@ -101,6 +102,7 @@ export const authOptions: NextAuthOptions = {
       const {
         email,
         name,
+        userVerified = true,
         userType = "Free",
         subscription_id = "",
         subscription_status = "inactive",
@@ -119,11 +121,15 @@ export const authOptions: NextAuthOptions = {
             name,
             email,
             userType: userType,
+            userVerified: true,
+            subscription_id: "",
+            subscription_status: "inactive",
           });
         }
 
         // Assing userType to user object on oauth provider signIn.
         user.userType = existingUser?.userType || userType;
+        user.userVerified = existingUser?.userVerified || userVerified;
         user.subscription_id = existingUser?.subscription_id || subscription_id;
         user.subscription_status =
           existingUser?.subscription_status || subscription_status;
@@ -142,6 +148,7 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           lastname: user.lastname,
+          userVerified: user.userVerified ?? account.userVerified,
           userType: user.userType,
           provider: account.provider,
           accessToken: user.accessToken ?? account.access_token,
@@ -176,6 +183,7 @@ export const authOptions: NextAuthOptions = {
 
       session.user.id = token.id;
       session.user.lastname = token.lastname;
+      session.user.userVerified = existingUser?.userVerified || false;
       session.user.userType = existingUser?.userType || token.userType;
       session.user.subscription_id = existingUser?.subscription_id || "";
       session.user.subscription_status =
