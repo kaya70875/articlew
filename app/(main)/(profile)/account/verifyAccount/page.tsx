@@ -1,12 +1,11 @@
 'use client';
 
 import Loading from '@/components/Loading';
-import { useEmailVerify } from '@/hooks/account/useEmailVerify';
+import axios from 'axios';
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
 
 export default function Page() {
-    const { verifyAccount } = useEmailVerify();
     const [loading, setLoading] = useState(true);
     const [success, setSuccess] = useState<boolean | null>(null);
 
@@ -16,10 +15,10 @@ export default function Page() {
     useEffect(() => {
         if (!token) return;
 
-        const verify = async () => {
+        const verifyAccount = async () => {
             try {
-                const res = await verifyAccount(token);
-                setSuccess(res || false);
+                const res = await axios.post("/api/account/verifyAccount", { token: token })
+                setSuccess(res.status === 200 || false);
             } catch (e) {
                 console.error(e);
                 setSuccess(false);
@@ -28,8 +27,8 @@ export default function Page() {
             }
         };
 
-        verify();
-    }, [token, verifyAccount]);
+        verifyAccount();
+    }, [token]);
 
     return (
         <div className="flex items-center justify-center w-full min-h-screen">

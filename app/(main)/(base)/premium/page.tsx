@@ -7,10 +7,14 @@ import useAPIFetch from "@/hooks/useAPIFetch";
 import { PaddlePrices } from "@/types/paddle";
 import { useSession } from "next-auth/react";
 import useEmailVerificationTimer from "@/hooks/useEmailVerificationTimer";
+import axios from "axios";
+import { useState } from "react";
 
 export default function Page() {
     const { data: prices, loading, error } = useAPIFetch<PaddlePrices[]>('/paddle/prices');
     const { data: session } = useSession();
+
+    const [loadingEmail, setLoadingEmail] = useState(false);
 
     const {
         countdown,
@@ -22,39 +26,31 @@ export default function Page() {
     const userVerified = session?.user.userVerified;
 
     const handleSendEmail = async () => {
-        const res = await fetch('/api/account/sendVerificationEmail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: session?.user.email
-            })
-        });
-
-        const data = await res.json();
-
-        if (res.status === 200) {
-            triggerEmailSent();
-            console.log(data.message);
-        } else {
-            console.log(data.error);
+        try {
+            setLoadingEmail(true);
+            const res = await axios.post('/api/account/sendVerificationEmail', { email: session?.user.email })
+            if (res.status === 200) {
+                triggerEmailSent();
+            }
+            setLoadingEmail(false);
+        } catch (e) {
+            console.error(e);
         }
     }
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-screen gap-4'>
             {!userVerified && (
-                <div className="flag w-full fixed top-0 flex items-center justify-center bg-red-400 p-1">
+                <div className="flag w-full fixed top-0 flex items-center justify-center bg-primaryPurple p-2">
                     <div className="flex items-center gap-2">
-                        <p className="font-medium text-primaryText">
-                            {emailSent ? 'Verification link sent to your email.' : 'Please verify your email before upgrading.'}
+                        <p className="font-medium text-whitef">
+                            {emailSent ? 'Verification link sent to your email ✅' : 'Please verify your email before upgrading.'}
                         </p>
                         <p
                             onClick={canResend ? handleSendEmail : undefined}
-                            className={`underline font-semibold cursor-pointer ${canResend ? 'pointer-events-auto' : 'pointer-events-none text-gray-600'}`}
+                            className={`underline font-semibold cursor-pointer text-primaryText ${canResend ? 'pointer-events-auto' : 'pointer-events-none text-opacity-50'}`}
                         >
-                            {emailSent && countdown > 0 ? `Send again in ${countdown}s` : 'Send Verification Email'}
+                            {emailSent && countdown > 0 ? `Send again in ${countdown}s` : loadingEmail ? 'Sending...' : 'Send Verification Email'}
                         </p>
                     </div>
                 </div>
