@@ -37,7 +37,7 @@ body {
 }
 
 h1 , .h1 {
-  @apply text-5xl font-extrabold text-primaryText;
+  @apply text-6xl font-extrabold text-primaryText;
 }
 
 h2 , .h2 {
