@@ -14,10 +14,9 @@ interface LandingCardProps extends React.HTMLAttributes<HTMLDivElement> {
     description: string;
     image: ImageProps;
     variant?: 'light' | 'dark' | 'blue' | 'purple';
-    cardDirection?: 'row' | 'row-reverse';
 }
 
-export default function LandingCard({ title, description, image, variant = 'light', cardDirection = 'row-reverse', ...props }: LandingCardProps) {
+export default function LandingCard({ title, description, image, variant = 'light', ...props }: LandingCardProps) {
 
     const themes = {
         light: {
@@ -46,10 +45,10 @@ export default function LandingCard({ title, description, image, variant = 'ligh
 
     return (
         <div className={`w-full p-4 rounded-xl shadow-lg ${theme.cardBackgroundColor} ${props.className}`}>
-            <div className={`w-full flex flex-col md:flex-${cardDirection} gap-8 md:gap-0 items-center justify-between 2xl:justify-around`}>
-                <Image src={image.src} alt={image.alt ?? 'landing-card-image'} width={image.width ?? DEFAULT_IMAGE_SIZE} height={image.height ?? DEFAULT_IMAGE_SIZE} />
-                <div className="flex flex-col gap-4">
-                    <h3 className={`${theme.titleColor}`}>{title}</h3>
+            <div className={`w-full h-full flex flex-col gap-8 md:gap-4 items-center justify-between 2xl:justify-around text-center`}>
+                <Image className='aspect-square object-cover max-h-[240px]' src={image.src} alt={image.alt ?? 'landing-card-image'} width={image.width ?? DEFAULT_IMAGE_SIZE} height={image.height ?? DEFAULT_IMAGE_SIZE} />
+                <div className="flex flex-col gap-4 h-[200px] w-full">
+                    <h4 className={`${theme.titleColor}`}>{title}</h4>
                     <p className={`${theme.textColor}`}>{description}</p>
                 </div>
             </div>
