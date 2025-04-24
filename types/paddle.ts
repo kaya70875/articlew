@@ -5,6 +5,15 @@ export interface PaddlePrices {
   amount: string;
   currency: string;
   product_id: string;
+  limits: Limits;
+}
+
+export interface Limits {
+  search: string;
+  generate: string;
+  grammar: string;
+  fix: string;
+  compare: string;
 }
 
 export interface PaddleSubsctiption {

@@ -2,6 +2,7 @@
 import { useToast } from '@/context/ToastContext';
 // This component is used to display a subscription card with a title, description, and a checkout button.
 import { usePaddle } from '@/hooks/usePaddle';
+import { Limits } from '@/types/paddle';
 import { useSession } from 'next-auth/react';
 import React from 'react'
 
@@ -10,14 +11,14 @@ interface SubCardProps {
     desc: string;
     amount: string;
     priceId: string;
+    limits: Limits;
 }
 
-export default function SubCard({ title, desc, priceId, amount }: SubCardProps) {
+export default function SubCard({ title, desc, priceId, amount, limits }: SubCardProps) {
 
     const paddle = usePaddle();
     const { data: session } = useSession();
     const { showToast } = useToast();
-
 
     const openCheckout = () => {
         try {
@@ -43,18 +44,37 @@ export default function SubCard({ title, desc, priceId, amount }: SubCardProps) 
         }
     }
 
-    return (
-        <div className='flex flex-col gap-4 p-4 items-center justify-center w-full md:w-1/3 lg:w-1/4 bg-white rounded-lg shadow-lg'>
-            <header className='flex flex-col items-center justify-center w-full'>
-                <h2 className='text-xl font-bold'>{title}</h2>
-                <p className='text-gray-600'>{desc}</p>
-            </header>
+    const LIMITS = [
+        { name: 'Searches', value: limits.search },
+        { name: 'AI Word Analysis', value: limits.generate },
+        { name: 'Grammar Check', value: limits.grammar },
+        { name: 'Fix Errors', value: limits.fix },
+        { name: 'Compare Words', value: limits.compare },
+    ] as const;
 
-            <div className="amount">
-                <h4>{amount}</h4>
+    return (
+        <div className={`flex flex-col gap-8 p-8 items-center justify-center w-full bg-lightBlue border border-primaryPurple ${title === 'Premium' && 'border-4'} rounded-lg shadow-lg max-w-sm`}>
+            <div className='flex flex-col gap-2 items-center justify-center'>
+                <header className='flex flex-col items-center justify-center w-full'>
+                    <h3>{title}</h3>
+                    <p className='text-gray-600'>{desc}</p>
+                </header>
+
+                <div className="amount">
+                    <h4>{amount}/month</h4>
+                </div>
             </div>
 
-            <button className="primary-button" onClick={openCheckout}>Checkout</button>
+            <section className="features w-full flex flex-col gap-4">
+                {LIMITS.map((limit, index) => (
+                    <div key={index} className='flex items-center justify-between w-full'>
+                        <p>{limit.name}</p>
+                        <p className='font-bold capitalize'>{limit.value}</p>
+                    </div>
+                ))}
+            </section>
+
+            <button className="primary-button w-full" onClick={openCheckout}>Checkout</button>
         </div>
     )
 }

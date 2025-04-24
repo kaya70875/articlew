@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { Lora } from "next/font/google";
+import { Poppins } from "next/font/google";
 import SessionProvider from "../../providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   }
 };
 
-const lora = Lora({ subsets: ["latin"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"] });
 
 export default async function RootLayout({
   children,
@@ -28,7 +28,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${lora.className} antialiased`} suppressHydrationWarning
+        className={`${poppins.className} antialiased`} suppressHydrationWarning
       >
         <main className="bg-main min-h-screen">
           <SessionProvider session={session}>
