@@ -74,7 +74,7 @@ export default function SubCard({ title, desc, priceId, amount, limits }: SubCar
                 ))}
             </section>
 
-            <button className="primary-button w-full" onClick={openCheckout}>Checkout</button>
+            <button className="primary-button w-full" onClick={openCheckout}>Purchase</button>
         </div>
     )
 }
