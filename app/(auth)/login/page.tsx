@@ -57,7 +57,7 @@ export default function Page() {
         <div>OR</div>
 
         <SSO />
-
+        <Link className='underline' href={'/forgot-password'}>Forgot Your Password ?</Link>
         <Link href={'/signup'} className='underline'>No account yet ?</Link>
       </form>
 
