@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import useAPIFetch from "@/hooks/useAPIFetch";
 import { FastApiResponse } from "@/types/aiResponse";
@@ -17,7 +17,6 @@ export default function useSearch() {
   const currentPage = parseInt(params.get("page") || "1", 10);
 
   const [word, setWord] = useState(currentWord);
-  const [page, setPage] = useState(currentPage);
   const [categories, setCategories] = useState<string[]>(
     categoriesList.map((cat) => cat.id)
   );
@@ -26,7 +25,9 @@ export default function useSearch() {
   const SEARCH_LIMIT = 100;
 
   const { data, loading, error } = useAPIFetch<FastApiResponse>(
-    `/sentences/${currentWord}?categories=${categories.join(",")}&page=${page}`
+    `/sentences/${currentWord}?categories=${categories.join(
+      ","
+    )}&page=${currentPage}`
   );
 
   const totalPage = data?.total_results
@@ -43,25 +44,18 @@ export default function useSearch() {
 
   const handlePageChange = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
-      setPage(value);
-      router.push(
-        `/search?word=${word}&categories=${categories.join(",")}&page=${value}`
-      );
+      router.push(`/search?word=${word}&page=${value}`);
     },
-    [word, router, categories]
+    [word, router]
   );
 
   const openFilterModal = () => setModalOpen(true);
   const closeFilterModal = () => setModalOpen(false);
 
-  useEffect(() => {
-    setPage(currentPage);
-  }, [currentPage]);
-
   return {
     word,
     setWord,
-    page,
+    currentPage,
     currentWord,
     categories,
     setCategories,

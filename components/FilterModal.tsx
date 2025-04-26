@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Iconx from './svg/Iconx';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface FilterModalProps {
     categories: string[];
@@ -27,6 +28,9 @@ export const categoriesList = [
 ]
 
 export default function FilterModal({ categories, setCategories, onClose }: FilterModalProps) {
+    const router = useRouter();
+    const params = useSearchParams();
+
     const [checkedCategories, setCheckedCategories] = useState<string[]>([...categories]);
 
     const handleCategoryClick = (category: string) => {
@@ -38,6 +42,8 @@ export default function FilterModal({ categories, setCategories, onClose }: Filt
     const handleApplyFilters = () => {
         setCategories(checkedCategories);
         onClose();
+        // Update page to 1 when applying filters
+        router.push(`/search?word=${params.get('word')}&page=1`);
     }
 
     return (

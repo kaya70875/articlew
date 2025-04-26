@@ -14,7 +14,7 @@ export default function Page() {
   const {
     word,
     setWord,
-    page,
+    currentPage,
     currentWord,
     categories,
     setCategories,
@@ -59,7 +59,7 @@ export default function Page() {
         <SearchResults
           data={data}
           currentWord={currentWord}
-          page={page}
+          page={currentPage}
           totalPage={totalPage}
           setWord={setWord}
           handlePageChange={handlePageChange}
