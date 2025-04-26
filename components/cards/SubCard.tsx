@@ -21,6 +21,7 @@ export default function SubCard({ title, desc, priceId, amount, limits }: SubCar
     const { showToast } = useToast();
 
     const activePackage = session?.user.userType === title;
+    const higherPackage = session?.user.userType.replace(' ', '') === 'PremiumPlus';
     const freePackage = title === 'Free';
 
     const openCheckout = () => {
@@ -75,8 +76,7 @@ export default function SubCard({ title, desc, priceId, amount, limits }: SubCar
                     </div>
                 ))}
             </section>
-
-            <button className={`primary-button w-full ${(activePackage || freePackage) && 'pointer-events-none opacity-50'}`} onClick={openCheckout}>{activePackage || freePackage ? 'Active' : 'Purchase'}</button>
+            <button className={`primary-button w-full ${(activePackage || freePackage || higherPackage) && 'pointer-events-none opacity-50'}`} onClick={openCheckout}>{(activePackage || freePackage) ? 'Active' : 'Purchase'}</button>
         </div>
     )
 }
