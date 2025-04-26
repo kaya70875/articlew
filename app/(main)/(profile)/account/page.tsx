@@ -66,11 +66,11 @@ export default function Page() {
         Free: {
             className: 'text-primaryBlue'
         },
-        Basic: {
-            className: 'text-primaryBlue font-medium'
-        },
         Premium: {
             className: 'text-primaryPurple font-semibold'
+        },
+        PremiumPlus: {
+            className: 'text-primaryPurple font-bold border-2 border-primaryPurple bg-lightBlue p-1 rounded-lg shadow-lg'
         }
     } as const;
 
@@ -87,7 +87,7 @@ export default function Page() {
                         <div className='flex flex-col gap-2'>
                             <p>{currentUser?.name} {currentUser?.lastname}</p>
                             <p>{currentUser?.email}</p>
-                            <p>Account Type: <span className={accountTypeTheme[currentUser?.userType ?? 'Free'].className}>{currentUser?.userType}</span></p>
+                            <div className='flex'><span className={accountTypeTheme[currentUser?.userType.replace(' ', '') as UserType ?? 'Free'].className}>{currentUser?.userType}</span></div>
                             <SubscriptionInfo />
                         </div>
                     </div>
@@ -113,7 +113,7 @@ export default function Page() {
                         <PurchaseSuccess />
                     </ModalTransitionContainer>
 
-                    <button onClick={handleChangePassword} className="primary-button w-44">Change Password</button>
+                    <button onClick={handleChangePassword} className="primary-button w-48">Change Password</button>
                 </div>
             </div>
         </div>
