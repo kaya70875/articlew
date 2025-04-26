@@ -9,11 +9,13 @@ export default function SubscriptionInfo() {
     const { data: session } = useSession();
     const currentUser = session?.user;
 
-    const { data: subscription, error } = useAPIFetch<PaddleSubsctiption>(`/paddle/subscriptions/${currentUser?.subscription_id}`)
+    const { data: subscription, loading, error } = useAPIFetch<PaddleSubsctiption>(`/paddle/subscriptions/${currentUser?.subscription_id}`)
 
     if (error) {
         console.error('Error while getting subscription', error);
     }
+
+    if (loading) return <p className='opacity-50'>Getting Account Information...</p>;
 
     if (!subscription) return null;
     if (currentUser?.subscription_status === 'inactive') return null;
