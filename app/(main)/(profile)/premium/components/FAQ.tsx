@@ -14,8 +14,8 @@ const faqs = [
         answer: 'Our platform uses AI and real-time content crawling to find and generate example sentences based on your input word. These are sourced from trusted article websites and filtered for quality.',
     },
     {
-        question: 'What tools does the platform offer?',
-        answer: 'We offer powerful AI tools including sentence paraphrasing, grammar fixing, and word comparison to help you write and understand English more effectively.',
+        question: 'How can I downgrade my plan?',
+        answer: 'To downgrade your plan, go to your account settings and cancel your current subscription. You can then choose a different plan at the end of your billing cycle.',
     },
     {
         question: 'Is Articlew free to use?',
