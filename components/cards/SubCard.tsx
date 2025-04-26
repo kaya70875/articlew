@@ -21,11 +21,10 @@ export default function SubCard({ title, desc, priceId, amount, limits }: SubCar
     const { showToast } = useToast();
 
     const activePackage = session?.user.userType === title;
+    const freePackage = title === 'Free';
 
     const openCheckout = () => {
         try {
-            if (session?.user.subscription_status === 'active') return showToast('You already have a subscription', 'error');
-            if (session?.user.userType === 'Free') return;
             if (!session?.user.email) return;
             if (!session.user.userVerified) return showToast('Please verify your email before upgrading', 'error');
 
@@ -77,7 +76,7 @@ export default function SubCard({ title, desc, priceId, amount, limits }: SubCar
                 ))}
             </section>
 
-            <button className={`primary-button w-full ${activePackage && 'pointer-events-none opacity-50'}`} onClick={openCheckout}>{activePackage ? 'Active' : 'Purchase'}</button>
+            <button className={`primary-button w-full ${(activePackage || freePackage) && 'pointer-events-none opacity-50'}`} onClick={openCheckout}>{activePackage || freePackage ? 'Active' : 'Purchase'}</button>
         </div>
     )
 }
