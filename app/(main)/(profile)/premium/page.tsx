@@ -32,7 +32,7 @@ export default function Page() {
                             title={price.name}
                             desc={price.description}
                             priceId={price.price_id}
-                            amount={`${price.amount.replaceAll('0', '')} ${price.currency.replace('USD', '$')}`}
+                            amount={`${Number(price.amount) / 100} ${price.currency.replace('USD', '$')}`}
                             limits={price.limits}
                         />
                     ))}
