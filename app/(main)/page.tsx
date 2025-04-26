@@ -24,7 +24,7 @@ export default function Home() {
     {
       title: "Fresh Content, Daily",
       description: "New sentences are added every day, so you can expand your vocabulary while staying up to date with topics like science, sports, and more.",
-      image: { src: searchPng },
+      image: { src: searchPng, alt: 'search' },
       variant: 'light',
     },
     {
@@ -56,7 +56,7 @@ export default function Home() {
     <main className="landing pt-navbar-height">
       <Navbar />
 
-      <div className="hero pt-navbar-height flex flex-col gap-24 px-4 md:px-[80px] xl:px-default-padding 2xl:px-[250px]">
+      <div className="hero pt-10 md:pt-navbar-height flex flex-col gap-24 px-4 md:px-[80px] xl:px-default-padding 2xl:px-[250px]">
         <header className="flex flex-col gap-8 items-center justify-center">
           <h1 className="max-w-2xl text-center">Master English, One Word at a Time</h1>
           <p className="max-w-3xl font-medium text-xl opacity-95 text-center"><span className="font-semibold text-primaryPurple">Articlew</span> finds the phrase you are looking for from articles from different articles and <span className="text-primaryBlue font-semibold">help you to improve and test your English writing.</span></p>
