@@ -9,9 +9,9 @@ import { AccountThemes, UserType } from '@/types/userTypes';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react'
-import PurchaseSuccess from '../../(base)/premium/components/PurchaseSuccessModal';
 import ModalTransitionContainer from '@/components/reusables/containers/ModalTransitionContainer';
-import SubscriptionInfo from '../../(base)/premium/components/SubscriptionInfo';
+import SubscriptionInfo from '../premium/components/SubscriptionInfo';
+import PurchaseSuccess from '../premium/components/PurchaseSuccessModal';
 
 export default function Page() {
     const { data: session, update } = useSession();
