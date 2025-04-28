@@ -1,20 +1,17 @@
 'use client';
 
-import Image from 'next/image'
 import React from 'react'
-import logo from '@/public/images/logo.jpg'
 import Link from 'next/link'
 import Dropdown from '../Dropdown';
 import Profile from '../auth/Profile';
 import ProfileIcon from '../reusables/ProfileIcon';
+import Logo from '../reusables/Logo';
 
 export default function MobileNavbar() {
 
     return (
         <div className=' w-full h-16 p-4 flex items-center justify-between'>
-            <div className="logo">
-                <Image className='rounded-xl' src={logo} width={40} height={40} alt='logo' />
-            </div>
+            <Logo />
 
             <div className='flex items-center gap-4'>
                 <Link href={'/premium'} className={`premium-button group w-10 h-10 p-4 flex items-center justify-center !rounded-full`}>
