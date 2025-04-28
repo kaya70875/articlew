@@ -5,7 +5,7 @@ import SessionProvider from "../../providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { ToastProvider } from "@/context/ToastContext";
-import icon from '@/public/images/logo.jpg'
+import icon from '@/public/images/logo.svg'
 
 export const metadata: Metadata = {
   title: "Articlew",
