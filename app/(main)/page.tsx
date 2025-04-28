@@ -17,7 +17,7 @@ export default function Home() {
   const landingCards = [
     {
       title: "Explore Sentences from Diverse Topics",
-      description: "Articlew helps you discover example sentences from a wide range of sources, tailored to your interests and learning goals.",
+      description: "learnwitharticles helps you discover example sentences from a wide range of sources, tailored to your interests and learning goals.",
       image: { src: undraw_learning, alt: 'undraw_learning', width: 200, height: 200 },
       variant: 'dark',
     },
@@ -59,7 +59,7 @@ export default function Home() {
       <div className="hero pt-10 md:pt-navbar-height flex flex-col gap-24 px-4 md:px-[80px] xl:px-default-padding 2xl:px-[250px]">
         <header className="flex flex-col gap-8 items-center justify-center">
           <h1 className="max-w-2xl text-center">Master English, One Word at a Time</h1>
-          <p className="max-w-3xl font-medium text-xl opacity-95 text-center"><span className="font-semibold text-primaryPurple">Articlew</span> finds the phrase you are looking for from articles from different articles and <span className="text-primaryBlue font-semibold">help you to improve and test your English writing.</span></p>
+          <p className="max-w-3xl font-medium text-xl opacity-95 text-center"><span className="font-semibold text-primaryPurple">learnwitharticles</span> finds the phrase you are looking for from articles from different articles and <span className="text-primaryBlue font-semibold">help you to improve and test your English writing.</span></p>
 
           <button className="primary-button !py-3">
             <Link href={`${isAuth ? '/search' : '/signup'}`}>Start Learning Now</Link>

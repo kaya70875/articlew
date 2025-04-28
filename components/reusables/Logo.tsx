@@ -11,7 +11,7 @@ export default function Logo({ className, textColor = 'text-primaryColor' }: Log
     return (
         <div className={className}>
             <Image src={logo} width={48} height={48} alt='logo' />
-            <h4 className={`${textColor} font-semibold text-2xl hidden lg:block`}>Articlew</h4>
+            <p className={`${textColor} font-bold hidden lg:block`}>learnwitharticles</p>
         </div>
     )
 }

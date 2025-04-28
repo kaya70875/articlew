@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Verify Your Articlew Account",
+      subject: "Verify Your Learnwitharticles Account",
       html: emailTemplate(verifyLink),
     });
 

@@ -37,7 +37,7 @@ export default function Footer() {
                         <Link href={social.direct} className='text-whitef cursor-pointer hover:opacity-50 transition-all duration-150 ease-in' key={i}>{social.icon}</Link>
                     ))}
                 </div>
-                <p className='text-xs text-whitef'>© 2025 articlew. All rights reserved.</p>
+                <p className='text-xs text-whitef'>© 2025 learnwitharticles. All rights reserved.</p>
             </section>
             <section className="middle flex justify-center md:justify-between w-1/6 gap-4">
                 <div className="explore flex flex-col gap-4">

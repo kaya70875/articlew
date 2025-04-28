@@ -8,7 +8,7 @@ import { ToastProvider } from "@/context/ToastContext";
 import icon from '@/public/images/logo.svg'
 
 export const metadata: Metadata = {
-  title: "Articlew",
+  title: "learnwitharticles",
   description: "Learn English and write better with articles",
   icons: {
     icon: icon.src,

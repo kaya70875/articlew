@@ -54,7 +54,7 @@ export default function Sidebar() {
 
     return (
         <div className={`${isMobile ? 'w-full bottom-0' : 'h-screen top-0'} ${isTablet ? 'w-[12%] items-center' : 'w-sidebar-width items-start'} flex flex-col justify-start z-10 p-3 sm:p-6 gap-8 fixed bg-white shadow-[2px_0_10px_-2px_rgba(0,0,0,0.1)]`}>
-            <Logo className='hidden md:flex items-center' />
+            <Logo className='hidden md:flex flex-col items-center' />
 
             <ul className="nav-items flex flex-row md:flex-col justify-center items-center lg:items-start w-full gap-0 md:gap-8">
                 {sidebarItems.map((item, index) => (

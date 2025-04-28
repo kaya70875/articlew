@@ -18,7 +18,7 @@ const faqs = [
         answer: 'To downgrade your plan, go to your account settings and cancel your current subscription. You can then choose a different plan at the end of your billing cycle.',
     },
     {
-        question: 'Is Articlew free to use?',
+        question: 'Is learnwitharticles free to use?',
         answer: 'Yes! You can start using the core features for free. We also offer premium plans for advanced tools and more personalized learning.',
     },
     {

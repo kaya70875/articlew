@@ -17,7 +17,7 @@ export const emailTemplate = (link: string) => `
         <td style="padding: 30px;">
           <p style="font-size: 16px; color: #333;">Hello,</p>
           <p style="font-size: 16px; color: #333;">
-            Thank you for signing up for <strong>Articlew</strong>! Please confirm your email address by clicking the button below.
+            Thank you for signing up for <strong>Learnwitharticles</strong>! Please confirm your email address by clicking the button below.
           </p>
           <div style="text-align: center; margin: 30px 0;">
             <a href="${link}" style="background-color: #4f46e5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-size: 16px; display: inline-block;">Verify Email</a>
@@ -30,7 +30,7 @@ export const emailTemplate = (link: string) => `
       </tr>
       <tr>
         <td style="background-color: #f3f4f6; padding: 20px; text-align: center; font-size: 12px; color: #999;">
-          © 2025 Articlew. All rights reserved.
+          © 2025 Learnwitharticles. All rights reserved.
         </td>
       </tr>
     </table>
