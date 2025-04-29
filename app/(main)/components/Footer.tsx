@@ -38,6 +38,11 @@ export default function Footer() {
                     ))}
                 </div>
                 <p className='text-xs text-whitef'>© 2025 learnwitharticles. All rights reserved.</p>
+
+                <div className="policy flex flex-col md:flex-row items-center gap-2 text-whitef underline text-sm">
+                    <Link href='/privacy-policy'>Privacy Policy</Link>
+                    <Link href='/terms'>Term Of Use</Link>
+                </div>
             </section>
             <section className="middle flex justify-center md:justify-between w-1/6 gap-4">
                 <div className="explore flex flex-col gap-4">

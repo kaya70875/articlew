@@ -17,7 +17,7 @@ export default function Home() {
   const landingCards = [
     {
       title: "Explore Sentences from Diverse Topics",
-      description: "learnwitharticles helps you discover example sentences from a wide range of sources, tailored to your interests and learning goals.",
+      description: "Learnwitharticles helps you discover example sentences from a wide range of sources, tailored to your interests and learning goals.",
       image: { src: undraw_learning, alt: 'undraw_learning', width: 200, height: 200 },
       variant: 'dark',
     },
