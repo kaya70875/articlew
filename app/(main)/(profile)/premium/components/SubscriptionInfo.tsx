@@ -8,7 +8,6 @@ export default function SubscriptionInfo() {
 
     const { data: session } = useSession();
     const currentUser = session?.user;
-
     const { data: subscription, loading, error } = useAPIFetch<PaddleSubsctiption>(`/paddle/subscriptions/${currentUser?.subscription_id}`)
 
     if (error) {

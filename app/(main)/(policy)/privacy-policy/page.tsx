@@ -1,5 +1,7 @@
 import React from 'react';
 
+export const dynamic = 'force-static';
+
 const PrivacyPolicyPage = () => {
     return (
         <div className="flex flex-col gap-4 w-full justify-center p-8 max-w-3xl mx-auto">
