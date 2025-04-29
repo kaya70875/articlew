@@ -17,7 +17,7 @@ export default {
         lightBlue: "#EEF3FF",
       },
       spacing: {
-        "navbar-height": "104px",
+        "navbar-height": "80px",
         "sidebar-width": "200px",
         "default-padding": "160px",
       },
