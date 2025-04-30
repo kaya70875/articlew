@@ -1,16 +1,16 @@
 'use client';
 
-import { useCurrentUser } from '@/utils/helpers'
 import Link from 'next/link';
 import React from 'react'
 import IconAccount from '../svg/IconAccount';
 import IconSignout from '../svg/IconSignout';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import DropdownLink from '../dropdown/DropdownLink';
 
 export default function Profile() {
 
-    const currentUser = useCurrentUser();
+    const { data: session } = useSession();
+    const currentUser = session?.user;
 
     return (
         <div className='flex flex-col gap-8'>
