@@ -10,8 +10,8 @@ import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react'
 import ModalTransitionContainer from '@/components/reusables/containers/ModalTransitionContainer';
-import SubscriptionInfo from '../premium/components/SubscriptionInfo';
 import PurchaseSuccess from '../premium/components/PurchaseSuccessModal';
+import SubscriptionInfo from '../premium/components/SubscriptionInfo';
 
 export default function Page() {
     const { data: session, update } = useSession();

@@ -1,3 +1,5 @@
+'use client';
+
 import useEmailVerificationTimer from '@/hooks/useEmailVerificationTimer';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';

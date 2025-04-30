@@ -1,18 +1,17 @@
-'use client';
-
 import SubCard from "@/components/cards/SubCard";
-import Loading from "@/components/Loading";
-import useAPIFetch from "@/hooks/useAPIFetch";
-import { PaddlePrices } from "@/types/paddle";
-import { useSession } from "next-auth/react";
 import UserVerifiedFlag from "./components/UserVerifiedFlag";
 import FAQ from "./components/FAQ";
 import Footer from "../../components/Footer";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { PaddlePrices } from "@/types/paddle";
 
-export default function Page() {
-    const { data: prices, loading, error } = useAPIFetch<PaddlePrices[]>('/paddle/prices');
-    const { data: session } = useSession();
+export default async function Page() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/paddle/prices`);
 
+    const prices: PaddlePrices[] = await res.json();
+
+    const session = await getServerSession(authOptions);
     const userVerified = session?.user.userVerified;
 
     return (
@@ -24,7 +23,6 @@ export default function Page() {
                     <h1>Choose Your Plan</h1>
                     <p className="text-2xl font-medium">Unlock Your Writing Potential</p>
                 </header>
-                {loading && <Loading />}
                 <div className="sub-cards flex flex-col flex-wrap md:flex-row w-full items-center justify-center gap-8">
                     {prices?.map((price, index) => (
                         <SubCard
@@ -45,9 +43,8 @@ export default function Page() {
                     <h2 className="text-primaryPurple">Unlock your full potential.</h2>
                     <h4 className="max-w-4xl">Access advanced tools, unlimited AI support, and personalized learning to take your English to the next level.</h4>
                 </div>
-                <button className="primary-button" onClick={() => scrollTo(0, 0)}>Start Premium Now</button>
+                <button className="primary-button">Start Premium Now</button>
             </section>
-            {error && console.log('Error while getting packages from paddle.')}
 
             <FAQ />
 
