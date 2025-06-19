@@ -192,7 +192,7 @@ export const authOptions: NextAuthOptions = {
 
       if (token) {
         session.accessToken = token.accessToken;
-        session.refreshToken = token.refreshToken;
+        //session.refreshToken = token.refreshToken; Do not expose this to client for security reasons.
       }
 
       return session;
