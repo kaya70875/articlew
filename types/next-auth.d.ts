@@ -11,11 +11,9 @@ declare module "next-auth" {
       lastname: string;
       userVerified: boolean;
       userType: UserType;
-      subscription_id: string;
       subscription_status: SubscriptionStatus;
     } & DefaultSession["user"];
     accessToken: string;
-    refreshToken: string;
     accessTokenExpires: number;
     provider: string;
   }

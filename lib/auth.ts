@@ -185,7 +185,6 @@ export const authOptions: NextAuthOptions = {
       session.user.lastname = token.lastname;
       session.user.userVerified = existingUser?.userVerified || false;
       session.user.userType = existingUser?.userType || token.userType;
-      session.user.subscription_id = existingUser?.subscription_id || "";
       session.user.subscription_status =
         existingUser?.subscription_status || "inactive";
       session.provider = token.provider;
