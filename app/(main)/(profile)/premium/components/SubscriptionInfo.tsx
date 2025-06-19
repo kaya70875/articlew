@@ -9,7 +9,7 @@ export default function SubscriptionInfo() {
     const { data: session } = useSession();
     const currentUser = session?.user;
 
-    const { data: subscription_id } = useAPIFetch<string>('/paddle/subid');
+    const { data: subscription_id } = useAPIFetch<string>(currentUser?.subscription_status !== 'inactive' ? `/paddle/subid` : null);
     const { data: subscription, loading, error } = useAPIFetch<PaddleSubsctiption>(subscription_id ? `/paddle/subscriptions/${subscription_id}` : null);
 
     if (error) {
