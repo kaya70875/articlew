@@ -17,7 +17,7 @@ export default function AIWordAnalysis({ currentWord }: AIWordAnalysisProps) {
     const { data: ai, loading: aiLoading, error: aiError } = useAPIFetch<FastApiAIFeedbackResponse>(currentWord ? `/generate/${currentWord}` : null);
 
     const prettierResponse = prettyAIResponse(ai?.analysis ?? '');
-    const highligedResponse = highlighWord(prettierResponse, currentWord, 'text-primaryText');
+    const highlightedResponse = highlighWord(prettierResponse, currentWord, 'text-primaryText');
 
 
     return (
@@ -28,7 +28,7 @@ export default function AIWordAnalysis({ currentWord }: AIWordAnalysisProps) {
                 <SafeHTML className='text-lg' html={highlighWord(ai?.check, currentWord, 'text-primaryText')} />
             </div>}
 
-            {ai && <SafeHTML className='text-base' html={highligedResponse} />}
+            {ai && <SafeHTML className='text-base' html={highlightedResponse} />}
             {aiError && <ApiError error={aiError} errorMessage='Failed to generate AI feedback' />}
         </Card>
     )
