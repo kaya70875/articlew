@@ -14,6 +14,10 @@ const useAPIFetch = <T>(endpoint: string | null) => {
     revalidateOnReconnect: false,
     revalidateOnMount: true,
     dedupingInterval: 60000,
+    shouldRetryOnError(error) {
+      if (error.status === 402 || error.status === 404) return false;
+      return true;
+    },
   });
 
   return {
