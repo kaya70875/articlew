@@ -5,6 +5,7 @@ import SessionProvider from "../../providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { ToastProvider } from "@/context/ToastContext";
+import { Analytics } from "@vercel/analytics/next";
 import icon from '@/public/images/logo.svg'
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default async function RootLayout({
           <SessionProvider session={session}>
             <ToastProvider>
               {children}
+              <Analytics />
             </ToastProvider>
           </SessionProvider>
         </main>
