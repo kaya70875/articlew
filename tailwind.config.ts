@@ -12,7 +12,7 @@ export default {
         main: "#F3F4F6",
         primaryText: "#1F2937",
         primaryBlue: "#2563EB",
-        primaryPurple: "#6c63ff",
+        primaryPurple: "#4F46E5",
         whitef: "#F5F5F5",
         lightBlue: "#EEF3FF",
       },
