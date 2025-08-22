@@ -36,27 +36,33 @@ body {
   height: 100%;
 }
 
-h1 , .h1 {
+h1,
+.h1 {
   @apply text-6xl font-extrabold text-primaryText;
 }
 
-h2 , .h2 {
+h2,
+.h2 {
   @apply text-4xl font-extrabold text-primaryText;
 }
 
-h3 , .h3 {
+h3,
+.h3 {
   @apply text-3xl font-bold text-primaryText;
 }
 
-h4 , .h4 {
+h4,
+.h4 {
   @apply text-2xl font-semibold text-primaryText;
 }
 
-p , .p {
+p,
+.p {
   @apply text-base font-normal text-primaryText;
 }
 
-li , .li {
+li,
+.li {
   @apply list-none;
 }
 
@@ -73,7 +79,11 @@ li , .li {
 }
 
 .primary-button {
-  @apply bg-primaryBlue py-2 px-4 rounded-xl text-whitef hover:bg-opacity-90 transition-all duration-150 ease-in active:bg-opacity-50;
+  @apply bg-primaryPurple py-2 px-4 rounded-md text-white font-medium hover:bg-opacity-90 transition-all duration-150 ease-in active:bg-opacity-50;
+}
+
+.secondary-button {
+  @apply bg-primaryText px-4 py-2 rounded-md text-whitef font-medium hover:bg-opacity-80 transition-all duration-150 ease-in active:bg-opacity-50;
 }
 
 .premium-button {
@@ -90,10 +100,6 @@ li , .li {
 
 .primary-button--revert {
   @apply bg-whitef px-10 py-3 font-medium rounded-xl text-primaryBlue;
-}
-
-.secondary-button {
-  @apply bg-primaryText px-6 py-2 rounded-xl text-whitef hover:bg-opacity-80 transition-all duration-150 ease-in active:bg-opacity-50;
 }
 
 .compare-card {
