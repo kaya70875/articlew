@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import SessionProvider from "../../providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   }
 };
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"] });
+const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"] });
 
 export default async function RootLayout({
   children,
@@ -29,7 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased`} suppressHydrationWarning
+        className={`${inter.className} antialiased`} suppressHydrationWarning
       >
         <main className="bg-main min-h-screen">
           <SessionProvider session={session}>
