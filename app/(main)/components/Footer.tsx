@@ -1,74 +1,167 @@
 import React from 'react'
-import IconGit from '@/components/svg/landing/IconGit';
-import IconMail from '@/components/svg/landing/IconMail';
-import IconLinkedin from '@/components/svg/landing/IconLinkedin';
-import Link from 'next/link';
-import Logo from '@/components/reusables/Logo';
-
-export default function Footer() {
-
-    const socials = [
-        {
-            name: 'github',
-            icon: (<IconGit />),
-            direct: 'https://github.com/kaya70875',
-        },
-        {
-            name: 'gmail',
-            icon: (<IconMail />),
-            direct: 'mailto:kaya70875@gmail.com',
-        },
-        {
-            name: 'linkedin',
-            icon: (<IconLinkedin />),
-            direct: 'https://www.linkedin.com/in/kaya70875/',
-        },
-    ]
-
-    const explore = ['Premium', 'Blog', 'FAQs'];
-    const features = ['Search', 'Rewrite', 'Sentence Fix', 'Paraphrase', 'Compare']
-
+import {
+    BookOpenIcon,
+    GithubIcon,
+    TwitterIcon,
+    InstagramIcon,
+} from 'lucide-react'
+export function Footer() {
     return (
-        <div className='w-full bg-primaryText p-4 md:p-8 flex flex-col gap-6 md:gap-0 items-center md:items-stretch md:flex-row justify-around'>
-            <section className="main flex flex-col gap-4">
-                <Logo textColor='text-whitef' className='flex items-center justify-center md:justify-start w-full' />
-                <div className="socials flex items-center justify-center md:justify-start gap-4">
-                    {socials.map((social, i) => (
-                        <Link href={social.direct} className='text-whitef cursor-pointer hover:opacity-50 transition-all duration-150 ease-in' key={i}>{social.icon}</Link>
-                    ))}
+        <footer className="w-full border-t border-gray-200 bg-white py-12">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                            <BookOpenIcon className="h-6 w-6 text-primaryPurple" />
+                            <span className="text-lg font-bold text-primaryText">
+                                learnwitharticles
+                            </span>
+                        </div>
+                        <p className="text-gray-600 text-sm mb-4">
+                            The smarter way to build your English vocabulary through
+                            context-based learning.
+                        </p>
+                        <div className="flex space-x-4">
+                            <a href="#" className="text-gray-400 hover:text-primaryPurple">
+                                <TwitterIcon className="h-5 w-5" />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-primaryPurple">
+                                <InstagramIcon className="h-5 w-5" />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-primaryPurple">
+                                <GithubIcon className="h-5 w-5" />
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-primaryText mb-4">Product</h3>
+                        <ul className="space-y-3">
+                            <li>
+                                <a
+                                    href="#features"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Features
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#pricing"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Premium
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Mobile App
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Browser Extension
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-primaryText mb-4">Resources</h3>
+                        <ul className="space-y-3">
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Blog
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Tutorials
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    FAQ
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Support
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-primaryText mb-4">Company</h3>
+                        <ul className="space-y-3">
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Careers
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Privacy Policy
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="text-sm text-gray-600 hover:text-primaryPurple"
+                                >
+                                    Terms of Service
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <p className='text-xs text-whitef'>© 2025 learnwitharticles. All rights reserved.</p>
-
-                <div className="policy flex flex-col md:flex-row items-center gap-2 text-whitef underline text-sm">
-                    <Link href='/privacy-policy'>Privacy Policy</Link>
-                    <Link href='/terms'>Term Of Use</Link>
+                <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-between items-center">
+                    <div className="text-sm text-gray-600 mb-4 md:mb-0">
+                        © 2023 learnwitharticles. All rights reserved.
+                    </div>
+                    <div className="flex space-x-6">
+                        <a href="#" className="text-sm text-gray-600 hover:text-primaryPurple">
+                            Privacy Policy
+                        </a>
+                        <a href="#" className="text-sm text-gray-600 hover:text-primaryPurple">
+                            Terms of Service
+                        </a>
+                        <a href="#" className="text-sm text-gray-600 hover:text-primaryPurple">
+                            Cookie Policy
+                        </a>
+                    </div>
                 </div>
-            </section>
-            <section className="middle flex justify-center md:justify-between w-1/6 gap-4">
-                <div className="explore flex flex-col gap-4">
-                    <p className='text-whitef font-semibold'>Explore</p>
-                    <ul className='flex flex-col gap-2 text-whitef'>
-                        {explore.map((item, i) => (
-                            <li className='cursor-pointer hover:opacity-80 transition-all duration-150 ease-in' key={i}>{item}</li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="features flex flex-col gap-4">
-                    <p className='text-whitef font-semibold'>Features</p>
-                    <ul className='flex flex-col gap-2 text-whitef'>
-                        {features.map((item, i) => (
-                            <li className='cursor-pointer hover:opacity-80 transition-all duration-150 ease-in' key={i}>{item}</li>
-                        ))}
-                    </ul>
-                </div>
-            </section>
-            <section className="news flex flex-col gap-4">
-                <p className='text-whitef font-semibold'>Get Latest News</p>
-                <div className="mail-input flex">
-                    <input type="text" className='py-2 outline-none px-4 rounded-xl rounded-r-none' />
-                    <button className='text-whitef bg-primaryBlue p-2 px-4 rounded-tl-none rounded-bl-none rounded-xl'>OK</button>
-                </div>
-            </section>
-        </div>
+            </div>
+        </footer>
     )
 }
