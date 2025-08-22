@@ -83,7 +83,7 @@ li,
 }
 
 .secondary-button {
-  @apply bg-primaryText px-4 py-2 rounded-md text-whitef font-medium hover:bg-opacity-80 transition-all duration-150 ease-in active:bg-opacity-50;
+  @apply bg-primaryText px-4 py-2 rounded-md text-whitef font-medium hover:bg-opacity-90 transition-all duration-150 ease-in active:bg-opacity-50;
 }
 
 .premium-button {
