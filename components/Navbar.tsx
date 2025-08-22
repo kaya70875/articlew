@@ -12,10 +12,19 @@ export default function Navbar() {
 
     const session = useSession();
 
+    const navItems = ['Features', 'How it Works', 'Pricing'];
+
     return (
         <div className='w-full fixed top-0 left-0 px-4 md:px-[80px] xl:px-default-padding shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] z-20 bg-main'>
             <nav className='py-4 w-full flex justify-between items-center'>
                 <Logo className='flex items-center' />
+
+                <div className="navigations flex items-center gap-8 text-gray-700 font-medium text-sm">
+                    {navItems.map((navItem) => (
+                        <a className='cursor-pointer hover:text-primaryPurple transition-all duration-200' href="#">{navItem}</a>
+                    ))}
+                </div>
+
                 {session.status === 'unauthenticated' ? (
                     <div className='auth-buttons flex items-center gap-6'>
                         <button className="secondary-button">
