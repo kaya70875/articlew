@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import logo from '@/public/images/logo.svg';
+import Link from 'next/link';
 
 interface LogoProps {
     className?: string;
@@ -9,9 +10,9 @@ interface LogoProps {
 
 export default function Logo({ className, textColor = 'text-primaryColor' }: LogoProps) {
     return (
-        <div className={className}>
+        <Link href={'/'} className={`${className} cursor-pointer`}>
             <Image src={logo} width={48} height={48} alt='logo' />
             <p className={`${textColor} font-bold hidden lg:block text-xl`}>learnwitharticles</p>
-        </div>
+        </Link>
     )
 }
