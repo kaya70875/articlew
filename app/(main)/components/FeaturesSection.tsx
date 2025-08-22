@@ -39,13 +39,7 @@ export default function FeaturesSection() {
             title: 'Vocabulary Building',
             description:
                 'Build your vocabulary systematically with spaced repetition and personalized practice exercises.',
-        },
-        {
-            icon: <UsersIcon className="h-8 w-8 text-primaryPurple" />,
-            title: 'Community Learning',
-            description:
-                'Connect with other learners, share interesting articles, and discuss challenging vocabulary.',
-        },
+        }
     ]
 
     return (
