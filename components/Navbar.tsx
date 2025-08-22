@@ -15,7 +15,7 @@ export default function Navbar() {
     const navItems = ['Features', 'How it Works', 'Pricing'];
 
     return (
-        <div className='w-full fixed top-0 left-0 px-4 md:px-[80px] xl:px-default-padding shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] z-20 bg-main'>
+        <div className='w-full fixed top-0 left-0 px-4 md:px-[80px] xl:px-default-padding border-y border-gray-200 z-20 bg-main'>
             <nav className='py-4 w-full flex justify-between items-center'>
                 <Logo className='flex items-center' />
 
