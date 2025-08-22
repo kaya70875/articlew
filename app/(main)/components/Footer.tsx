@@ -5,7 +5,7 @@ import {
     TwitterIcon,
     InstagramIcon,
 } from 'lucide-react'
-export function Footer() {
+export default function Footer() {
     return (
         <footer className="w-full border-t border-gray-200 bg-white py-12">
             <div className="container mx-auto px-4 md:px-6">

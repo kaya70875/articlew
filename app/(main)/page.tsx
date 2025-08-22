@@ -2,10 +2,10 @@
 
 import Navbar from "@/components/Navbar";
 import { useSession } from "next-auth/react";
-import { Footer } from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 import FeaturesSection from "./components/FeaturesSection";
-import { CTASection } from "./components/CTASection";
+import Footer from "./components/Footer";
+import CTASection from "./components/CTASection";
 
 export default function Home() {
 
