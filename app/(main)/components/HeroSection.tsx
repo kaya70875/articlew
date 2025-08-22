@@ -1,5 +1,7 @@
 import React from 'react'
 import { BookOpenIcon, CheckCircleIcon, SparklesIcon } from 'lucide-react'
+import GoogleAuthButton from '@/components/auth/buttons/GoogleAuthButton'
+import Link from 'next/link'
 
 export default function HeroSection() {
     return (
@@ -41,12 +43,10 @@ export default function HeroSection() {
                             </div>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="inline-flex h-12 items-center justify-center rounded-md bg-primaryPurple px-8 text-sm font-medium text-white shadow transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primaryPurple">
+                            <Link href={'/signup'} className="inline-flex h-12 items-center justify-center rounded-md bg-primaryPurple px-8 text-sm font-medium text-white shadow transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primaryPurple">
                                 Start Learning Now
-                            </button>
-                            <button className="inline-flex h-12 items-center justify-center rounded-md border border-indigo-200 bg-white px-8 text-sm font-medium text-primaryPurple shadow-sm transition-colors hover:bg-indigo-50">
-                                Watch Demo
-                            </button>
+                            </Link>
+                            <GoogleAuthButton />
                         </div>
                     </div>
                     <div className="relative flex items-center justify-start lg:justify-center">
