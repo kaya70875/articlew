@@ -9,7 +9,6 @@ import SSO from '@/components/auth/SSO'
 import { useAuthActions } from '@/hooks/useAuthActions'
 import { useToast } from '@/context/ToastContext'
 import { FormData } from '@/types/formData';
-import { TAB } from '../signup/page';
 import AuthButton from './AuthButton';
 
 interface SignUpFormProps {
