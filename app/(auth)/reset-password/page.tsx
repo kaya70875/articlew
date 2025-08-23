@@ -37,7 +37,7 @@ export default function Page() {
             await axios.post("/api/account/resetPassword", { token: token, newPassword: password.newPassword })
             showToast('Password changed successfully', 'success');
             setLoading(false);
-            router.push('/login');
+            router.push('/auth');
         } catch (e) {
             showToast('Error while changing password', 'error');
             setLoading(false);

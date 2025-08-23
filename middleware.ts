@@ -14,7 +14,7 @@ export default async function middleware(req: NextRequest) {
       req.cookies.get("__Secure-next-auth.session-token");
 
     if (!sessionToken) {
-      return Response.redirect(new URL("/login", req.url));
+      return Response.redirect(new URL("/auth", req.url));
     }
   }
 

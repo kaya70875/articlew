@@ -28,10 +28,10 @@ export default function Navbar() {
                 {session.status === 'unauthenticated' ? (
                     <div className='auth-buttons flex items-center gap-6'>
                         <button className="secondary-button">
-                            <Link href={'/login'} >Log In</Link>
+                            <Link href={'/auth'} >Log In</Link>
                         </button>
                         <button className="primary-button">
-                            <Link href={'signup'}>Sign Up</Link>
+                            <Link href={'/auth'}>Get Started</Link>
                         </button>
                     </div>
                 ) : (

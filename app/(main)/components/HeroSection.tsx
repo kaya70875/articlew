@@ -43,7 +43,7 @@ export default function HeroSection() {
                             </div>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <Link href={'/signup'} className="inline-flex h-12 items-center justify-center rounded-md bg-primaryPurple px-8 text-sm font-medium text-white shadow transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primaryPurple">
+                            <Link href={'/auth'} className="inline-flex h-12 items-center justify-center rounded-md bg-primaryPurple px-8 text-sm font-medium text-white shadow transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primaryPurple">
                                 Start Learning Now
                             </Link>
                             <GoogleAuthButton />
