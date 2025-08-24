@@ -49,7 +49,7 @@ export default function Sidebar() {
     const isFree = session?.user.userType === 'Free';
 
     return (
-        <div className={`flex flex-col justify-start z-10 p-3 sm:p-6 gap-8 fixed h-fit md:h-screen bg-white border-r border-gray-200 bottom-0 md:top-0 w-full md:w-fit`}>
+        <div className={`flex flex-col justify-start z-10 p-3 sm:p-6 gap-8 fixed h-fit md:h-screen bg-white border-r border-gray-200 bottom-0 md:top-0 w-full md:w-fit lg:w-[260px] xl:w-[280px]`}>
             <Logo className='hidden md:flex items-center' />
 
             <ul className="nav-items flex flex-row md:flex-col justify-center items-center lg:items-start w-full gap-0 md:gap-8">

@@ -11,8 +11,8 @@ interface LogoProps {
 export default function Logo({ className, textColor = 'text-primaryColor' }: LogoProps) {
     return (
         <Link href={'/'} className={`${className} cursor-pointer`}>
-            <Image src={logo} width={48} height={48} alt='logo' />
-            <p className={`${textColor} font-bold hidden lg:block text-xl`}>learnwitharticles</p>
+            <Image src={logo} width={36} height={36} alt='logo' />
+            <p className={`${textColor} font-bold hidden lg:block text-md`}>learnwitharticles</p>
         </Link>
     )
 }
