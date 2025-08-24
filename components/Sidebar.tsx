@@ -4,15 +4,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import IconCompare from './svg/IconCompare'
-import IconSearch from './svg/IconSearch'
-import IconFavorites from './svg/IconFavorites'
-import IconParaphrase from './svg/IconParaphrase'
-import IconFix from './svg/IconFix'
 import Dropdown from './Dropdown'
 import Profile from './auth/Profile'
 import ProfileIcon from './reusables/ProfileIcon'
 import { useSession } from 'next-auth/react'
 import Logo from './reusables/Logo'
+import { CrownIcon, RefreshCwIcon, SearchIcon, StarIcon, WrenchIcon } from 'lucide-react'
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -20,22 +17,22 @@ export default function Sidebar() {
     const sidebarItems = [
         {
             name: 'Search',
-            icon: (<IconSearch />),
+            icon: (<SearchIcon className='w-5 h-5' />),
             route: '/search'
         },
         {
             name: 'Favorites',
-            icon: (<IconFavorites />),
+            icon: (<StarIcon className='w-5 h-5' />),
             route: '/favorites'
         },
         {
             name: 'Paraphrase',
-            icon: (<IconParaphrase />),
+            icon: (<RefreshCwIcon className='w-5 h-5' />),
             route: '/paraphrase'
         },
         {
             name: 'Fix',
-            icon: (<IconFix />),
+            icon: (<WrenchIcon className='w-5 h-5' />),
             route: '/fix',
         },
         {
@@ -49,23 +46,22 @@ export default function Sidebar() {
     const isFree = session?.user.userType === 'Free';
 
     return (
-        <div className={`flex flex-col justify-start z-10 p-3 sm:p-6 gap-8 fixed h-fit md:h-screen bg-white border-r border-gray-200 bottom-0 md:top-0 w-full md:w-fit lg:w-[260px] xl:w-[280px]`}>
+        <div className={`flex flex-col justify-start z-10 p-3 sm:p-4 gap-8 fixed h-fit md:h-screen bg-white border-r border-gray-200 bottom-0 md:top-0 w-full md:w-fit lg:w-[260px] xl:w-[280px]`}>
             <Logo className='hidden md:flex items-center' />
 
-            <ul className="nav-items flex flex-row md:flex-col justify-center items-center lg:items-start w-full gap-0 md:gap-8">
+            <ul className="nav-items flex flex-row md:flex-col justify-center items-center lg:items-start w-full gap-0 md:gap-4">
                 {sidebarItems.map((item, index) => (
-                    <Link href={item.route} key={index} className={`flex items-center justify-center lg:justify-start w-full flex-col md:flex-row rounded-full gap-1 lg:gap-3 text-primaryText group hover:text-primaryBlue`}>
-                        <div className={`icon ${pathname === item.route ? 'text-primaryBlue' : ''}`}>{item.icon}</div>
-                        <p className={`font-semibold group-hover:text-inherit ${pathname === item.route ? 'text-primaryBlue' : ''} hidden sm:block md:hidden lg:block text-sm lg:text-base`}>{item.name}</p>
+                    <Link href={item.route} key={index} className={`flex items-center justify-center lg:justify-start w-full flex-col md:flex-row rounded-lg gap-1 lg:gap-3 text-primaryText p-2 ${pathname === item.route ? 'bg-[#EEF2FF]' : ''} hover:bg-gray-200`}>
+                        <div className={`icon ${pathname === item.route ? 'text-primaryPurple' : 'text-primaryText'}`}>{item.icon}</div>
+                        <p className={`${pathname === item.route ? 'text-primaryPurple font-medium' : ''} hidden sm:block md:hidden lg:block text-sm lg:text-base`}>{item.name}</p>
                     </Link>
 
                 ))}
 
                 {isFree && <Link href={'/premium'} className={`premium-button hidden md:flex items-center gap-3 group mt-4 rounded-full md:rounded-xl`}>
-                    <div className="icon"><svg width="14" height="20" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M4.21 13.89L3 23L8 20L13 23L11.79 13.88" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg></div>
+                    <div className="icon">
+                        <CrownIcon className='w-5 h-5' />
+                    </div>
                     <h5 className='hidden lg:block font-medium group'>Go Premium</h5>
                 </Link>}
 
@@ -73,7 +69,7 @@ export default function Sidebar() {
                     <Dropdown padding='2rem' position='right' dropdownTitle={
                         <div className='flex items-center gap-2'>
                             <ProfileIcon />
-                            <p className='hidden lg:block font-semibold'>Profile</p>
+                            <p className='hidden lg:block'>Profile</p>
                         </div>
 
                     }>

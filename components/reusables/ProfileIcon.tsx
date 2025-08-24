@@ -8,7 +8,7 @@ export default function ProfileIcon() {
     const currentUser = useCurrentUser();
 
     return (
-        <div className='bg-blue-300 flex items-center justify-center p-4 w-12 h-12 rounded-full'>
+        <div className='bg-blue-300 flex items-center justify-center p-4 w-11 h-11 rounded-full'>
             <p className='text-sm'>{currentUser?.name?.charAt(0)}</p>
         </div>
     )
