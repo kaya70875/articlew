@@ -12,11 +12,11 @@ import Card from '@/components/cards/Card';
 import fixSvg from '@/public/illustrations/files.svg';
 import BaseInformation from '@/components/reusables/BaseInformation';
 import { FastApiFixGrammarResponse } from '@/types/aiResponse';
-import IconFix from '@/components/svg/IconFix';
 import { useToast } from '@/context/ToastContext';
 import ApiError from '@/components/errors/ApiError';
 import CardContainer from '@/components/reusables/containers/CardContainer';
 import SafeHTML from '@/components/security/SafeHTML';
+import { WrenchIcon } from 'lucide-react';
 const INPUT_LIMIT = 600
 
 export default function Page() {
@@ -48,8 +48,8 @@ export default function Page() {
         <div className='main-container'>
             <TextArea textAreaRef={textAreaRef}>
                 <div className='premium-button flex items-center justify-center gap-2 w-32 cursor-pointer' onClick={handleFixButton}>
+                    <WrenchIcon className='w-4 h-4 text-whitef' />
                     <span>Fix</span>
-                    <IconFix />
                 </div>
             </TextArea>
 

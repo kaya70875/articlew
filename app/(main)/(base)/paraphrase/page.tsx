@@ -9,12 +9,12 @@ import Speaker from '@/components/svg/Speaker';
 import { speakSentence } from '@/utils/helpers';
 import CopyIcon from '@/components/svg/CopyIcon';
 import { FastApiAIResponse } from '@/types/aiResponse';
-import IconParaphrase from '@/components/svg/IconParaphrase';
 import { useToast } from '@/context/ToastContext';
 import ApiError from '@/components/errors/ApiError';
 import { ParaphraseCards } from './components/ParaphraseCards';
 import { ContextButtons } from './components/ContextButtons';
 import CardContainer from '@/components/reusables/containers/CardContainer';
+import { RefreshCwIcon } from 'lucide-react';
 type Context = 'Casual' | 'Academic' | 'Formal' | 'Sortened' | 'Extended' | 'Poetic';
 const INPUT_LIMIT = 400;
 
@@ -48,8 +48,8 @@ export default function Page() {
                 <TextArea textAreaRef={textAreaRef} defaultValue={sentence}>
                     <ContextButtons context={context} setContext={setContext} />
                     <div className="premium-button flex items-center justify-center gap-2 cursor-pointer" onClick={handleParaphraseClick}>
+                        <RefreshCwIcon className='w-4 h-4 text-whitef' />
                         <span>Paraphrase</span>
-                        <IconParaphrase />
                     </div>
                 </TextArea>
 
